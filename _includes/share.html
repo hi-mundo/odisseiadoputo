@@ -1,6 +1,39 @@
-<ul class="share">
-  <li><a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
-  <li><a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
-  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
-  <li><a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
-</ul>
+{% assign share_url = site.url | append: page.url %}
+{% assign share_title = page.title | url_encode %}
+{% assign share_url_enc = share_url | url_encode %}
+<nav class="share-nav" aria-label="Compartilhar">
+  <span class="share-label">Compartilhar:</span>
+  <ul class="share">
+    <li><a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url_enc }}" rel="nofollow" target="_blank" title="Compartilhar no LinkedIn"><i class="fa fa-linkedin-square"></i></a></li>
+    <li><a href="https://twitter.com/intent/tweet?text={{ share_title }}&url={{ share_url_enc }}" rel="nofollow" target="_blank" title="Compartilhar no X (Twitter)"><i class="fa fa-twitter-square"></i></a></li>
+    <li><a href="https://www.reddit.com/submit?url={{ share_url_enc }}&title={{ share_title }}" rel="nofollow" target="_blank" title="Compartilhar no Reddit"><i class="fa fa-reddit"></i></a></li>
+    <li><a href="https://news.ycombinator.com/submitlink?u={{ share_url_enc }}&t={{ share_title }}" rel="nofollow" target="_blank" title="Enviar ao Hacker News"><i class="fa fa-hacker-news"></i></a></li>
+    <li><a href="#" class="share-copy-link" data-url="{{ share_url }}" title="Copiar link" aria-label="Copiar link"><i class="fa fa-link"></i></a></li>
+  </ul>
+</nav>
+<script>
+(function() {
+  var btn = document.querySelector('.share-copy-link');
+  if (!btn) return;
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    var url = btn.getAttribute('data-url');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function() {
+        var i = btn.querySelector('i');
+        if (i) { i.className = 'fa fa-check'; setTimeout(function() { i.className = 'fa fa-link'; }, 1500); }
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      var i = btn.querySelector('i');
+      if (i) { i.className = 'fa fa-check'; setTimeout(function() { i.className = 'fa fa-link'; }, 1500); }
+    }
+  });
+})();
+</script>

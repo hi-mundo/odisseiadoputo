@@ -1,25 +1,49 @@
+/* Botões de compartilhar — plataformas relevantes para tech */
+.share-nav {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.share-label {
+  font-size: 0.85rem;
+  color: var(--text-muted, #999);
+  margin-right: 0.25rem;
+}
+
 ul.share {
-    text-align: right;
-    list-style-type: none;
+  text-align: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 ul.share li {
-    display: inline;
-    font-size: 30px;
+  display: inline;
 }
 
-.fa-twitter-square:hover {
-    color: #55ACEE;
+ul.share a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2px;
+  transition: color 0.15s ease, opacity 0.15s ease;
 }
 
-.fa-facebook-square:hover {
-    color: #3B5998;
+ul.share a:hover {
+  opacity: 0.9;
 }
 
-.fa-linkedin-square:hover {
-    color: #007BB5;
-}
-
-.fa-google-plus-square:hover {
-    color: #DD4B39;
-}
+.fa-linkedin-square:hover { color: #0077b5 !important; }
+.fa-twitter-square:hover { color: #1da1f2 !important; }
+.fa-reddit:hover { color: #ff4500 !important; }
+.fa-hacker-news:hover { color: #ff6600 !important; }
+.fa-link:hover { color: var(--accent, #00cc66) !important; }
+.fa-check { color: var(--accent, #00cc66) !important; }

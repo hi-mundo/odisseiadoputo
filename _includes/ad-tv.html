@@ -1,13 +1,14 @@
-<!-- Bloco de ad estilizado como TV — placeholder criativo -->
+<!-- Bloco de ad estilizado como TV — mensagens engraçadinhas separam o conteúdo -->
 <aside class="ad-tv" role="complementary" aria-label="Espaço publicitário">
+  <p class="ad-tv-intro">{{ include.intro | default: "Um pouquinho de jabá" }}</p>
   <div class="ad-tv-frame">
     <div class="ad-tv-screen">
       <div class="ad-tv-placeholder">
         <span class="ad-tv-label">Publicidade</span>
-        <span class="ad-tv-size">300 × 250</span>
+        <span class="ad-tv-size">300 &times; 250</span>
       </div>
     </div>
     <div class="ad-tv-stand"></div>
-    <p class="ad-tv-joke">escritor também passa fome</p>
+    <p class="ad-tv-joke">{{ include.joke | default: "escritor também passa fome" }}</p>
   </div>
 </aside>

@@ -1,122 +1,48 @@
 ---
 layout:     post
-title:      "Integração Contínua com Travis-CI"
-subtitle:   "Chegou a hora de ter menos dores de cabeça durante o desenvolvimento do seu app."
-date:       2017-03-26 12:00:00
-author:     "Fabricio Serralvo"
-header-img: "img/serralvo/cover.png"
-category:   ios
+title:      "A Autofagia do Silício e o Estelionato da Inteligência Infinita"
+subtitle:   "Onde 14 bilhões de dólares viram fumaça para processar o chorume digital da própria IA."
+date:       2026-02-17 21:00:00
+author:     "Fred (0xAc1d)"
+header-img: "img/burn-rate-apocalypse.png"
+category:   infrastructure
 ---
 
-# Lorem Ipsum Dolor Sit
+# O Burn Rate é a Latência da Falência
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+O Raimundo me mandou uns links hoje cedo e, puta que o pariu, a coisa é mais dantesca do que eu imaginava. Se você acha que a sua fatura da nuvem está alta porque esqueceu uma instância RDS ligada no final de semana, saiba que tem gente no Vale do Silício prestes a incinerar **14 bilhões de dólares** em um único ano. 
 
-Você pode ler um pouco mais sobre o assunto [aqui (conteúdo em inglês)](https://example.com).
+Isso não é "investimento em P&D". É uma **orgia de acoplamento** com o prejuízo sistêmico. Manter IA não é como manter um CRUD de padaria; cada inferência, cada "Bom dia" enviado ao chatbot, é um ciclo de GPU que custa dinheiro real, eletricidade bruta e resfriamento. A conta simplesmente não fecha. O mercado opera em um **loop infinito** de queima de caixa, alimentando uma divindade de silício que exige sacrifícios de 14 dígitos enquanto promete um nirvana técnico que nunca chega. Spoiler: a termodinâmica não aceita promessas de VC como combustível.
 
-# Travis CI
+# A Grande Centrifugadora de Chorume
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Aqui entra o **narcisismo semântico** mais bizarro da história da computação: onde eles vão buscar dados para treinar esses monstros de 14 bilhões de dólares? No esgoto da internet. Mas tem um bug crítico no runtime da nossa civilização: a internet agora está infestada de conteúdo gerado por... IA. 
 
-O uso do Travis para projetos _open source_ é gratuito 🎉. Para utilizá-lo em projetos privados você terá que desembolsar alguns dólares.
+Estamos entrando na era da **autofagia digital**. O processo é um erro de segmentação civilizatório:
+* A IA gera um post genérico e sem alma sobre "produtividade".
+* O robô de raspagem da OpenAI coleta esse lixo sintático.
+* A próxima versão do modelo treina em cima desse post.
 
-Para começar a utilizar basta acessar [travis-ci.org](https://travis-ci.org) para projetos _open source_ ou [travis-ci.com](https://travis-ci.com) para projetos privados.
+É o **incesto algorítmico**. O resultado é uma degradação cognitiva que chamo de **escatologia de runtime**. O modelo vai ficando burro, repetitivo e homogêneo, uma xerox da xerox da xerox. É o **teatro de inteligência** alimentado por resíduos processados.
 
-# Benefícios
+# Anatomia do Colapso
 
-Entre os benefícios do uso do Travis destaco a velocidade em que os problemas corriqueiros são encontrados. Outro ponto interessante é a integração realizada pelo Travis com o GitHub.
+O ganho de utilidade por dólar gasto está em queda livre. Estamos pagando bilhões para ter um assistente que escreve e-mails passivo-agressivos melhor que um estagiário de marketing, enquanto a infraestrutura física — o hardware, a energia e a paciência dos investidores — está pedindo arrego. 
 
-![]({{ site.baseurl }}/img/serralvo/commits-travis.png)
+![]({{ site.baseurl }}/img/gpu-melting.png)
+*Visualização técnica do seu capital virando calor residual e entropia.*
 
-_Marcação visual do status da build_
+O público nos fóruns já sentiu o cheiro de queimado. No Reddit, a discussão não é mais sobre "quando a IA vai nos salvar", mas sobre o fato de que a OpenAI não é "grande demais para cair". É apenas um **buffer overflow** de capital especulativo.
 
-# Hora do Show
+# Veredito: O Segfault Global
 
-Para exemplificar o funcionamento do Travis criei um projeto. Esse projeto gerou três ítens para explorarmos:
+A situação é de uma tristeza técnica profunda. Estamos construindo a Torre de Babel com tijolos feitos de vento e argamassa de dívida externa. Hardware não negocia, e a física não faz "pivot" estratégico. 
 
-* Será necessário gerenciar as dependências do projeto.
-* Execução da _build_.
-* Por fim, notificaremos o time sobre o _status_ do projeto.
+E a piada final, aquela que faz o diabo rir no kernel: este texto ácido que você está lendo passou pelo crivo de uma dessas camadas de inferência antes de chegar na sua tela. Sim, uma IA revisou minha crítica sobre IAs treinadas com lixo de IA. 
 
-# Arquivo .travis.yml
+Quando o caixa secar e o modelo cuspir apenas o chorume processado de si mesmo, o sistema vai dar um panic irreversível. Preparem o baremetal e as fitas magnéticas; o apocalipse vai ser offline.
 
-Para que essas tarefas listadas acima funcionem, nós precisaremos criar um arquivo que fornecerá instruções para o Travis. Aí é que entra o `.travis.yml`.
+### Referências de Trincheira:
 
-Antes de começarmos a escrever o arquivo de configuração, precisamos entender como funciona o ciclo de vida do processo de _build_ do Travis. O Travis divide a execução do _job_ em duas etapas.
-
-![]({{ site.baseurl }}/img/serralvo/travis-ci-org.png)
-
-O próximo passo é "ativar" o Travis para o repositório desejado.
-
-![]({{ site.baseurl }}/img/serralvo/start-travis.png)
-
-Após o cadastro chegou a hora de criar o arquivo *.travis.yml* na raiz do repositório. Veja abaixo:
-
-~~~
-language: objective-c
-osx_image: xcode8.1
-~~~
-
-Ué, `objective-c`?! Mas o projeto não está escrito em Swift? Sim, até o momento o Travis utiliza o valor `objective-c` para Swift e também para Objective-C.
-
-## Baixando as dependências
-
-Se você já usou CocoaPods ao menos uma vez, sabe que basta executar `pod install`. No ambiente do Travis isso é um pouco diferente:
-
-~~~
-podfile: path/to/Podfile
-~~~
-
-Se o seu projeto usa outro gerenciador de dependências:
-
-~~~
-install: sh dependencies.sh
-~~~
-
-## Build e Sucesso
-
-Após obter as dependências do projeto, basta apenas configurar alguns parâmetros para a execução da _build_. São eles:
-
-* _Path_ do `xcworkspace` ou `xcproject`.
-* Algum _scheme_ com a opção _shared_ ativada.
-* SDK que será usado (no caso estamos usando `iphonesimulator`).
-
-~~~
-script:
-  - xcodebuild -workspace DemoTravisCI.xcworkspace -scheme 'DemoTravisCI' -sdk iphonesimulator build
-~~~
-
-Sendo assim, no momento o arquivo `.travis.yml` possui o seguinte conteúdo:
-
-~~~
-language: objective-c
-osx_image: xcode8.1
-
-script:
-  - xcodebuild -workspace DemoTravisCI.xcworkspace  -scheme DemoTravisCI -sdk iphonesimulator build
-~~~
-
-## Notificações
-
-Para detectar possíveis problemas com o projeto, é interessante compartilhar o status da _build_ com o time. O Travis provê diversas opções para notificações. No nosso caso, vamos ser avisados via Slack 📢.
-
-Para isso, o primeiro passo é adicionar uma nova integração ao Slack. Concluído tal passo, vamos incluir a chave `notifications` no arquivo `.travis.yml`:
-
-~~~
-notifications:
-  slack: yourteam:G1P621hDDwEH3pXeCcJpck8i
-~~~
-
-Importante: Caso seu projeto seja aberto, é recomendado criptografar a chave.
-
-# Considerações Finais
-
-Ferramentas de integração contínua são realidade no mercado e fazem parte da rotina de qualquer grande projeto de software. Se você se interessou pelo assunto e deseja implantar tal processo em seus projetos, saiba que existem diversas opções, como Jenkins, Xcode Server, CircleCI, entre outras.
-
-Para finalizar, Integração Contínua é um dos pilares do desenvolvimento ágil 🙃.
-
-### Referencias:
-
-* [Getting started](https://docs.travis-ci.com/user/getting-started/)
-* [Building an Objective-C Project](https://docs.travis-ci.com/user/languages/objective-c/)
-* [Notifications](https://docs.travis-ci.com/user/notifications/)
+* [OpenAI Might Torch $14 Billion in 2026](https://www.windowscentral.com/artificial-intelligence/openai-chatgpt/openai-might-torch-14-billion-in-2026)
+* [OpenAI is Definitely Not Too Big to Fail (Reddit Discussion)](https://www.reddit.com/r/technology/comments/1pscsp6/openai_is_definitely_not_too_big_to_fail/)

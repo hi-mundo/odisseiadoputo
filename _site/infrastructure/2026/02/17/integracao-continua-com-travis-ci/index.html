@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>A Autofagia do Silício e o Estelionato da Inteligência Infinita - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/infrastructure/2026/02/17/integracao-continua-com-travis-ci/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3228626608941163"
+         crossorigin="anonymous"></script>
+
+    
+
+</head>
+
+
+<body>
+    <!-- Fundo estático com efeito fog (fixo; conteúdo rola por cima) -->
+    <div id="fog-bg" class="fog-bg" aria-hidden="true">
+        <div class="fog-layer fog-layer-1"></div>
+        <div class="fog-layer fog-layer-2"></div>
+        <div class="fog-layer fog-layer-3"></div>
+        <div class="fog-vignette"></div>
+    </div>
+
+    <div id="site-wrap" class="site-wrap">
+        <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+        <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>A Autofagia do Silício e o Estelionato da Inteligência Infinita</h1>
+                        
+                        <h2 class="subheading">Onde 14 bilhões de dólares viram fumaça para processar o chorume digital da própria IA.</h2>
+                        
+                        <span class="meta">Postado por Fred (0xAc1d) em 17/02/2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article class="reading-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+<nav class="share-nav" aria-label="Compartilhar">
+  <span class="share-label">Compartilhar:</span>
+  <ul class="share">
+    <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Flocalhost%3A4000%2Finfrastructure%2F2026%2F02%2F17%2Fintegracao-continua-com-travis-ci%2F" rel="nofollow" target="_blank" title="Compartilhar no LinkedIn"><i class="fa fa-linkedin-square"></i></a></li>
+    <li><a href="https://twitter.com/intent/tweet?text=A+Autofagia+do+Sil%C3%ADcio+e+o+Estelionato+da+Intelig%C3%AAncia+Infinita&url=http%3A%2F%2Flocalhost%3A4000%2Finfrastructure%2F2026%2F02%2F17%2Fintegracao-continua-com-travis-ci%2F" rel="nofollow" target="_blank" title="Compartilhar no X (Twitter)"><i class="fa fa-twitter-square"></i></a></li>
+    <li><a href="https://www.reddit.com/submit?url=http%3A%2F%2Flocalhost%3A4000%2Finfrastructure%2F2026%2F02%2F17%2Fintegracao-continua-com-travis-ci%2F&title=A+Autofagia+do+Sil%C3%ADcio+e+o+Estelionato+da+Intelig%C3%AAncia+Infinita" rel="nofollow" target="_blank" title="Compartilhar no Reddit"><i class="fa fa-reddit"></i></a></li>
+    <li><a href="https://news.ycombinator.com/submitlink?u=http%3A%2F%2Flocalhost%3A4000%2Finfrastructure%2F2026%2F02%2F17%2Fintegracao-continua-com-travis-ci%2F&t=A+Autofagia+do+Sil%C3%ADcio+e+o+Estelionato+da+Intelig%C3%AAncia+Infinita" rel="nofollow" target="_blank" title="Enviar ao Hacker News"><i class="fa fa-hacker-news"></i></a></li>
+    <li><a href="#" class="share-copy-link" data-url="http://localhost:4000/infrastructure/2026/02/17/integracao-continua-com-travis-ci/" title="Copiar link" aria-label="Copiar link"><i class="fa fa-link"></i></a></li>
+  </ul>
+</nav>
+<script>
+(function() {
+  var btn = document.querySelector('.share-copy-link');
+  if (!btn) return;
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    var url = btn.getAttribute('data-url');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function() {
+        var i = btn.querySelector('i');
+        if (i) { i.className = 'fa fa-check'; setTimeout(function() { i.className = 'fa fa-link'; }, 1500); }
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      var i = btn.querySelector('i');
+      if (i) { i.className = 'fa fa-check'; setTimeout(function() { i.className = 'fa fa-link'; }, 1500); }
+    }
+  });
+})();
+</script>
+
+				<div class="post-body"><h1 id="o-burn-rate-é-a-latência-da-falência">O Burn Rate é a Latência da Falência</h1>
+
+<p>O Raimundo me mandou uns links hoje cedo e, puta que o pariu, a coisa é mais dantesca do que eu imaginava. Se você acha que a sua fatura da nuvem está alta porque esqueceu uma instância RDS ligada no final de semana, saiba que tem gente no Vale do Silício prestes a incinerar <strong>14 bilhões de dólares</strong> em um único ano.</p>
+
+<p>Isso não é “investimento em P&amp;D”. É uma <strong>orgia de acoplamento</strong> com o prejuízo sistêmico. Manter IA não é como manter um CRUD de padaria; cada inferência, cada “Bom dia” enviado ao chatbot, é um ciclo de GPU que custa dinheiro real, eletricidade bruta e resfriamento. A conta simplesmente não fecha. O mercado opera em um <strong>loop infinito</strong> de queima de caixa, alimentando uma divindade de silício que exige sacrifícios de 14 dígitos enquanto promete um nirvana técnico que nunca chega. Spoiler: a termodinâmica não aceita promessas de VC como combustível.</p>
+
+<h1 id="a-grande-centrifugadora-de-chorume">A Grande Centrifugadora de Chorume</h1>
+
+<p>Aqui entra o <strong>narcisismo semântico</strong> mais bizarro da história da computação: onde eles vão buscar dados para treinar esses monstros de 14 bilhões de dólares? No esgoto da internet. Mas tem um bug crítico no runtime da nossa civilização: a internet agora está infestada de conteúdo gerado por… IA.</p>
+
+<p>Estamos entrando na era da <strong>autofagia digital</strong>. O processo é um erro de segmentação civilizatório:</p>
+<ul>
+  <li>A IA gera um post genérico e sem alma sobre “produtividade”.</li>
+  <li>O robô de raspagem da OpenAI coleta esse lixo sintático.</li>
+  <li>A próxima versão do modelo treina em cima desse post.</li>
+</ul>
+
+<p>É o <strong>incesto algorítmico</strong>. O resultado é uma degradação cognitiva que chamo de <strong>escatologia de runtime</strong>. O modelo vai ficando burro, repetitivo e homogêneo, uma xerox da xerox da xerox. É o <strong>teatro de inteligência</strong> alimentado por resíduos processados.</p>
+
+<h1 id="anatomia-do-colapso">Anatomia do Colapso</h1>
+
+<p>O ganho de utilidade por dólar gasto está em queda livre. Estamos pagando bilhões para ter um assistente que escreve e-mails passivo-agressivos melhor que um estagiário de marketing, enquanto a infraestrutura física — o hardware, a energia e a paciência dos investidores — está pedindo arrego.</p>
+
+<p><img src="/img/gpu-melting.png" alt="" />
+<em>Visualização técnica do seu capital virando calor residual e entropia.</em></p>
+
+<p>O público nos fóruns já sentiu o cheiro de queimado. No Reddit, a discussão não é mais sobre “quando a IA vai nos salvar”, mas sobre o fato de que a OpenAI não é “grande demais para cair”. É apenas um <strong>buffer overflow</strong> de capital especulativo.</p>
+
+<h1 id="veredito-o-segfault-global">Veredito: O Segfault Global</h1>
+
+<p>A situação é de uma tristeza técnica profunda. Estamos construindo a Torre de Babel com tijolos feitos de vento e argamassa de dívida externa. Hardware não negocia, e a física não faz “pivot” estratégico.</p>
+
+<p>E a piada final, aquela que faz o diabo rir no kernel: este texto ácido que você está lendo passou pelo crivo de uma dessas camadas de inferência antes de chegar na sua tela. Sim, uma IA revisou minha crítica sobre IAs treinadas com lixo de IA.</p>
+
+<p>Quando o caixa secar e o modelo cuspir apenas o chorume processado de si mesmo, o sistema vai dar um panic irreversível. Preparem o baremetal e as fitas magnéticas; o apocalipse vai ser offline.</p>
+
+<h3 id="referências-de-trincheira">Referências de Trincheira:</h3>
+
+<ul>
+  <li><a href="https://www.windowscentral.com/artificial-intelligence/openai-chatgpt/openai-might-torch-14-billion-in-2026">OpenAI Might Torch $14 Billion in 2026</a></li>
+  <li><a href="https://www.reddit.com/r/technology/comments/1pscsp6/openai_is_definitely_not_too_big_to_fail/">OpenAI is Definitely Not Too Big to Fail (Reddit Discussion)</a></li>
+</ul>
+</div>
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+        <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Doido</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+    </div>
+
+    <script src="/js/fog.js"></script>
+    <script src="/js/filter.js"></script>
+    <script src="/js/inject-ads.js"></script>
+</body>
+
+</html>
