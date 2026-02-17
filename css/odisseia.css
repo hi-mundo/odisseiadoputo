@@ -127,6 +127,51 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-custom .nav li a:focus {
   color: var(--accent) !important;
 }
+
+/* Seletor de idioma (PT / EN) no topo */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 15px 10px;
+}
+.lang-label {
+  font-size: 0.75rem;
+  color: var(--text-muted) !important;
+  margin-right: 0.25rem;
+}
+.lang-btn {
+  font-family: Verdana, Tahoma, "Trebuchet MS", sans-serif;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.lang-btn:hover {
+  color: var(--text);
+  border-color: var(--border-soft);
+}
+.lang-btn.is-active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+/* Mostrar/ocultar por idioma */
+.lang-en {
+  display: none !important;
+}
+.site-lang-en .lang-pt {
+  display: none !important;
+}
+.site-lang-en .lang-en {
+  display: block !important;
+}
+
 .navbar-custom .navbar-toggle .icon-bar {
   background: var(--accent) !important;
 }
@@ -181,12 +226,35 @@ h1, h2, h3, h4, h5, h6 {
 .intro-header .page-heading h1,
 .intro-header .post-heading h1 {
   color: var(--text) !important;
+  font-size: 1.75rem !important;
+}
+.intro-header .post-heading h1 {
+  font-size: 1.65rem !important;
 }
 .intro-header .site-heading .subheading,
 .intro-header .page-heading .subheading,
 .intro-header .post-heading .subheading,
 .intro-header .post-heading .meta {
   color: var(--text-muted) !important;
+}
+.intro-header .post-heading .subheading {
+  font-size: 1.05rem !important;
+  font-weight: 500;
+}
+.intro-header .post-heading .meta {
+  font-size: 0.9rem !important;
+}
+@media (min-width: 768px) {
+  .intro-header .site-heading h1,
+  .intro-header .page-heading h1 {
+    font-size: 2rem !important;
+  }
+  .intro-header .post-heading h1 {
+    font-size: 1.85rem !important;
+  }
+  .intro-header .post-heading .subheading {
+    font-size: 1.1rem !important;
+  }
 }
 .intro-header .post-heading .meta a {
   color: var(--accent) !important;
@@ -207,19 +275,25 @@ hr.small {
 /* ---- Experiência de leitura (foco do blog) ---- */
 .reading-content p,
 article .reading-content p,
-article p {
+article p,
+.post-body p {
   max-width: var(--reading-width);
   line-height: var(--reading-line-height);
   margin-bottom: 1.25em;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
 }
 
-article h1, article h2, article h3,
-.reading-content h1, .reading-content h2, .reading-content h3 {
+article h1, article h2, article h3, article h4,
+.reading-content h1, .reading-content h2, .reading-content h3, .reading-content h4,
+.post-body h1, .post-body h2, .post-body h3, .post-body h4 {
   margin-top: 1.5em;
   margin-bottom: 0.5em;
   line-height: 1.3;
 }
+.post-body h1, article h1, .reading-content h1 { font-size: 1.5rem !important; }
+.post-body h2, article h2, .reading-content h2 { font-size: 1.35rem !important; }
+.post-body h3, article h3, .reading-content h3 { font-size: 1.2rem !important; }
+.post-body h4, article h4, .reading-content h4 { font-size: 1.1rem !important; }
 
 article h1:first-child, .reading-content h1:first-child { margin-top: 0; }
 article ul, article ol,

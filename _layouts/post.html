@@ -3,18 +3,29 @@ layout: default
 comments: true
 ---
 
-<!-- Post Header -->
+<!-- Post Header: PT e EN -->
 <header class="intro-header">
     <div class="intro-header-overlay">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>{{ page.title }}</h1>
-                        {% if page.subtitle %}
-                        <h2 class="subheading">{{ page.subtitle }}</h2>
+                        <div class="lang-pt">
+                            <h1>{{ page.title }}</h1>
+                            {% if page.subtitle %}
+                            <h2 class="subheading">{{ page.subtitle }}</h2>
+                            {% endif %}
+                            <span class="meta">Postado por {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} em {{ page.date | date: site.date_format }}</span>
+                        </div>
+                        {% if page.en_content %}
+                        <div class="lang-en">
+                            <h1>{{ page.en_title | default: page.title }}</h1>
+                            {% if page.en_subtitle or page.subtitle %}
+                            <h2 class="subheading">{{ page.en_subtitle | default: page.subtitle }}</h2>
+                            {% endif %}
+                            <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %d, %Y" }}</span>
+                        </div>
                         {% endif %}
-                        <span class="meta">Postado por {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} em {{ page.date | date: site.date_format }}</span>
                     </div>
                 </div>
             </div>
@@ -22,25 +33,37 @@ comments: true
     </div>
 </header>
 
-<!-- Post Content -->
+<!-- Post Content: PT e EN -->
 <article class="reading-content">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 {% include share.html %}
-				<div class="post-body">{{ content }}</div>
+
+                {% if page.en_content %}
+                <div class="lang-pt post-body">{{ content }}</div>
+                <div class="lang-en post-body">{{ page.en_content | markdownify }}</div>
+                {% else %}
+                <div class="post-body">{{ content }}</div>
+                {% endif %}
 
                 <hr>
 
                 <ul class="pager">
                     {% if page.previous.url %}
                     <li class="previous">
-                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">&larr; Post Anterior</a>
+                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.previous.title }}">
+                            <span class="lang-pt">&larr; Post Anterior</span>
+                            <span class="lang-en">&larr; Previous Post</span>
+                        </a>
                     </li>
                     {% endif %}
                     {% if page.next.url %}
                     <li class="next">
-                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Próximo Post &rarr;</a>
+                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">
+                            <span class="lang-pt">Próximo Post &rarr;</span>
+                            <span class="lang-en">Next Post &rarr;</span>
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
