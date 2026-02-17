@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>iBeacon - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/ibeacon/2016/03/17/ibeacon/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>iBeacon</h1>
+                        
+                        <h2 class="subheading">Entendendo melhor a tecnologia, sua utilização e seu potencial</h2>
+                        
+                        <span class="meta">Postado por Gabriel Oliva em 17/03/2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=iBeacon&url=http://localhost:4000/ibeacon/2016/03/17/ibeacon/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/ibeacon/2016/03/17/ibeacon/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ibeacon/2016/03/17/ibeacon/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/ibeacon/2016/03/17/ibeacon/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<blockquote>
+  <p><a href="https://twitter.com/gabrieloliva_">Gabriel Oliva</a> é um entusiasta mobile e desenvolvedor iOS. Acredita que o engajamento da comunidade faz total diferença para o crescimento pessoal e profissional e por isso participa de projetos como o equinociOS.</p>
+</blockquote>
+
+<h2 id="introdução">Introdução</h2>
+<p>Muito se fala em internet das coisas hoje em dia, que nada mais é um conceito utilizado para referenciar a conexão de objetos de uso cotidiano à internet. Eletrodoméstidos, móveis e até vestuário estão se conectando na internet para fazer requisições ou apenas enviar informações. Magia negra? Que nada! Qualquer microchip pode dar poderes computacionais para itens que utilizamos no nosso dia a dia :P</p>
+
+<p>E o que pode dar poderes computacionais para contextualizar uma localização? Que tipo de magia negra irei utilizar para fazer com que algum computador saiba que eu estou no setor masculino de uma loja de departamentos? O <em>beacon</em> está aí para resolver seu problema!</p>
+
+<h2 id="bacon-adoro">Bacon? Adoro!</h2>
+<p>Calma! Bacon pode resolver seus problemas? <a href="http://www.listentolena.com/wp-content/uploads/2013/07/Change-Your-Life-With-Bacon-1.jpg">Muito provavelmente</a>! Mas até cientistas e engenheiros conseguirem implementar um micro processador nessa maravilha, a computação contextual vai precisar da ajuda do seu primo distante, o <strong>Beacon</strong>.</p>
+
+<p>Traduzido do inglês, beacon significa farol. “<em>Uai, o que tem farol a ver com o beacon???</em>”, questionaria o mineiro interno em você!</p>
+
+<p>Pois bem, os faróis foram concebidos para avisar aos navegadores que eles estavam se aproximando da terra. Ou seja, era uma informação que estava sendo enviada em broadcast.</p>
+
+<p>O beacon funciona da mesma forma mas, ao invés de enviar luz, ele transmite algumas informações por <a href="https://www.bluetooth.com/what-is-bluetooth-technology/bluetooth-technology-basics/low-energy">Bluetooth Low Energy</a>. Ele é produzido por diversas empresas e por utilizar a versão 4.0 do Bluetooth, tem uma autonomia muito grande. Empresas como <a href="http://estimote.com/">estimote</a> e <a href="http://kontakt.io/">kontakt.io</a> são alguma das referências que temos em produção de beacons de qualidade, porém você consegue encontrar ótimos produtos na amazon e também alguns genéricos em mercados chineses (e caso essa seja sua opção, comece a rezar para não ser tributado).</p>
+
+<h2 id="utilização-no-mundo-real">Utilização no mundo real</h2>
+<p>A utilização de beacons no mundo real vem se tornando cada vez maior e grandes empresas vem fazendo testes para ver o resultado na prática. Porém a maior parte dessa utilização é feita por lojas buscando entregar publicidade geolocalizada.</p>
+
+<p><img src="/img/gabrieloliva/beacon-retail-estimote.jpg" alt="" /></p>
+
+<p>Funciona da seguinte forma: o usuário, com o smartphone no bolso, entra na loja e passa por algum departamento específico, como a sessão masculina. Dentro dessa sessão há um beacon fazendo broadcast de informações. O smartphone do usuário irá receber essas informações e internamente fazer uma requisição que irá enviar como parâmetro a informação recebida pelo beacon. O retorno dessa requisição pode ser diverso, como notificação de promoções, informação sobre produto, vouchers, etc.</p>
+
+<p>Apesar de ser utilizado principalmente em ações de marketing geolocalizado, o beacon pode resolver diversos outros problemas. Até pouco tempo atrás existia uma <a href="http://www.mobisfera.com/summary-real-cases-close-real-using-ibeacons/?lang=en">lista atualizada</a> de casos reais de empresas que utilizavam a tecnologia junto com seu ramo de atuação: Cinema, aeroportos, museu, farmácia e até colégios eram algumas dessas áreas.</p>
+
+<h2 id="onde-o-i-entrou-no-beacon">Onde o “i” entrou no beacon?</h2>
+<p>No final de 2013 a Apple lança para o público o iBeacon, que nada mais é que a sua versão proprietária do beacon implementada do jeito dela. Apesar dos pesares, funciona tanto no iOS quanto no Android.</p>
+
+<p>O Google também tem sua implementação do beacon, chamada <a href="https://developers.google.com/beacons/">Eddystone</a>, e até possui algumas diferenças com relação ao iBeacon. Porém isso é o lado verde da força que não iremos entrar em detalhe.</p>
+
+<h2 id="características-do-ibeacon">Características do iBeacon</h2>
+<p>O iBeacon faz o broadcast de três informações: major, minor e UUID. Sendo:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parâmetro</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UUID</td>
+      <td>16 bytes</td>
+    </tr>
+    <tr>
+      <td>Major</td>
+      <td>2 bytes</td>
+    </tr>
+    <tr>
+      <td>Minor</td>
+      <td>2 bytes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>O UUID pode ser único por aplicação. Já o major e minor devem ser subdivisões de uma determinada região. Se fizermos a divisão de uma loja, poderemos ter por exemplo a seguinte tabela:</p>
+
+<p><img src="/img/gabrieloliva/division-ibeacons-store.png" alt="" /></p>
+
+<p>Ou seja, as filiais da loja são divididas pelo major e o departamento é dividido pelo minor. Não existe uma regra de subdivisão, mas lembre-se de fazer algo bem organizado!</p>
+
+<h2 id="talk-is-cheap-show-me-the-code">Talk is cheap. Show me the code!</h2>
+<p>Existem diversos tipos de iBeacons de diversas empresas e, consequentemente, diversos SDKs que encapsulam a implementação nativa para oferecer featurings melhoradas ou o mais do mesmo.</p>
+
+<p>Para esse exemplo não utilizaremos nenhum SDK de terceiro e nenhum iBeacon. Vamos dividir a implementação em duas partes: primeiro criaremos um app que ira atuar como um iBeacon, porque eu sei que você talvez não tenha um em casa. Viu como sou bonzinho? Depois iremos criar de fato o nosso app que irá lidar com as informações do nosso AppBeacon.</p>
+
+<p>O framework que nos oferece ferramentas para trabalhar com iBeacon é o <code class="language-plaintext highlighter-rouge">Core Location</code>, então se você já possui algum conhecimento básico sobre ela, vai tirar isso de letra!</p>
+
+<p>Um pequeno adendo: irei escrever esse artigo partindo do princípio que você já tenha um pouco de experiência com desenvolvimento iOS.</p>
+
+<h3 id="appbeacon">AppBeacon</h3>
+<p>O AppBeacon será um aplicativo básico que terá apenas uma funcionalidade: simular um iBeacon. Ele vai possuir 3 <code class="language-plaintext highlighter-rouge">UIButtons</code> que servirá como um switch de Minor. A intenção é simular o iBeacon da loja de San Francisco que está na tabela acima. Mas caso sua memória seja curta, aqui vai um refresco:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Departamento</th>
+      <th>Major</th>
+      <th>Minor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Clothing</td>
+      <td>1</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Housewares</td>
+      <td>1</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>Automotive</td>
+      <td>1</td>
+      <td>30</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Vamos criar um projeto Single View Application, em Objective-c para iPhone. O aplicativo terá uma interface bem simplória, porém que irá nos atender perfeitamente. Além dos 3 <code class="language-plaintext highlighter-rouge">UIButtons</code>, iremos acidionar algumas labels para representar o major e minor.</p>
+
+<p><img src="/img/gabrieloliva/appbeacon/interface.png" alt="" /></p>
+
+<p>Cada botão possui uma tag diferente para identificarmos qual foi pressionado, então não se esqueça de taggear.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Botão</th>
+      <th>Tag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Clothing</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Housewares</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Automotive</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Para setar a tag basta selecionar o botão, ir em Attributes Inspector e <em>voilà</em>:</p>
+
+<p><img src="/img/gabrieloliva/appbeacon/tag-place.jpg" alt="" /></p>
+
+<p>Após criar a interface, um ultimo ajuste antes de partir pro código: importe o <code class="language-plaintext highlighter-rouge">CoreLocation.framework</code> e o <code class="language-plaintext highlighter-rouge">CoreBluetooth.framework</code> para o seu projeto.</p>
+
+<p>Pronto, agora já podemos importar os framewoks no <code class="language-plaintext highlighter-rouge">ViewController.m</code>:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import &lt;CoreLocation/CoreLocation.h&gt;
+#import &lt;CoreBluetooth/CoreBluetooth.h&gt;
+</span></code></pre></div></div>
+
+<p>A classe terá a seguinte interface:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">ViewController</span> <span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">NSUUID</span> <span class="o">*</span><span class="n">uuid</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">enum</span> <span class="n">ibeacon</span> <span class="p">{</span>
+    <span class="n">majorSanFrancisco</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">minorClothing</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">minorHouseware</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="n">minorAutomotive</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="p">};</span>
+
+<span class="k">@property</span> <span class="n">CLBeaconRegion</span> <span class="o">*</span><span class="n">beaconRegion</span><span class="p">;</span>
+<span class="k">@property</span> <span class="n">CBPeripheralManager</span> <span class="o">*</span><span class="n">peripheralManager</span><span class="p">;</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">majorLabel</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">minorLabel</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+<p>Vamos entender o que a interface da nossa classe contém:</p>
+
+<ul>
+  <li>O <code class="language-plaintext highlighter-rouge">uuid </code> é um objeto de classe para armazenarmos o	 uuid;</li>
+  <li>O <code class="language-plaintext highlighter-rouge">enum</code> é apenas para padronizar nossas informações;</li>
+  <li>O <code class="language-plaintext highlighter-rouge">beaconRegion</code> é o objeto responsável por monitorar a região, que é composta por <code class="language-plaintext highlighter-rouge">uuid</code>, <code class="language-plaintext highlighter-rouge">major</code>, <code class="language-plaintext highlighter-rouge">minor</code> e <code class="language-plaintext highlighter-rouge">identifier</code>. Como esse app não irá monitorar nada, mas sim enviar dados, ele irá servir como base de informação para o nosos próximo componente;</li>
+  <li>O <code class="language-plaintext highlighter-rouge">peripheralManager</code> é o responsável por gerenciar o nosso bluetooth e é através dele que iremos fazer a propagação;</li>
+  <li>E, por fim, as labels são apenas IBOutlet para informar na nossa interface qual major e minor está sendo propagado.</li>
+</ul>
+
+<!--O `viewDidLoad` do AppBeacon servirá apenas para iniciar nosso `CLBeaconRegion`. Para instanciar o objeto, precisamos oferecer obrigatóriamente um UUID e um identificador único. O major e o minor não precisam necessariamente ser passados pois eles irão ser alterados de acordo com nossa necessidade, mas como estou exemplificando apenas a loja de San Francisco, irem iniciar com o major também.
+
+O UUID pode ser gerado através de um simples `uuidgen` no terminal, e foi o que eu fiz!-->
+
+<p>O <code class="language-plaintext highlighter-rouge">viewDidLoad</code> do AppBeacon servirá apenas para iniciar nossas variáveis <code class="language-plaintext highlighter-rouge">uuid</code> e <code class="language-plaintext highlighter-rouge">identifier</code> e também setar o texto da <code class="language-plaintext highlighter-rouge">majorLabel</code>, que nunca será alterado pois estamos fazendo o exemplo com a cidade de San Francisco somente.</p>
+
+<p>O UUID pode ser gerado através de um simples <code class="language-plaintext highlighter-rouge">uuidgen</code> no terminal, e foi o que eu fiz!</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
+    
+    <span class="n">uuid</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSUUID</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithUUIDString</span><span class="p">:</span><span class="s">@"EBCBB7AD-0D9D-4C9F-82AF-096040BC5B3C"</span><span class="p">];</span>
+    <span class="n">identifier</span> <span class="o">=</span> <span class="s">@"com.equinocios"</span><span class="p">;</span>
+    
+    <span class="n">self</span><span class="p">.</span><span class="n">majorLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%d"</span><span class="p">,</span> <span class="n">majorSanFrancisco</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Por fim, temos o método que é invocado toda vez que algum botão for selecionado. O método <code class="language-plaintext highlighter-rouge">- (IBAction)departmentDidTapped:(UIButton *)sender</code> <strong>deve</strong> ser linkado com todos os três botões, então não se esqueça de fazer isso!</p>
+
+<p><img src="/img/gabrieloliva/appbeacon/uibutton-link.png" alt="" /></p>
+
+<p>Vamos ao código:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">IBAction</span><span class="p">)</span><span class="nf">departmentDidTapped</span><span class="p">:(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">minor</span><span class="p">;</span>
+    
+    <span class="k">switch</span> <span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">tag</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Clothing</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">minor</span> <span class="o">=</span> <span class="n">minorClothing</span><span class="p">;</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">minorLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%d"</span><span class="p">,</span> <span class="n">minor</span><span class="p">];</span>
+            <span class="k">break</span><span class="p">;</span>
+            
+        <span class="c1">// Houseware</span>
+        <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">minor</span> <span class="o">=</span> <span class="n">minorHouseware</span><span class="p">;</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">minorLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%d"</span><span class="p">,</span> <span class="n">minor</span><span class="p">];</span>
+            <span class="k">break</span><span class="p">;</span>
+            
+        <span class="c1">// Automotive</span>
+        <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">minor</span> <span class="o">=</span> <span class="n">minorAutomotive</span><span class="p">;</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">minorLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%d"</span><span class="p">,</span> <span class="n">minor</span><span class="p">];</span>
+            <span class="k">break</span><span class="p">;</span>
+            
+        <span class="nl">default:</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="n">self</span><span class="p">.</span><span class="n">beaconRegion</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CLBeaconRegion</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithProximityUUID</span><span class="p">:</span><span class="n">uuid</span> <span class="nf">major</span><span class="p">:</span><span class="n">majorSanFrancisco</span> <span class="n">minor</span><span class="o">:</span><span class="n">minor</span> <span class="n">identifier</span><span class="o">:</span><span class="n">identifier</span><span class="p">];</span>
+    
+    <span class="n">self</span><span class="p">.</span><span class="n">peripheralManager</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CBPeripheralManager</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithDelegate</span><span class="p">:</span><span class="nb">nil</span> <span class="nf">queue</span><span class="p">:</span><span class="nb">nil</span> <span class="n">options</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">peripheralManager</span> <span class="nf">startAdvertising</span><span class="p">:[</span><span class="n">self</span><span class="p">.</span><span class="n">beaconRegion</span> <span class="nf">peripheralDataWithMeasuredPower</span><span class="p">:</span><span class="nb">nil</span><span class="p">]];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>O método já começa fazendo um switch de qual botão foi pressionado através da tag que foi inserida anteriormente. Dentro do switch é gravado qual o valor do minor e também é alterado na label qual é o atual minor selecionado.</p>
+
+<p>Agora que já temos todos os parâmetros necessários para instanciar nossa região, o beaconRegion é inicializado e, logo em seguida, o <code class="language-plaintext highlighter-rouge">peripheralManager</code> começa a propagar os dados!</p>
+
+<p>Simples, não?! Mas lembre-se! Como não há nenhum tipo de tratamento para checar se o bluetooth está ligado, <strong>certifique-se de fazer isso</strong> :P</p>
+
+<p><img src="http://i.giphy.com/pP6Kd5rm04mu4.gif" alt="" /></p>
+
+<h3 id="app-lojaxpto">App LojaXPTO</h3>
+<p>A segunda parte desse artigo é construir o app da Loja XPTO, que coincidentemente possui departamentos de vestuário, utensílios de casa e área automotiva! Em algum momento que o nosso app chegar perto de algum desses departamentos, uma promoção referente ao local será enviada!</p>
+
+<p>O modelo do app da Loja XPTO é o mesmo do anterior, então mãos à obra! O projeto será um Single View Application, em Objective-C, para iPhone. Não utilizaremos nenhuma interface nesse projeto pois iremos utilizar <code class="language-plaintext highlighter-rouge">UIAlertController</code> para exemplificar.</p>
+
+<p>Importe o <code class="language-plaintext highlighter-rouge">CoreLocation.framework</code> para o projeto e o adicione no <code class="language-plaintext highlighter-rouge">ViewController.m</code>. A interface da classe vai ficar assim:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import &lt;CoreLocation/CoreLocation.h&gt;
+</span>
+<span class="k">@interface</span> <span class="nc">ViewController</span> <span class="p">()</span> <span class="o">&lt;</span><span class="n">CLLocationManagerDelegate</span><span class="o">&gt;</span>
+<span class="p">{</span>
+    <span class="n">CLBeacon</span> <span class="o">*</span><span class="n">lastBeacon</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">enum</span> <span class="n">ibeacon</span> <span class="p">{</span>
+    <span class="n">majorSanFrancisco</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">minorClothing</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">minorHouseware</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="n">minorAutomotive</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="p">};</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CLBeaconRegion</span> <span class="o">*</span><span class="n">beaconRegion</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CLLocationManager</span> <span class="o">*</span><span class="n">locationManager</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+
+<p>Dessa vez temos alguns itens diferentes! Vamos por partes:</p>
+
+<ul>
+  <li>A variável de classe <code class="language-plaintext highlighter-rouge">lastBeacon</code> irá servir como um placeholder do último beacon encontrado, para não haver loops de notificação;</li>
+  <li>Nossa classe agora tem que se conformar com o protocolo <code class="language-plaintext highlighter-rouge">CLLocationManagerDelegate</code>. Esse protocolo define os métodos responsáveis por lidar com atualização de localização, dentre outras coisas;</li>
+  <li>O <code class="language-plaintext highlighter-rouge">CLLocationManager</code> é o objeto que lida com o gerenciamento da localização. Usaremos ele para monitorar a região.</li>
+</ul>
+
+<p>O <code class="language-plaintext highlighter-rouge">viewDidLoad</code> da classe nada mais faz que inicializar o monitoramento pela região especificada. A implementação fica assim:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">viewDidLoad</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nf">viewDidLoad</span><span class="p">];</span>
+    
+    <span class="n">self</span><span class="p">.</span><span class="n">locationManager</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CLLocationManager</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">locationManager</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+    
+    <span class="n">NSUUID</span> <span class="o">*</span><span class="n">uuid</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSUUID</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithUUIDString</span><span class="p">:</span><span class="s">@"EBCBB7AD-0D9D-4C9F-82AF-096040BC5B3C"</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">identifier</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"com.equinocios"</span><span class="p">];</span>
+    
+    <span class="n">self</span><span class="p">.</span><span class="n">beaconRegion</span> <span class="o">=</span> <span class="p">[[</span><span class="n">CLBeaconRegion</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithProximityUUID</span><span class="p">:</span><span class="n">uuid</span>
+                                                           <span class="nl">identifier:</span><span class="n">identifier</span><span class="p">];</span>
+    
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">locationManager</span> <span class="nf">startMonitoringForRegion</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">beaconRegion</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Primeiro o <code class="language-plaintext highlighter-rouge">locationManager</code> é instanciado e dizemos à ele que o delegate é a própria classe.</p>
+
+<p>Criamos o <code class="language-plaintext highlighter-rouge">uuid</code> com <strong>o mesmo</strong> id que utilizamos no nosso AppBeacon, pois é ele que iremos monitorar. O mesmo acontece com o <code class="language-plaintext highlighter-rouge">identifier</code>.</p>
+
+<p>O <code class="language-plaintext highlighter-rouge">beaconRegion</code> é inicializado apenas com o uuid, major e identificador, porque não podemos restringir a busca pelo minor, que são os diferentes tipos de departamento.</p>
+
+<p>Por fim, é solicitado ao <code class="language-plaintext highlighter-rouge">locationManager</code> começar a monitorar pela região. Assim que entrarmos na range do nosso AppBeacon, uma funcionalidade será executada. Que funcionalidade é essa? Vamos implementá-la agora!</p>
+
+<p>Os métodos abaixo são do <code class="language-plaintext highlighter-rouge">CLLocationManagerDelegate</code>. Eles são acionados quando o aparelho entrar ou deixar a região. Quando entrarmos na região, devemos dizer ao <code class="language-plaintext highlighter-rouge">locationManager</code> para começar a procurar por beacons. E ao sair, pedimos para ele parar de procurar.</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">locationManager</span><span class="p">:(</span><span class="n">CLLocationManager</span><span class="o">*</span><span class="p">)</span><span class="nv">manager</span> <span class="nf">didEnterRegion</span><span class="p">:(</span><span class="n">CLRegion</span><span class="o">*</span><span class="p">)</span><span class="nv">region</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">locationManager</span> <span class="nf">startRangingBeaconsInRegion</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">beaconRegion</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">locationManager</span><span class="p">:(</span><span class="n">CLLocationManager</span><span class="o">*</span><span class="p">)</span><span class="nv">manager</span> <span class="nf">didExitRegion</span><span class="p">:(</span><span class="n">CLRegion</span><span class="o">*</span><span class="p">)</span><span class="nv">region</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">locationManager</span> <span class="nf">stopRangingBeaconsInRegion</span><span class="p">:</span><span class="n">self</span><span class="p">.</span><span class="n">beaconRegion</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Já o método <code class="language-plaintext highlighter-rouge">-locationManager: didRangeBeacons</code> é chamado sempre que algum beacon for encontrado. A implementação dele segue assim:</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">locationManager</span><span class="p">:(</span><span class="n">CLLocationManager</span><span class="o">*</span><span class="p">)</span><span class="nv">manager</span> <span class="nf">didRangeBeacons</span><span class="p">:(</span><span class="n">NSArray</span><span class="o">*</span><span class="p">)</span><span class="nv">beacons</span> <span class="nf">inRegion</span><span class="p">:(</span><span class="n">CLBeaconRegion</span><span class="o">*</span><span class="p">)</span><span class="nv">region</span> <span class="p">{</span>
+    
+    <span class="k">if</span> <span class="p">([</span><span class="n">beacons</span> <span class="nf">firstObject</span><span class="p">]</span> <span class="o">!=</span> <span class="n">lastBeacon</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">lastBeacon</span> <span class="o">=</span> <span class="p">[</span><span class="n">beacons</span> <span class="nf">firstObject</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">self</span> <span class="nf">showPromoForBeacon</span><span class="p">:[</span><span class="n">beacons</span> <span class="nf">firstObject</span><span class="p">]];</span>
+    <span class="p">}</span>
+    
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Primeiramente há uma checagem para identificar se o beacon encontrado não é igual ao último encontrado. Isso é feito para evitar notificações duplicadas. Caso positivo, o beacon atual se torna o <code class="language-plaintext highlighter-rouge">lastBeacon</code> e o método para mostrar uma promoção é chamado, passando o beacon encontrado.</p>
+
+<p>Vamos implementar esse método?</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">showPromoForBeacon</span><span class="p">:(</span><span class="n">CLBeacon</span> <span class="o">*</span><span class="p">)</span><span class="nv">beacon</span> <span class="p">{</span>
+    
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">message</span><span class="p">;</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">title</span><span class="p">;</span>
+    <span class="n">UIAlertController</span> <span class="o">*</span><span class="n">alert</span><span class="p">;</span>
+    <span class="n">UIAlertAction</span> <span class="o">*</span><span class="n">ok</span><span class="p">;</span>
+    
+    <span class="k">switch</span> <span class="p">([</span><span class="n">beacon</span><span class="p">.</span><span class="n">minor</span> <span class="nf">intValue</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">minorClothing</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"Promoção de blusas!"</span><span class="p">];</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"Na compra acima de R$ 100,00, ganhe R$10 de desconto!"</span><span class="p">];</span>
+            <span class="k">break</span><span class="p">;</span>
+            
+        <span class="k">case</span> <span class="n">minorHouseware</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"Voucher de Desconto!"</span><span class="p">];</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"Kit de cozinha com 20%% de desconto com o código EQUINOCIOS"</span><span class="p">];</span>
+            <span class="k">break</span><span class="p">;</span>
+            
+        <span class="k">case</span> <span class="n">minorAutomotive</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"Promoção de Pneus"</span><span class="p">];</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"Especialmente pra você que acabou de entrar no departamento!"</span><span class="p">];</span>
+            <span class="k">break</span><span class="p">;</span>
+            
+        <span class="nl">default:</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="n">alert</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertController</span> <span class="nf">alertControllerWithTitle</span><span class="p">:</span><span class="n">title</span> <span class="nf">message</span><span class="p">:</span><span class="n">message</span> <span class="n">preferredStyle</span><span class="o">:</span><span class="n">UIAlertControllerStyleAlert</span><span class="p">];</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertAction</span> <span class="nf">actionWithTitle</span><span class="p">:</span><span class="s">@"OK"</span> <span class="nf">style</span><span class="p">:</span><span class="n">UIAlertActionStyleCancel</span> <span class="n">handler</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+    
+    <span class="p">[</span><span class="n">alert</span> <span class="nf">addAction</span><span class="p">:</span><span class="n">ok</span><span class="p">];</span>
+    
+    <span class="p">[</span><span class="n">self</span> <span class="nf">presentViewController</span><span class="p">:</span><span class="n">alert</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span> <span class="n">completion</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+    
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Esse método também é bem simples. De acordo com o minor que eu encontrar no beacon, um switch é feito para trazer mensagens customizadas de acordo com o departamento que a pessoa se encontra. Por fim, um alerta é montado e apresentado para o usuário! :)</p>
+
+<p>Em um aparelho abra o AppBeacon e em outro abra a LojaXPTO, faça o teste e verá os diferentes tipos de alerta dependendo do minor que é alterado.</p>
+
+<h2 id="o-que-fazer-de-agora-em-diante">O que fazer de agora em diante?</h2>
+<p>Esse artigo mostrou os conceitos básicos de utilização e implementação do iBeacon. Existem diversas formas de implementar, com diversos SDKs e uma quantidade absurda de beacons diferentes. Agora é com você!</p>
+
+<h2 id="fontes-de-informação">Fontes de informação</h2>
+
+<ul>
+  <li><a href="https://developer.apple.com/library/prerelease/ios/documentation/CoreLocation/Reference/CoreLocation_Framework/index.html#//apple_ref/doc/uid/TP40007123">Core Location Framework Reference</a></li>
+  <li><a href="https://developer.apple.com/library/ios/documentation/CoreBluetooth/Reference/CoreBluetooth_Framework/">Core Bluetooth Framework Reference</a></li>
+  <li><a href="https://developer.apple.com/ibeacon/">iBeacon for Developers</a></li>
+</ul>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/library/2016/03/16/bibliotecas/" data-toggle="tooltip" data-placement="top" title="Bibliotecas 📚">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/devlife/2016/03/18/a-vida-de-um-desenvolvedor-indie/" data-toggle="tooltip" data-placement="top" title="A vida de um desenvolvedor indie">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>Adotando Handoff em iOS e macOS - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/continuidade/2017/03/27/adotando-handoff/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Adotando Handoff em iOS e macOS</h1>
+                        
+                        <h2 class="subheading">The Good, the Bad and the Ugly</h2>
+                        
+                        <span class="meta">Postado por Rafael Nobre em 27/03/2017</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=Adotando Handoff em iOS e macOS&url=http://localhost:4000/continuidade/2017/03/27/adotando-handoff/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/continuidade/2017/03/27/adotando-handoff/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/continuidade/2017/03/27/adotando-handoff/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/continuidade/2017/03/27/adotando-handoff/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<blockquote>
+  <p>Rafael Nobre (<a href="https://twitter.com/nobre84" target="_blank">@nobre84</a>) é desenvolvedor iOS desde 2009 e trabalha na <a href="https://prodoctor.net" target="_blank">ProDoctor Software</a>. Odiava o Swift no lançamento, mas foi rapidamente conquistado pela abordagem <em>Swifty</em> de resolver problemas.</p>
+</blockquote>
+
+<h1 id="continuidade">Continuidade</h1>
+<p>Handoff faz parte de um conjunto de funcionalidades chamadas coletivamente pela Apple de <strong>Continuidade</strong>. Seu objetivo é fazer com que diversos dispositivos compatíveis possam se comunicar para que o usuário obtenha mais produtividade ou comodidade. São estes recursos que permitem, por exemplo, atender chamadas recebidas no iPhone pelo Mac, enviar e receber mensagens de texto pelo Messages, desbloquear o Mac pelo Apple Watch ou transferir arquivos via AirDrop, entre outros.</p>
+
+<h1 id="handoff">Handoff</h1>
+<p>A função do Handoff é simples: permitir a continuação de uma <em>atividade</em> iniciada em um device por outro, desde que esteja <em>próximo</em> e vinculado à mesma conta iCloud. Essas restrições conferem <em>segurança</em> e <em>contexto</em>, impedindo que alguém com acesso físico a um de seus aparelhos possa visualizar ou continuar uma de suas atividades.</p>
+
+<h2 id="como-começar">Como começar</h2>
+<p>Para adotar o Handoff, o primeiro passo é mapear quais <em>atividades</em> de seu app serão expostas para continuidade, ou seja, identifique funções de alto nível em seu aplicativo cujo estado seria relevante compartilhar com um segundo aparelho de forma transparente. Como exemplos, o Safari permite que uma página visualizada inicialmente no celular seja lida no Mac e vice-versa, assim como o Mail permite que uma mensagem iniciada em um aparelho possa ser alterada e enviada em outro.</p>
+
+<h2 id="como-funciona">Como funciona</h2>
+<p>O <strong>Bluetooth LE</strong> é um dos elementos chave do Handoff: é ele quem confere ao recurso o fator <em>proximidade</em>. Quando uma <em>atividade</em> é declarada pelo desenvolvedor como elegível ao Handoff, é feito um <em>broadcast</em> pelo sistema para que dispositivos próximos - e conectados à mesma conta do iCloud - possam continuar a atividade atual.</p>
+
+<p>O interessante é que até este momento, nenhuma informação foi de fato trafegada, apenas o pequeno pacote de <em>advertising</em> do Bluetooth. Somente quando uma aplicação elegível - isto é, que tenha sido assinada pelo mesmo <em>Team ID</em> - for acionada pelo usuário para continuar a <em>atividade</em> é que inicia a transferência de dados, via <em>WiFi</em>, para o dispositivo de destino.</p>
+
+<h1 id="colocando-a-mão-na-massa">Colocando a mão na massa</h1>
+
+<h3 id="primeiro-passo-declarar-atividades">Primeiro passo: declarar atividades</h3>
+<p>Basta uma entrada no <code class="language-plaintext highlighter-rouge">Info.plist</code> do projeto indicando a lista de tipos que o app sabe lidar (recomenda-se nomenclatura estilo DNS reverso para evitar colisões).</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;key&gt;</span>NSUserActivityTypes<span class="nt">&lt;/key&gt;</span>
+<span class="nt">&lt;array&gt;</span>
+	<span class="nt">&lt;string&gt;</span>com.equinocios.Handoff.sample<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/array&gt;</span>
+</code></pre></div></div>
+
+<h3 id="segundo-passo-publicar-uma-atividade">Segundo passo: publicar uma atividade</h3>
+<p>Agora é preciso encapsular o estado da aplicação em um objeto <code class="language-plaintext highlighter-rouge">NSUserActivity</code>, que será transferido para um segundo app para dar continuidade à tarefa. Este app pode ser macOS, iOS, ou ainda um browser (para ativar este recurso utiliza-se o atributo <code class="language-plaintext highlighter-rouge">webpageURL</code>).</p>
+
+<p>O exemplo abaixo é o <em>bare bones</em> da implementação em um <code class="language-plaintext highlighter-rouge">UIViewController</code>, no iOS.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">userActivity</span> <span class="o">=</span> <span class="kt">NSUserActivity</span><span class="p">(</span><span class="nv">activityType</span><span class="p">:</span> <span class="s">"com.equinocios.Handoff.sample"</span><span class="p">)</span>
+<span class="n">userActivity</span><span class="o">.</span><span class="n">isEligibleForHandoff</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="n">userActivity</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">"Novo artigo"</span>
+<span class="n">userActivity</span><span class="o">.</span><span class="n">userInfo</span> <span class="o">=</span> <span class="p">[</span><span class="s">"user"</span><span class="p">:</span> <span class="s">"nobre84"</span><span class="p">,</span> <span class="s">"title"</span><span class="p">:</span> <span class="s">"Adotando Handoff em iOS e macOS"</span><span class="p">,</span> <span class="s">"body"</span><span class="p">:</span> <span class="s">"# Continuidade</span><span class="se">\n</span><span class="s">Handoff faz parte de ..."</span><span class="p">,</span> <span class="s">"cursorPosition"</span><span class="p">:</span> <span class="mi">110</span> <span class="p">]</span>
+<span class="n">userActivity</span><span class="o">.</span><span class="n">webpageURL</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"http://equinocios.com/continuidade/2017/03/28/adotando-handoff"</span><span class="p">)</span>
+<span class="k">self</span><span class="o">.</span><span class="n">userActivity</span> <span class="o">=</span> <span class="n">userActivity</span>
+</code></pre></div></div>
+
+<p>O <code class="language-plaintext highlighter-rouge">userInfo</code> é o principal mecanismo utilizado para trafegar o estado da aplicação. Nele você deverá incluir tudo que for necessário para recriar o estado exato da <em>atividade</em> do usuário em um dado momento. Um bom candidato para se encarregar disto é o seu <code class="language-plaintext highlighter-rouge">view model</code> ou outra forma de separação de responsabilidades, uma vez que é interessante que o <em>boilerplate</em> que lida com a criação da <code class="language-plaintext highlighter-rouge">NSUserActivity</code> não conheça o estado de suas <em>views</em>. Além disso, este não é o único local onde estas informações se farão necessárias, como veremos mais adiante.</p>
+
+<h3 id="terceiro-passo-continuar-uma-atividade">Terceiro passo: continuar uma atividade</h3>
+<p>Para concluir o processo é preciso implementar o método <code class="language-plaintext highlighter-rouge">application(_:​continue:​restoration​Handler:​)</code> no <em>App Delegate</em> da aplicação macOS ou iOS. É o mesmo método utilizado para receber informações a respeito de buscas utilizando a API de Spotlight ou Intents do Siri.<br />
+Baseado no <code class="language-plaintext highlighter-rouge">activityType</code> da <code class="language-plaintext highlighter-rouge">userActivity</code>, você deve definir a tela a qual seu app será redirecionado, e seu conteúdo através do <code class="language-plaintext highlighter-rouge">userInfo</code>. Isto pode ser feito repassando a <code class="language-plaintext highlighter-rouge">userActivity</code> para os <em>childs</em> desde o <code class="language-plaintext highlighter-rouge">rootViewController</code> usando o método <code class="language-plaintext highlighter-rouge">restoreUserActivityState</code>, sobrescrevendo-o em cada ponto da hierarquia e passando-a adiante, até alcançar o <em>controller</em> relevante para atualizar seu estado; ou recriar a hierarquia de views do zero para atender o <em>atividade</em> - o que na minha opinião faz mais sentido.
+Para gerenciar este fluxo pode ser utilizado algum mecanismo de roteamento, que desacople do app delegate de forma flexível (e testável!) essa complexa lógica de <strong>qual</strong> <em>view controller</em> exibir dado uma <code class="language-plaintext highlighter-rouge">NSUserActivity</code>. Dica: essa lógica pode ser similar à utilizada para definir o <code class="language-plaintext highlighter-rouge">rootViewController</code> da sua <code class="language-plaintext highlighter-rouge">Window</code> no <code class="language-plaintext highlighter-rouge">application(_:didFinishLaunchingWithOptions:)</code>.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span> <span class="k">continue</span> <span class="nv">userActivity</span><span class="p">:</span> <span class="kt">NSUserActivity</span><span class="p">,</span> <span class="nv">restorationHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+
+	<span class="c1">// Repassando a userActivity, cada um dos controllers na hierarquia deve sobrescrever o método abaixo e empurrando a userActivity para o próximo child</span>
+	<span class="k">self</span><span class="o">.</span><span class="n">window</span><span class="p">?</span><span class="o">.</span><span class="n">rootViewController</span><span class="p">?</span><span class="o">.</span><span class="nf">restoreUserActivityState</span><span class="p">(</span><span class="n">userActivity</span><span class="p">)</span>
+
+	<span class="c1">// Ou recriando toda a hierarquia para atender ao Handoff</span>
+	<span class="k">if</span> <span class="k">let</span> <span class="nv">router</span> <span class="o">=</span> <span class="kt">Router</span><span class="p">(</span><span class="nv">activity</span><span class="p">:</span> <span class="n">userActivity</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">// Obtém uma pilha de controllers que represente o estado correto do app</span>
+		<span class="k">let</span> <span class="nv">hierarchy</span> <span class="o">=</span> <span class="n">router</span><span class="o">.</span><span class="nf">buildHierarchy</span><span class="p">()</span>
+		<span class="c1">// Substitui o rootViewController da Window e empilha os demais</span>
+		<span class="n">router</span><span class="o">.</span><span class="nf">appendHierarchy</span><span class="p">(</span><span class="nv">window</span><span class="p">:</span> <span class="n">window</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="kc">true</span>
+
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span> <span class="n">willContinueUserActivityWithType</span> <span class="nv">userActivityType</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+	<span class="c1">// Sabe-se que irá ocorrer um Handoff, mas o userInfo ainda não foi transmitido.</span>
+	<span class="c1">// Pode ser utilizado para exibir feedback ao usuário e/ou exibir um overlay para uma transição suave</span>
+	<span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span> <span class="n">didFailToContinueUserActivityWithType</span> <span class="nv">userActivityType</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// Pode-se exibir feedback de que um problema ocorreu e/ou desfazer um overlay apresentado no willContinueUserActivityWithType</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="the-good">The Good</h1>
+<p>Pronto! Agora nossos apps são capazes de publicar uma atividade e continuá-la em outro device! Isto é realmente incrível, um rápido rascunho pode ser finalizado em um poderoso Mac à noite em casa, assim como um importante e-mail iniciado em casa pode ser enviado no meio do trânsito. A Apple vai te olhar com bons olhos, quem sabe até dê um feature pro seu app! A API é simples, e você já tem praticamente metade do esforço necessário para também adicionar suporte a Spotlight Searching pro seu app ao usar <code class="language-plaintext highlighter-rouge">NSUserActivity</code>’s. Mas, nem tudo são flores!</p>
+
+<h1 id="the-bad">The Bad</h1>
+<p>A API, apesar de simples, possui algumas <em>idiossincrasias</em>. Lembra do exemplo <em>bare bones</em> que dei lá em cima? Ele não funciona. Faltaram alguns detalhes importantes, os quais a documentação não é muito clara a respeito. 
+O ciclo de vida de uma <code class="language-plaintext highlighter-rouge">NSUserActivity</code> é atrelado a um <code class="language-plaintext highlighter-rouge">delegate</code>, que <em>UIKit/AppKit</em> já cuidam para nós através de extensões de <code class="language-plaintext highlighter-rouge">UIResponder</code> - o próprio <em>controller</em>, bastando setar a propriedade <code class="language-plaintext highlighter-rouge">userActivity</code> do mesmo.
+Ao setar a <code class="language-plaintext highlighter-rouge">userActivity</code> de um <em>controller</em> no iOS, a mesma está ativa e fazendo <em>broadcast</em> da <em>atividade</em>, mesmo que ela não seja mais relevante no seu app (o usuário navegou para outro <em>controller</em> por exemplo). É necessário então cuidar do ciclo de vida - normalmente acompanhando o do próprio <em>controller</em>. Já o <em>macOS</em> faz a coisa certa neste caso.<br />
+Ambas plataformas, porém, proveem uma forma de manter o estado do <code class="language-plaintext highlighter-rouge">userInfo</code> de uma <code class="language-plaintext highlighter-rouge">NSUserActivity</code> o mais atualizado possível, através do método <code class="language-plaintext highlighter-rouge">updateUserActivityState(_:)</code>, onde você terá a chance de atualizar o <code class="language-plaintext highlighter-rouge">userInfo</code> instantes antes de sua <em>atividade</em> ser transferida para outro dispositivo ou caso você sete manualmente a flag <code class="language-plaintext highlighter-rouge">needsSave</code> para <code class="language-plaintext highlighter-rouge">true</code>. Plausível, não é mesmo? O inesperado é que, parte da implementação deste método simplesmente <strong>esvazia</strong> todo o conteúdo do <code class="language-plaintext highlighter-rouge">userInfo</code>! Ou seja, se você não fizer <em>override</em> deste método, nada funciona!<br />
+Existe também uma propriedade chamada <code class="language-plaintext highlighter-rouge">requiredUserInfoKeys</code> que, digamos, indica que tudo que você adicionar ao <code class="language-plaintext highlighter-rouge">userInfo</code> e não adicionar aqui, será jogado fora! Astuto, não!? Tem uma pequena nota documentando este comportamento, mas até hoje não consigo ver o sentido. 
+Corrigindo então nossa implementação ingênua para algo mais próximo da realidade:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidAppear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">viewDidAppear</span><span class="p">(</span><span class="n">animated</span><span class="p">)</span>
+    <span class="nf">startUserActivity</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidDisappear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">viewDidDisappear</span><span class="p">(</span><span class="n">animated</span><span class="p">)</span>
+    <span class="nf">stopUserActivity</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">override</span> <span class="kd">func</span> <span class="nf">updateUserActivityState</span><span class="p">(</span><span class="n">_</span> <span class="nv">userActivity</span><span class="p">:</span> <span class="kt">NSUserActivity</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">userActivity</span><span class="o">.</span><span class="nf">addUserInfoEntries</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="nf">uiStateDictionary</span><span class="p">())</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">updateUserActivityState</span><span class="p">(</span><span class="n">userActivity</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">func</span> <span class="nf">startUserActivity</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">userActivity</span> <span class="o">=</span> <span class="kt">NSUserActivity</span><span class="p">(</span><span class="nv">activityType</span><span class="p">:</span> <span class="s">"com.equinocios.Handoff.sample"</span><span class="p">)</span>
+    <span class="n">userActivity</span><span class="o">.</span><span class="n">isEligibleForHandoff</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">userActivity</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">"Novo artigo"</span>
+    <span class="n">userActivity</span><span class="o">.</span><span class="n">userInfo</span> <span class="o">=</span> <span class="nf">uiStateDictionary</span><span class="p">()</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">keys</span> <span class="o">=</span> <span class="n">userActivity</span><span class="o">.</span><span class="n">userInfo</span><span class="p">?</span><span class="o">.</span><span class="n">keys</span> <span class="p">{</span>
+        <span class="n">userActivity</span><span class="o">.</span><span class="n">requiredUserInfoKeys</span> <span class="o">=</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">(</span><span class="n">keys</span><span class="o">.</span><span class="n">flatMap</span> <span class="p">{</span> <span class="nv">$0</span> <span class="k">as?</span> <span class="kt">String</span> <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="n">userActivity</span><span class="o">.</span><span class="n">webpageURL</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"http://equinocios.com/continuidade/2017/03/28/adotando-handoff"</span><span class="p">)</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">userActivity</span> <span class="o">=</span> <span class="n">userActivity</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">func</span> <span class="nf">stopUserActivity</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">userActivity</span><span class="p">?</span><span class="o">.</span><span class="nf">invalidate</span><span class="p">()</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">userActivity</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">func</span> <span class="nf">uiStateDictionary</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span> <span class="kt">AnyHashable</span><span class="p">:</span> <span class="kt">Any</span> <span class="p">]</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s">"user"</span><span class="p">:</span> <span class="s">"nobre84"</span><span class="p">,</span> <span class="s">"title"</span><span class="p">:</span> <span class="s">"Adotando Handoff em iOS e macOS"</span><span class="p">,</span> <span class="s">"body"</span><span class="p">:</span> <span class="s">"# Continuidade</span><span class="se">\n</span><span class="s">Handoff faz parte de ..."</span><span class="p">,</span> <span class="s">"cursorPosition"</span><span class="p">:</span> <span class="mi">110</span> <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Outro aspecto documentado, mas que pode pegá-lo de surpresa, agora ao continuar a <em>atividade</em>, é que se por algum motivo o seu método <code class="language-plaintext highlighter-rouge">application(_:didFinishLaunchingWithOptions:)</code> retornar <code class="language-plaintext highlighter-rouge">false</code>, o sistema jamais chamará o método <code class="language-plaintext highlighter-rouge">application(_:​continue:​restoration​Handler:​)</code> e você não poderá concluir o processo. Logo, caso você manipule o retorno do primeiro método, terá de identificar se o app foi aberto por conta de uma <em>atividade</em> inspecionando o dicionário <code class="language-plaintext highlighter-rouge">launchOptions</code> quanto à presença da chave <code class="language-plaintext highlighter-rouge">user​Activity​Dictionary</code>, retornando <code class="language-plaintext highlighter-rouge">true</code> neste caso.</p>
+
+<h1 id="the-ugly">The Ugly</h1>
+<p>O Handoff apresenta em algumas ocasiões falhas que podem te deixar louco. Em muitos casos basta tentar novamente e tudo dá certo, porém não é incomum ter que deslogar e logar novamente no iCloud vezes para corrigir algum problema inexplicável, sobretudo quando se está utilizando versões diferentes do iOS (o recurso está disponível desde o iOS 8).<br />
+Entretanto, a coroa vai pra um bug que pouca ou nenhuma informação encontrei a respeito na Web (<a href="http://stackoverflow.com/questions/38462031/cant-handoff-from-mac-to-ios-even-though-handoff-from-ios-to-mac-works-fine?noredirect=1#comment72785636_38462031">1</a>, <a href="http://stackoverflow.com/questions/41720356/native-mac-app-fails-to-handoff-to-native-ios-app">2</a>, <a href="https://forums.developer.apple.com/search.jspa?q=handoff">3</a>), e que tenho um <em>DTS</em> da Apple em aberto até hoje (reproduziram o problema mas não possuem solução), é o fato de que (ao menos em ambiente de desenvolvimento) um Handoff iniciado no Mac não aparece em outros dispositivos, enquanto do iOS para iOS ou iOS para Mac funciona normalmente. Nosso colega <a href="https://twitter.com/reprotector" target="_blank">Renan Protector</a> utiliza Handoff no <a href="https://getblogo.com" target="_blank">Blogo</a> e segundo ele, em produção tudo funciona. Espero compartilhar da mesma experiência em breve!</p>
+
+<h1 id="conclusão">Conclusão</h1>
+<p>Fora os pequenos grilos, é uma tecnologia muito interessante e útil para se adotar! A experiência do usuário é a privilegiada, mesmo que a custo de alguns cabelos brancos!<br />
+Dúvidas, críticas e sugestões, enviem pelos comentários abaixo, ou diretamente no <a href="http://iosdevbr.herokuapp.com">Slack iOS Dev BR</a> - <code class="language-plaintext highlighter-rouge">@nobre84</code>. Até a próxima!</p>
+
+<h1 id="referência-oficial">Referência oficial:</h1>
+<ul>
+  <li><a href="https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/Handoff/HandoffFundamentals/HandoffFundamentals.html#//apple_ref/doc/uid/TP40014338-CH3-SW1">Handoff Programming Guide</a></li>
+</ul>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/bluetooth/2017/03/26/corebluetooth-na-pratica/" data-toggle="tooltip" data-placement="top" title="CoreBluetooth na Prática">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/ui/2017/03/29/introducao-ao-asyncdisplaykit-construa-interfaces-asyncronas-no-iOS/" data-toggle="tooltip" data-placement="top" title="Interfaces assíncronas com AsyncDisplayKit">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

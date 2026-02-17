@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>UITests com Embassy e Ambassador - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/testes/2017/03/11/uitests-com-embassy-e-ambassador/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>UITests com Embassy e Ambassador</h1>
+                        
+                        <h2 class="subheading">Mockando a sua API no target de testes</h2>
+                        
+                        <span class="meta">Postado por Emannuel Carvalho em 11/03/2017</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=UITests com Embassy e Ambassador&url=http://localhost:4000/testes/2017/03/11/uitests-com-embassy-e-ambassador/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/testes/2017/03/11/uitests-com-embassy-e-ambassador/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/testes/2017/03/11/uitests-com-embassy-e-ambassador/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/testes/2017/03/11/uitests-com-embassy-e-ambassador/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<h1 id="uitest-com-embassy--ambassador">UITest com Embassy &amp; Ambassador</h1>
+
+<h2 id="objetivo">Objetivo</h2>
+
+<p>Esse post tem objetivos bem modestos. A ideia é simplesmente falar sobre um desafio que eu enfrentei em um projeto recente (testar a UI de maneira isolada e independente) e apresentar as ferramentas que eu encontrei e que foram muito úteis (<a href="https://github.com/envoy/Embassy" target="_blank">Embassy</a> e <a href="https://github.com/envoy/Ambassador" target="_blank">Ambassador</a>).</p>
+
+<p>Foi uma experiência legal e até meio surpreendente de certa forma. Espero que isso possa ser útil pra outras pessoas também 😊</p>
+
+<h2 id="motivação">Motivação</h2>
+
+<p>Algo que sempre me chamou a atenção é a interação entre pessoas de diferentes áreas e com diferentes backgrounds. Eu costumo me agradar muito com as iniciativas que têm como objetivo tornar essa interação mais agradável e produtiva. Foi esse pensamento que me motivou a implementar testes de UI no projeto que eu estava trabalhando nos últimos meses.</p>
+
+<p>Diferente dos testes unitários, os testes de UI tem essa característica de observar o funcionamento do app “pelo lado de fora” e isso pode ser uma porta de entrada para “não-programadores” se envolverem mais com o processo de desenvolvimento, uma vez que não é necessário conhecer a implementação do app pra testar. Além disso, o código em um teste de UI costuma ser bem mais legível (menos assustador? 🤔) pra quem não está acostumado a codar.</p>
+
+<p>Nesse projeto eu resolvi escrever os meus primeiros UITests. E eu precisei pesquisar como eu faria pra que os meus testes não tocassem no servidor. Naquele momento nós só tínhamos o servidor de homologação então de cara havia duas opções: (1) criar um servidor para os testes e passar uma url diferente como variável de ambiente no launch; ou (2) mockar as respostas do servidor na própria camada de network e retornar essas respostas quando estiver rodando os testes de UI.</p>
+
+<p>A primeira opção não me pareceu uma boa ideia. Os testes dependeriam da conexão e do servidor, de modo que qualquer falha em um desses dois acarretaria em uma alteração no resultado dos testes.<br />
+A segunda opção não me parecia tão problemática, mas ainda não era o ideal. O que me fez pensar duas vezes foi o fato de que haveria bastante código no app que não servia pro app em si, mas sim pros meus testes.</p>
+
+<p>Eu fui procurar uma terceira opção e acabei encontrando <a href="https://envoy.engineering/embedded-web-server-for-ios-ui-testing-8ff3cef513df#.t2rr3w9db" target="_blank">este artigo</a>. Com o Embassy e o Ambassador, a ideia é que o seu servidor rode no próprio target de testes e você pode definir a resposta que você quer retornar no próprio método onde a UI será testada. Além disso, é possível verificar os dados que o app está enviando para o servidor a partir de ações na interface.</p>
+
+<p>Eu gostei muito da ideia. Os testes vão ficar isolados e a definição do que o app está recebendo fica logo acima dos asserts que verificam se a interface está como deveria, tornando bem mais visível (mesmo pra quem não está acostumado com o código) a relação entre o que o app está esperando de retorno da API e a interface.</p>
+
+<h2 id="configurando-o-projeto">Configurando o projeto</h2>
+
+<p>Para que o nosso app tenha acesso ao servidor local, é preciso fazer algumas configurações. Em primeiro lugar, você deve incluir o <code class="language-plaintext highlighter-rouge">Embassy</code> e o <code class="language-plaintext highlighter-rouge">Ambassador</code> no projeto. Eu fiz isso usando cocoapods:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>target 'JustDevsUITests' do
+    inherit! :search_paths
+
+    pod 'Embassy', '~&gt; 3.0'
+    pod 'EnvoyAmbassador', '~&gt; 3.0'
+end
+</code></pre></div></div>
+
+<p>Para as configurações do servidor, eu criei uma <em>UITestBase</em> com as configurações necessárias:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">XCTest</span>
+
+<span class="kd">import</span> <span class="kt">Embassy</span>
+<span class="kd">import</span> <span class="kt">EnvoyAmbassador</span>
+
+<span class="kd">class</span> <span class="kt">UITestBase</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
+    
+    <span class="k">let</span> <span class="nv">port</span> <span class="o">=</span> <span class="mi">8088</span>
+    <span class="k">var</span> <span class="nv">router</span><span class="p">:</span> <span class="kt">Router</span><span class="o">!</span>
+    <span class="k">var</span> <span class="nv">eventLoop</span><span class="p">:</span> <span class="kt">SelectorEventLoop</span><span class="o">!</span>
+    <span class="k">var</span> <span class="nv">server</span><span class="p">:</span> <span class="kt">HTTPServer</span><span class="o">!</span>
+    <span class="k">var</span> <span class="nv">app</span><span class="p">:</span> <span class="kt">XCUIApplication</span><span class="o">!</span>
+    
+    <span class="k">var</span> <span class="nv">eventCondition</span><span class="p">:</span> <span class="kt">NSCondition</span><span class="o">!</span>
+    <span class="k">var</span> <span class="nv">eventLoopThread</span><span class="p">:</span> <span class="kt">Thread</span><span class="o">!</span>
+        
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">setUp</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">setUp</span><span class="p">()</span>
+        <span class="nf">setupWebApp</span><span class="p">()</span>
+        <span class="nf">setupApp</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">setupWebApp</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">eventLoop</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">SelectorEventLoop</span><span class="p">(</span><span class="nv">selector</span><span class="p">:</span> <span class="k">try!</span> <span class="kt">KqueueSelector</span><span class="p">())</span>
+        <span class="n">router</span> <span class="o">=</span> <span class="kt">Router</span><span class="p">()</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="kt">DefaultHTTPServer</span><span class="p">(</span><span class="nv">eventLoop</span><span class="p">:</span> <span class="n">eventLoop</span><span class="p">,</span> <span class="nv">port</span><span class="p">:</span> <span class="n">port</span><span class="p">,</span> <span class="nv">app</span><span class="p">:</span> <span class="n">router</span><span class="o">.</span><span class="n">app</span><span class="p">)</span>
+        
+        <span class="k">try!</span> <span class="n">server</span><span class="o">.</span><span class="nf">start</span><span class="p">()</span>
+        
+        <span class="n">eventCondition</span> <span class="o">=</span> <span class="kt">NSCondition</span><span class="p">()</span>
+        <span class="n">eventLoopThread</span> <span class="o">=</span> <span class="kt">Thread</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">selector</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">UITestBase.runEventLoop</span><span class="kd">)</span><span class="p">,</span> <span class="nv">object</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+        <span class="n">eventLoopThread</span><span class="o">.</span><span class="nf">start</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">setupApp</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">app</span> <span class="o">=</span> <span class="kt">XCUIApplication</span><span class="p">()</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">launchEnvironment</span><span class="p">[</span><span class="s">"webserviceURL"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"http://[::1]:8088"</span>
+    <span class="p">}</span>
+    
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">tearDown</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">tearDown</span><span class="p">()</span>
+        <span class="n">app</span><span class="o">.</span><span class="nf">terminate</span><span class="p">()</span>
+        <span class="n">server</span><span class="o">.</span><span class="nf">stopAndWait</span><span class="p">()</span>
+        <span class="n">eventLoop</span><span class="o">.</span><span class="nf">stop</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="kd">@objc</span> <span class="kd">func</span> <span class="nf">runEventLoop</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">eventLoop</span><span class="o">.</span><span class="nf">runForever</span><span class="p">()</span>
+        <span class="n">eventCondition</span><span class="o">.</span><span class="nf">lock</span><span class="p">()</span>
+        <span class="n">eventCondition</span><span class="o">.</span><span class="nf">signal</span><span class="p">()</span>
+        <span class="n">eventCondition</span><span class="o">.</span><span class="nf">unlock</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>No método <code class="language-plaintext highlighter-rouge">setupWebApp()</code> eu inicializo o server e crio o <code class="language-plaintext highlighter-rouge">router</code>, que será usado para definir as respostas do servidor para cada request.</p>
+
+<p>No <code class="language-plaintext highlighter-rouge">setupApp()</code> eu crio o <code class="language-plaintext highlighter-rouge">XCUIApplication</code> e passo a url para o app. No código do app, a única mudança que eu preciso fazer é uma verificação se essa url foi passada, se tiver sido, ela se torna a <em>base url</em> da API.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">baseURL</span> <span class="o">=</span> <span class="kt">ProcessInfo</span><span class="o">.</span><span class="n">processInfo</span><span class="o">.</span><span class="n">environment</span><span class="p">[</span><span class="s">"webserviceURL"</span><span class="p">]</span> <span class="p">??</span> <span class="s">"http://realurlgoeshere.com"</span>
+</code></pre></div></div>
+
+<p>Ok! Servidor configurado! Vamos ver os testes em ação.</p>
+
+<h2 id="app-de-exemplo">App de exemplo</h2>
+
+<p>O app de exemplo é bem simples. É uma nano-rede social para desenvolvedores iOS, onde você pode se cadastrar e publicar uma única frase ou citação que diz algo sobre você. Além disso você pode ver os usuários cadastrados e as frases que eles publicaram. Ele apresenta uma lista de Devs e ao selecionar um deles, o usuário vai pra uma tela de detalhe que mostra a frase publicada.</p>
+
+<p><img src="/img/emannuelOC/list_devs.png" /></p>
+
+<p>A primeira tela é uma tableView em que cada célula mostra no <code class="language-plaintext highlighter-rouge">textLabel</code> o nome do dev naquela posição.</p>
+
+<p>A segunda tela contém somente uma label com a frase referente ao dev selecionado e o seu nome no title da <code class="language-plaintext highlighter-rouge">navigationBar</code>.</p>
+
+<p><img src="/img/emannuelOC/detail_screen.png" /></p>
+
+<h2 id="testando-a-ui">Testando a UI</h2>
+
+<p>No nosso teste, quando o app abrir vai ser feita uma chamada para o servidor que deve retornar a lista de desenvolvedores cadastrados.</p>
+
+<p>O retorno com a lista para o nosso “micro-exemplo” ficou mais ou menos assim:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">mockData</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"Emannuel Carvalho"</span><span class="p">,</span>
+        <span class="s">"quote"</span><span class="p">:</span> <span class="s">"O equinociOS está demais! 🚀"</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="mi">214</span><span class="p">,</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"Francesco Perrotti-Garcia"</span><span class="p">,</span>
+        <span class="s">"quote"</span><span class="p">:</span> <span class="s">"Vc não quer um pato 🐥, vc quer um Quackable!"</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="mi">235</span><span class="p">,</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"Kaique D'amato"</span><span class="p">,</span>
+        <span class="s">"quote"</span><span class="p">:</span> <span class="s">"Computação molecular não é complicado!!!"</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="mi">236</span><span class="p">,</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"Fernando Bunn"</span><span class="p">,</span>
+        <span class="s">"quote"</span><span class="p">:</span> <span class="s">"Parei de ler o artigo quando vi </span><span class="se">\"</span><span class="s">Cocoapods</span><span class="se">\"</span><span class="s">."</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="mi">237</span><span class="p">,</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"Rafael Feroli"</span><span class="p">,</span>
+        <span class="s">"quote"</span><span class="p">:</span> <span class="s">"O que eu to fazendo aqui?! Eu sou designer!"</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="mi">238</span><span class="p">,</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"Steph Curry"</span><span class="p">,</span>
+        <span class="s">"quote"</span><span class="p">:</span> <span class="s">"🏀 Lock in #DubNation"</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="mi">241</span><span class="p">,</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"Ezequiel França"</span><span class="p">,</span>
+        <span class="s">"quote"</span><span class="p">:</span> <span class="s">"Não é stalking, é uma espécie de pesquisa sociológica dos devs do séc. XXI"</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="mi">242</span><span class="p">,</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"Guilherme Rambo"</span><span class="p">,</span>
+        <span class="s">"quote"</span><span class="p">:</span> <span class="s">"Curti! Vou fazer uma versão pro macOS... [3 minutes later] Pronto ✅"</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s">"id"</span><span class="p">:</span> <span class="mi">243</span><span class="p">,</span>
+        <span class="s">"name"</span><span class="p">:</span> <span class="s">"Douglas Fischer"</span><span class="p">,</span>
+        <span class="s">"quote"</span><span class="p">:</span> <span class="s">"To ➡️pagando⬅️ pra ver o que vão escrever de mim. Pelo menos não tem mention no blog! 😅"</span>
+    <span class="p">]</span>
+<span class="p">]</span>
+</code></pre></div></div>
+<p>Para definir os dados que serão retornados, basta retornar um dicionário ou array contendo as informações no bloco da <code class="language-plaintext highlighter-rouge">JSONResponse</code> - que por sua vez pode estar dentro de uma <code class="language-plaintext highlighter-rouge">DelayResponse</code>, caso você queira simular um atraso na resposta.</p>
+
+<p>Podemos então escrever o nosso código com base nas informações que nós sabemos que virão do servidor. Segundo o retorno definido, a tableView deve mostrar uma lista com os nomes.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">testShowingItems</span><span class="p">()</span> <span class="p">{</span>
+        
+    <span class="n">router</span><span class="p">[</span><span class="s">"/developers"</span><span class="p">]</span> <span class="o">=</span> <span class="kt">DelayResponse</span><span class="p">(</span><span class="kt">JSONResponse</span><span class="p">(</span><span class="nv">handler</span><span class="p">:</span> <span class="p">{</span> <span class="p">[</span><span class="k">unowned</span> <span class="k">self</span><span class="p">]</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="kt">Any</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">mockData</span>
+    <span class="p">}),</span> <span class="nv">delay</span><span class="p">:</span> <span class="o">.</span><span class="nf">delay</span><span class="p">(</span><span class="nv">seconds</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">))</span>
+    
+    <span class="n">app</span><span class="o">.</span><span class="nf">launch</span><span class="p">()</span>
+
+    
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="nf">children</span><span class="p">(</span><span class="nv">matching</span><span class="p">:</span> <span class="o">.</span><span class="n">staticText</span><span class="p">)[</span><span class="s">"Emannuel Carvalho"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="nf">children</span><span class="p">(</span><span class="nv">matching</span><span class="p">:</span> <span class="o">.</span><span class="n">staticText</span><span class="p">)[</span><span class="s">"Francesco Perrotti-Garcia"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="nf">children</span><span class="p">(</span><span class="nv">matching</span><span class="p">:</span> <span class="o">.</span><span class="n">staticText</span><span class="p">)[</span><span class="s">"Kaique D'amato"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="nf">children</span><span class="p">(</span><span class="nv">matching</span><span class="p">:</span> <span class="o">.</span><span class="n">staticText</span><span class="p">)[</span><span class="s">"Fernando Bunn"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="nf">children</span><span class="p">(</span><span class="nv">matching</span><span class="p">:</span> <span class="o">.</span><span class="n">staticText</span><span class="p">)[</span><span class="s">"Rafael Feroli"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="nf">children</span><span class="p">(</span><span class="nv">matching</span><span class="p">:</span> <span class="o">.</span><span class="n">staticText</span><span class="p">)[</span><span class="s">"Steph Curry"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    
+    <span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="nf">swipeUp</span><span class="p">()</span>
+    
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="nf">children</span><span class="p">(</span><span class="nv">matching</span><span class="p">:</span> <span class="o">.</span><span class="n">staticText</span><span class="p">)[</span><span class="s">"Ezequiel França"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="nf">children</span><span class="p">(</span><span class="nv">matching</span><span class="p">:</span> <span class="o">.</span><span class="n">staticText</span><span class="p">)[</span><span class="s">"Guilherme Rambo"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">cells</span><span class="o">.</span><span class="nf">children</span><span class="p">(</span><span class="nv">matching</span><span class="p">:</span> <span class="o">.</span><span class="n">staticText</span><span class="p">)[</span><span class="s">"Douglas Fischer"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Se tudo ocorrer como deveria, a tableView deve conter uma célula com o nome de cada uma das pessoas listadas. O <code class="language-plaintext highlighter-rouge">swipeUp()</code> é para garantir que mesmo num device com a tela menor, todos os itens poderão ser exibidos.</p>
+
+<p>No nosso exemplo, ao selecionar um nome da lista o app vai pra uma nova tela com os detalhes da pessoa selecionada. Pra isso, é feita uma chamada para a nossa API, passando o <code class="language-plaintext highlighter-rouge">id</code> do desenvolvedor. Assim, é possível testar se ao selecionar uma pessoa da lista o app está realmente fazendo a chamada adequada.</p>
+
+<p>No próprio bloco onde é definida a resposta pra um dado caminho é possível testar se as informações passadas estão corretas.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">testSelectingDeveloper</span><span class="p">()</span> <span class="p">{</span>
+        
+    <span class="n">router</span><span class="p">[</span><span class="s">"/developers"</span><span class="p">]</span> <span class="o">=</span> <span class="kt">DelayResponse</span><span class="p">(</span><span class="kt">JSONResponse</span><span class="p">()</span> <span class="p">{</span> <span class="p">[</span><span class="k">unowned</span> <span class="k">self</span><span class="p">]</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="kt">Any</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">mockData</span>
+    <span class="p">},</span> <span class="nv">delay</span><span class="p">:</span> <span class="o">.</span><span class="nf">delay</span><span class="p">(</span><span class="nv">seconds</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">))</span>
+    
+    <span class="n">router</span><span class="p">[</span><span class="s">"/developer/details"</span><span class="p">]</span> <span class="o">=</span> <span class="kt">JSONResponse</span><span class="p">()</span> <span class="p">{</span> <span class="p">[</span><span class="k">unowned</span> <span class="k">self</span><span class="p">]</span> <span class="n">environ</span> <span class="o">-&gt;</span> <span class="kt">Any</span> <span class="k">in</span>
+        
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">input</span> <span class="o">=</span> <span class="n">environ</span><span class="p">[</span><span class="s">"swsgi.input"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">SWSGIInput</span> <span class="p">{</span>
+            <span class="kt">JSONReader</span><span class="o">.</span><span class="nf">read</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">json</span><span class="p">)</span> <span class="k">in</span>
+                <span class="k">if</span> <span class="k">let</span> <span class="nv">info</span> <span class="o">=</span> <span class="n">json</span> <span class="k">as?</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="p">{</span>
+                    <span class="c1">// o `info` contém os parâmetros passados na chamada</span>
+                    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s">"developer_id"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">Int</span> <span class="o">==</span> <span class="mi">214</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">})</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">userDetailsData</span>
+    <span class="p">}</span>
+    
+    <span class="n">app</span><span class="o">.</span><span class="nf">launch</span><span class="p">()</span>
+    
+    <span class="kt">XCUIApplication</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">staticTexts</span><span class="p">[</span><span class="s">"Francesco Perrotti-Garcia"</span><span class="p">]</span><span class="o">.</span><span class="nf">tap</span><span class="p">()</span>
+    
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">staticTexts</span><span class="p">[</span><span class="s">"Francesco Perrotti-Garcia"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">staticTexts</span><span class="p">[</span><span class="s">"Vc não quer um pato 🐥"</span><span class="p">]</span><span class="o">.</span><span class="n">exists</span><span class="p">)</span>
+    
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Além de garantir que as os parâmetros certos estão sendo enviados, o teste também verifica se o app está mostrando a frase correta - afinal de contas, esse é um teste de UI.</p>
+
+<p>Aqui certamente cabe uma discussão sobre se um teste de <em>UI</em> é o local para verificar os parâmetros passados na chamada http. Eu vou deixar a discussão mais profunda pra quem é mais “gente grande”. Nesse post fica só a apresentação da funcionalidade - que no meu caso foi bem útil!</p>
+
+<h2 id="concluindo">Concluindo</h2>
+
+<p>O <code class="language-plaintext highlighter-rouge">Embassy</code> e o <code class="language-plaintext highlighter-rouge">Ambassador</code> me ajudaram bastante com os testes de UI no último projeto em que eu trabalhei e eu espero que possa ser útil pra alguns de vocês também. Vale lembrar que são ferramentas abertas! Nós podemos clonar os projetos, contribuir e propor e implementar novas funcionalidades.</p>
+
+<p>Agradeço a leitura!</p>
+
+<p>Quaisquer críticas e/ou sugestões são mais que bem-vindas. Você pode me encontrar no <a href="https://twitter.com/emannuel_oc" target="_blank">Twitter</a> e no <a href="http://iosdevbr.herokuapp.com" target="_blank">Slack do iOSDevBR</a>.</p>
+
+<p>Grande abraço! 🙃</p>
+
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/arquitetura/2017/03/10/experiiecia-de-modularizacao-de-uma-biblioteca/" data-toggle="tooltip" data-placement="top" title="Experiências na modularização de um projeto de um SDK">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/swift/2017/03/12/Introducao-e-casos-de-uso-Map-Filter-e-Reduce/" data-toggle="tooltip" data-placement="top" title="Introdução e casos de uso: Map, Filter e Reduce.">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

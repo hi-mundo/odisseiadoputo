@@ -1,0 +1,13 @@
+# Site settings
+title: A odisseia do puto
+description: "Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião."
+date_format: "%d/%m/%Y"
+url: ""
+permalink: pretty
+exclude: ["README.md", ".gitignore"]
+
+# Build settings
+markdown: kramdown
+paginate: 50
+highlighter: rouge
+plugins: [jekyll-paginate, jekyll-feed]

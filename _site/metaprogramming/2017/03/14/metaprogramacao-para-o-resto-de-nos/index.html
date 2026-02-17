@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>Metaprogramação para o resto de nós - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/metaprogramming/2017/03/14/metaprogramacao-para-o-resto-de-nos/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Metaprogramação para o resto de nós</h1>
+                        
+                        <h2 class="subheading">Pare de escrever boilerplate</h2>
+                        
+                        <span class="meta">Postado por Francesco Perrotti-Garcia em 14/03/2017</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=Metaprogramação para o resto de nós&url=http://localhost:4000/metaprogramming/2017/03/14/metaprogramacao-para-o-resto-de-nos/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/metaprogramming/2017/03/14/metaprogramacao-para-o-resto-de-nos/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/metaprogramming/2017/03/14/metaprogramacao-para-o-resto-de-nos/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/metaprogramming/2017/03/14/metaprogramacao-para-o-resto-de-nos/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<blockquote>
+  <p>Francesco Perrotti-Garcia (<a href="https://twitter.com/fpg1503" target="_blank">@fpg1503</a>) é desenvolvedor iOS. Atualmente trabalha na <a href="https://www.moobie.com.br" target="_blank">Moobie</a>, já trabalhou em aplicativos como PlayKids, iFood e SpoonRocket. Programa desde os 12 anos e nos últimos 6 está cada vez mais próximo do desenvolvimento iOS. Swift mudou sua maneira de ver o mundo e até de como programar em Objective-C. Adora gatos e nas horas vagas gosta de viajar, cozinhar e tirar fotos. 🐥</p>
+</blockquote>
+
+<h1 id="o-que-é">O Que é?</h1>
+<p>Metaprogramação é uma palvara difícil simplesmente para dizer <em>programas que manipulam programas</em>. Especificamente neste artigo iremos falar sobre programas que escrevem programas (geração de código).</p>
+
+<h1 id="por-que-fazer">Por que fazer?</h1>
+<p>Você já se deparou copiando e colando código ou então fazendo um código extremamente verboso, com pouco signficado e propenso a erros? Já copiou e colou a chave errada ao serializar um JSON? Já consertou um bug em um lugar do código e depois descobriu que aquela trecho estava replicado por vários lugares e teve que sair caçando eles por aí?</p>
+
+<p>Para mim programar é criar abstrações de problemas do mundo real e metaprogramação é <strong>a arte de abstrair uma abstração</strong>.
+Ao usar metaprogramação você escreve menos código repetitivo e, com isso, menos bugs.</p>
+
+<h1 id="sourcery">Sourcery</h1>
+<p><a href="https://github.com/krzysztofzablocki/Sourcery">Sourcery</a> é uma ferramenta open source mantida pelo <a href="https://github.com/krzysztofzablocki">Krzysztof Zabłocki</a> que alavanca metaprogramação em Swift usando templates. Não se preocupe, vou explicar o que isso significa nos próximos parágrafos.</p>
+
+<h2 id="o-que-é-um-template">O que é um <em>template</em>?</h2>
+<p><em>Template</em> é uma palavra em inglês que pode ser traduzida como <strong>modelo</strong> ou <strong>gabarito</strong>. Imagine um template como um cortador de biscoitos, algo que dá forma ao que é colocado dentro, <strong>você pode usar um cortador de biscoitos em massinha de crianças mas isso não vai transformá-la em biscoito</strong>.
+<img src="/img/fpg1503/template.jpg" /></p>
+
+<h2 id="por-que-templates">Por que <em>templates</em>?</h2>
+<p>A magia dos templates é desacoplar o formato da implementação de fato. Quando tempos um formato que diz como algo vai ser implementado basta mudar um lugar (o template) e a mudança é propagada. Além disso podemos fazer templates para diferentes versões da linguagem ou até mesmo para diferentes linguagens!</p>
+
+<h2 id="stencil">Stencil</h2>
+<p><a href="http://github.com/kylef/Stencil">Stencil</a> é uma linguagem de templates para Swift criada e mantida pelo <a href="https://github.com/kylef">Kyle Fuller</a>, a ideia é criar uma maneira de expressar a apresentação de algo. Farei uma introdução rápida ao Stencil porém encorajo você a dar uma lida na <a href="http://stencil.fuller.li">documentação oficial</a>!</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">{{ ... }}</code>: imprime variáveis</li>
+  <li><code class="language-plaintext highlighter-rouge">{% ... %}</code>: funciona para tags (mais sobre elas abaixo)</li>
+</ul>
+
+<h2 id="tags">Tags</h2>
+<p>As duas tags mais importantes são <code class="language-plaintext highlighter-rouge">for</code> e <code class="language-plaintext highlighter-rouge">if</code>:</p>
+
+<h3 id="for"><code class="language-plaintext highlighter-rouge">for</code></h3>
+<p>Suponhamos que há uma lista de usuários (chamada <code class="language-plaintext highlighter-rouge">users</code>) e queremos listar todos eles um embaixo do outro:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% for user in users %}
+{{ user.name }}
+{% endfor %}</code></pre></figure>
+
+<p>Além disso podemos usar a tag <code class="language-plaintext highlighter-rouge">empty</code> para lidar com listas vazias:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% for user in users %}
+{{ user.name }}
+{% empty %}
+Não há usuários :(
+{% endfor %}</code></pre></figure>
+
+<p>E por final temos à nossa disposição o contexto <code class="language-plaintext highlighter-rouge">forloop</code> que possui três variáveis:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">first</code>: boleano que indica se é a primeira iteração do loop</li>
+  <li><code class="language-plaintext highlighter-rouge">last</code>: boleano que indica se é a última iteração do loop</li>
+  <li><code class="language-plaintext highlighter-rouge">counter</code>: iteração atual do loop</li>
+</ul>
+
+<h3 id="if"><code class="language-plaintext highlighter-rouge">if</code></h3>
+<p>O <code class="language-plaintext highlighter-rouge">if</code> avalia uma variável para verdadeira se um dos abaixo for válido:</p>
+<ul>
+  <li>presente no contexto</li>
+  <li>coleções: não vazias</li>
+  <li>boleano: verdadeiro</li>
+  <li>número: maior que zero</li>
+  <li>string: não vazia</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% if users.count == 42 and users.first.name == "Admin" %}
+Lista de usuários interessante
+{% else %}
+Lista de usuários padrão
+{% endif %}</code></pre></figure>
+
+<h3 id="filtros">Filtros</h3>
+<p>Além disso Stencil possui alguns filtros (e Sourcery adiciona outros bem interessantes):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">capitalize</code>: deixa a primeira letra da string em caixa alta e as demais em caixa baixa (<code class="language-plaintext highlighter-rouge">Taylor Swift -&gt; Tayor swift</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">uppercase</code>: deixa todas as letras da string em caixa alta (<code class="language-plaintext highlighter-rouge">Taylor Swift -&gt; TAYLOR SWIFT</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">lowercase</code>: deixa todas as letras da string em caixa baixa (<code class="language-plaintext highlighter-rouge">Taylor Swift -&gt; taylor swift</code>)</li>
+</ul>
+
+<p>Filtros são aplicados a uma variável usando o pipe (<code class="language-plaintext highlighter-rouge">|</code>), por exemplo: <code class="language-plaintext highlighter-rouge">Taylor Swift</code></p>
+
+<p>Há filtros que possuem parâmetros, esses parâmetros devem ser incluídos na forma <code class="language-plaintext highlighter-rouge">variável|filtro:parâmetro</code>, um exemplo é o filtro <code class="language-plaintext highlighter-rouge">join</code> em listas:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">// myList = ["Uma", "lista", "com", "várias", "palavras"]
+{{ myList|join:" 🥑 "}}
+// Imprime "Uma 🥑 lista 🥑 com 🥑 várias 🥑 palavras"</code></pre></figure>
+
+<p>Além disso podemos usar as e filtros <a href="https://github.com/krzysztofzablocki/Sourcery#custom-stencil-tags-and-filter">adicionadas pelo Sourcery</a> e nas últimas versões você também pode usar os <a href="https://github.com/SwiftGen/StencilSwiftKit">exportados pelo StencilSwfitKit</a>.</p>
+
+<h3 id="anotações">Anotações</h3>
+<p>Infelizmente Swift não possui suporte a anotações de código, no entanto Sourcery traz uma alternativa para isso: comentários com <code class="language-plaintext highlighter-rouge">/// sourcery</code>, veja o exemplo abaixo onde o <code class="language-plaintext highlighter-rouge">struct User</code> é anotado <code class="language-plaintext highlighter-rouge">AutoEquatable</code>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">/// sourcery: AutoEquatable</span>
+<span class="kd">struct</span> <span class="kt">User</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Falaremos mais de como aproveitar anotações mais abaixo porém por enquanto é interessante saber que podemos usar um filtro de Stencil (<code class="language-plaintext highlighter-rouge">annotated</code>) para encontrar apenas coisas anotadas, ou seja, se quisermos escrever algum código apenas para todas as variáveis anotadas <code class="language-plaintext highlighter-rouge">AutoInject</code> entro de um tipo <code class="language-plaintext highlighter-rouge">type</code> faríamos assim:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% for variable in type.variables|annotated:"AutoInject" %}
+{{ variable }}
+{% endfor %}</code></pre></figure>
+
+<p>A beleza das anotações serem inseridas em comentários é que códigos anotados ainda são códigos Swift válidos que compilam normalmente!</p>
+
+<p><img src="/img/fpg1503/sourcerer.jpg" /></p>
+
+<h2 id="instalação">Instalação</h2>
+
+<p>Instalar o Sourcery é muito simples e para brincar com ele é interessante <a href="https://github.com/krzysztofzablocki/Sourcery/releases">baixar o binário</a> e usar. Porém, para usá-lo dentro de projetos e garantir que todos estão na mesma versão você pode usar CoocaPods ou Swift Package Manager:</p>
+
+<h3 id="cocoapods">CocoaPods</h3>
+<p>Simplesmente adicione <code class="language-plaintext highlighter-rouge">pod 'Sourcery'</code> na sua Podfile e <code class="language-plaintext highlighter-rouge">$PODS_ROOT/Sourcery/bin/sourcery {source} {templates} {output}</code> em uma Build Phase de Script.</p>
+
+<h3 id="swift-package-manager">Swift Package Manager</h3>
+<p>Adicione a dependência e rode <code class="language-plaintext highlighter-rouge">.build/debug/sourcery {source} {templates} {output}.</code></p>
+
+<p>Para os exemplos a baixo eu recomendo que você tenha um binário preparado (na última versão) e três arquivos:</p>
+
+<ul>
+  <li>Input.swift</li>
+  <li>Template.stencil</li>
+  <li>Output.swift</li>
+</ul>
+
+<p>Eu sempre faço assim e crio um Script em shell para facilitar minha vida, seu conteúdo é somente:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">sourcery Input.swift Template.stencil Output.swift <span class="nt">--watch</span></code></pre></figure>
+
+<p>Note que a flag <code class="language-plaintext highlighter-rouge">--watch</code> acompanha seus arquivos e automaticamente regera a saída baseado nas mudanças, é mágico! Note que para isso funcionar eu tenho o sourcery na minha <code class="language-plaintext highlighter-rouge">PATH</code>, caso você não tenha será necessário fornecer o caminho para o binário.</p>
+
+<h2 id="editores-de-texto">Editores de texto</h2>
+<p>Para poder acompanhar as mudanças em tempo real aconselho que você divida sua tela em duas partes: código sendo editado (template/fonte) e saída gerada automaticamente. Usando a flag <code class="language-plaintext highlighter-rouge">--watch</code> que comentei acima basta salvar o arquivo que as mudanças são refletidas automaticamente</p>
+
+<h3 id="sublime-text"><em>Sublime Text</em></h3>
+<p>Infelizmente o Sublime Text não atualiza arquivos abertos automaticamente quando há mudanças no disco então não recomendo o uso dele. Você poderia instalar algum plugin para isso porém a falta dessa feature inviabiliza o uso dele junto para visualizar mudanças automaticamente.</p>
+
+<h3 id="atom"><em>Atom</em></h3>
+<p>O Atom funciona incrivelmente bem para isso, além de permitir que você divida sua tela em vários panes em sentidos diferentes simultâneamente!
+<img src="/img/fpg1503/atom.gif" /></p>
+
+<h3 id="vscode"><em>VSCode</em></h3>
+
+<p>Gosto muito do Visual Studio Code porém ele possui a limitação de só permitir a divisão em panes em um sentido (só vertical ou só horizontal). Esse não é um grande limitador para mim então costuma usar o VSCode com metade mostrando o código/template (2 abas) e a outra metade mostrando o código gerado.
+<img src="/img/fpg1503/vscode.gif" /></p>
+
+<h1 id="casos-de-uso">Casos de Uso</h1>
+<p>Para todos os exemplos abaixo farei implementações simples, elas não cobrem todos os casos porém estará explicito em quais casos elas funcionam e uma referência para uma implementação que lida com todos os <em>edge cases</em> (caso ela exista).
+Nem sempre é necessário fazer um código ultra-complexo que cobre todos os casos possíveis e imagináveis, com metaprogramação você pode começar com um template que cumpra suas necessiades e ir evoluindo-o com o passar do tempo.</p>
+
+<h2 id="equatable"><code class="language-plaintext highlighter-rouge">Equatable</code></h2>
+<p>Uma maneira simples de pensar em igualdade de tipos concretos é: todas as suas propriedades não computadas devem ser iguais. Essa implementação não lida com: Optionals, Enums, Arrays, Herança. Exemplo de implementação mais completa: <a href="https://github.com/krzysztofzablocki/Sourcery/blob/master/Templates/AutoEquatable.stencil">AutoEquatable</a>.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% for type in types.implementing.AutoEquatable %}
+extension {{ type.name }}: Equatable {}
+{{ type.accessLevel }} func == (lhs: {{ type.name }}, rhs: {{ type.name }}) -&gt; Bool {
+    {% for variable in type.storedVariables %}
+    guard lhs.{{ variable.name }} == rhs.{{ variable.name }} else { return false }
+    {% endfor %}
+    return true
+}
+{% endfor %}</code></pre></figure>
+
+<p>Para o <code class="language-plaintext highlighter-rouge">struct User</code>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">struct</span> <span class="kt">User</span><span class="p">:</span> <span class="kt">AutoEquatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Foi gerado o código:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">extension</span> <span class="kt">User</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{}</span>
+<span class="kd">internal</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">User</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">User</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="n">lhs</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">id</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
+    <span class="k">guard</span> <span class="n">lhs</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">name</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
+    <span class="k">guard</span> <span class="n">lhs</span><span class="o">.</span><span class="n">email</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">email</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="autoinjectable"><code class="language-plaintext highlighter-rouge">AutoInjectable</code></h2>
+<p>Imagine que você possui um <code class="language-plaintext highlighter-rouge">struct</code> com diversas propriedades porém quer que algumas delas sejam injetadas automaticamente e não quer perder o construtor que você ganhou, podemos para isso inserir uma anotação <code class="language-plaintext highlighter-rouge">AutoInjectable</code>, nosso <code class="language-plaintext highlighter-rouge">struct</code> ficaria assim:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">struct</span> <span class="kt">ApiService</span><span class="p">:</span> <span class="kt">AutoInjectable</span> <span class="p">{</span>
+
+    <span class="c1">/// sourcery: AutoInject</span>
+    <span class="k">let</span> <span class="nv">requestManager</span><span class="p">:</span> <span class="kt">RequestManager</span>
+    <span class="c1">/// sourcery: AutoInject</span>
+    <span class="k">let</span> <span class="nv">sessionManager</span><span class="p">:</span> <span class="kt">SessionManager</span>
+    
+    <span class="k">let</span> <span class="nv">baseURL</span><span class="p">:</span> <span class="kt">URL</span>
+    <span class="k">let</span> <span class="nv">serviceName</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Podemos escrever um template assim:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% for type in types.all.implementing:"AutoInjected" %}
+extension {{type.name}} {
+    convenience init({% for variable in type.variables|instance|!annotated:"AutoInject" %}{{variable.name}}: {{variable.typeName}}{% if not forloop.last %}, {% endif %}{% endfor %}) {
+    {% for variable in type.variables|instance|stored|annotated:"AutoInject" %}
+        let {{variable.name}}: {{variable.typeName}} = try! autoInject()
+    {% endfor %}
+        init({% for variable in type.variables %}{{variable.name}}: {{variable.name}}{% if not forloop.last %}, {% endif %}{% endfor %})
+}
+
+{% endfor %}
+
+func autoInject<span class="nt">&lt;T&gt;</span>() throws -&gt; T {
+    //TODO: Sua lógica de injeção de dependências aqui!
+}</code></pre></figure>
+
+<p>Código gerado:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">extension</span> <span class="kt">ApiService</span> <span class="p">{</span>
+    <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">baseURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">serviceName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">requestManager</span><span class="p">:</span> <span class="kt">RequestManager</span> <span class="o">=</span> <span class="k">try!</span> <span class="nf">autoInject</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">sessionManager</span><span class="p">:</span> <span class="kt">SessionManager</span> <span class="o">=</span> <span class="k">try!</span> <span class="nf">autoInject</span><span class="p">()</span>
+        <span class="nf">init</span><span class="p">(</span><span class="nv">requestManager</span><span class="p">:</span> <span class="n">requestManager</span><span class="p">,</span> <span class="nv">sessionManager</span><span class="p">:</span> <span class="n">sessionManager</span><span class="p">,</span> <span class="nv">baseURL</span><span class="p">:</span> <span class="n">baseURL</span><span class="p">,</span> <span class="nv">serviceName</span><span class="p">:</span> <span class="n">serviceName</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="kd">func</span> <span class="n">autoInject</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">T</span> <span class="p">{</span>
+    <span class="c1">//TODO: Sua lógica de injeção de dependências aqui!</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>No exemplo acima somente criamos um construtor de conveniência que chama nossa função capaz de prover dependências e junta isso com os parâmetros não injetados numa chamada para o construtor designado.</p>
+
+<h2 id="desserialização-de-jsons">Desserialização de JSONs</h2>
+<p>Para desserialização de JSONs usaremos o protocolo <code class="language-plaintext highlighter-rouge">JsonCreatable</code> que consiste de coisas que podem ser criadas a partir de um dicionário:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">protocol</span> <span class="kt">JsonCreatable</span> <span class="p">{</span>
+    <span class="nf">init</span><span class="p">?(</span><span class="nv">json</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Nesse caso assumiremos que todas as propriedades não <code class="language-plaintext highlighter-rouge">Optional</code> são obrigatórias, que todas as variáveis sem um nome pré-definido tem seu próprio nome no JSON e não lidamos com tipos diferentes de Números, Strings e Booleanos.</p>
+
+<p>Nosso <code class="language-plaintext highlighter-rouge">struct</code>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">struct</span> <span class="kt">User</span><span class="p">:</span> <span class="kt">AutoJsonCreatable</span> <span class="p">{</span>
+    <span class="c1">/// sourcery: JsonName = "fullName"</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">favoriteNumber</span><span class="p">:</span> <span class="kt">Int</span>
+    <span class="k">let</span> <span class="nv">isCool</span><span class="p">:</span> <span class="kt">Bool</span>
+    <span class="k">let</span> <span class="nv">numberOfTaylorSwiftAlbums</span><span class="p">:</span> <span class="kt">Int</span>
+    <span class="k">let</span> <span class="nv">favoriteQuote</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Template:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% for type in types.all.implementing:"AutoJsonCreatable" %}
+extension {{type.name}}: JsonCreatable {
+    init?(json: [String: Any]) {
+        {% for variable in type.variables|instance|stored %}
+        {% ifnot variable.isOptional %}guard {% endif %}let {{variable.name}} = json["{{variable.annotations.JsonName|default:variable.name}}"] as? {{variable.unwrappedTypeName}}{% ifnot variable.isOptional %} else { return nil }{% endif %}
+        {% endfor %}
+
+        {% for variable in type.variables|instance|stored %}
+        self.{{variable.name}} = {{variable.name}}
+        {% endfor %}
+    }
+}
+{% endfor %}</code></pre></figure>
+
+<p>Código gerado:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">extension</span> <span class="kt">User</span><span class="p">:</span> <span class="kt">JsonCreatable</span> <span class="p">{</span>
+    <span class="nf">init</span><span class="p">?(</span><span class="nv">json</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"fullName"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">favoriteNumber</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"favoriteNumber"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">Int</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">isCool</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"isCool"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">Bool</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">numberOfTaylorSwiftAlbums</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"numberOfTaylorSwiftAlbums"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">Int</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+        <span class="k">let</span> <span class="nv">favoriteQuote</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"favoriteQuote"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span>
+
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">favoriteNumber</span> <span class="o">=</span> <span class="n">favoriteNumber</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">isCool</span> <span class="o">=</span> <span class="n">isCool</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">numberOfTaylorSwiftAlbums</span> <span class="o">=</span> <span class="n">numberOfTaylorSwiftAlbums</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">favoriteQuote</span> <span class="o">=</span> <span class="n">favoriteQuote</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>A beleza de usarmos templates é que não precisamos nos limitar a Swfit! Imagine que seu colega Android vai ter que implementar tudo de novo então você poderia escrever um template para ele!</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% for type in types.all.implementing:"AutoJsonCreatable" %}
+package com.equinocios.{{type.name}};
+
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class {{type.name}} implements Serializable {
+
+    {% for variable in type.variables|instance|stored %}
+    @SerializedName("{{variable.annotations.JsonName|default:variable.name}}")
+    private {{variable.unwrappedTypeName}} {{variable.name}} = null;
+
+    {% endfor %}
+
+    {% for variable in type.variables|instance|stored %}
+    public {{variable.unwrappedTypeName}} get{{variable.name|swiftIdentifier}}({{variable.unwrappedTypeName}} {{variable.name}}) {
+        return {{variable.name}};
+    } 
+
+    public void set{{variable.name|swiftIdentifier}}({{variable.unwrappedTypeName}} {{variable.name}}) {
+        this.{{variable.name}} = {{variable.name}};
+    }
+
+    {% endfor %}
+}
+{% endfor %}</code></pre></figure>
+
+<p>Esse template gera o código abaixo:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.equinocios.User</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.google.gson.annotations.SerializedName</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
+
+    <span class="nd">@SerializedName</span><span class="o">(</span><span class="s">"fullName"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="nd">@SerializedName</span><span class="o">(</span><span class="s">"favoriteNumber"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Int</span> <span class="n">favoriteNumber</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="nd">@SerializedName</span><span class="o">(</span><span class="s">"isCool"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Bool</span> <span class="n">isCool</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="nd">@SerializedName</span><span class="o">(</span><span class="s">"numberOfTaylorSwiftAlbums"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Int</span> <span class="n">numberOfTaylorSwiftAlbums</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="nd">@SerializedName</span><span class="o">(</span><span class="s">"favoriteQuote"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">favoriteQuote</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span> 
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Int</span> <span class="nf">getFavoriteNumber</span><span class="o">(</span><span class="nc">Int</span> <span class="n">favoriteNumber</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">favoriteNumber</span><span class="o">;</span>
+    <span class="o">}</span> 
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setFavoriteNumber</span><span class="o">(</span><span class="nc">Int</span> <span class="n">favoriteNumber</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">favoriteNumber</span> <span class="o">=</span> <span class="n">favoriteNumber</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Bool</span> <span class="nf">getIsCool</span><span class="o">(</span><span class="nc">Bool</span> <span class="n">isCool</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">isCool</span><span class="o">;</span>
+    <span class="o">}</span> 
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setIsCool</span><span class="o">(</span><span class="nc">Bool</span> <span class="n">isCool</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">isCool</span> <span class="o">=</span> <span class="n">isCool</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Int</span> <span class="nf">getNumberOfTaylorSwiftAlbums</span><span class="o">(</span><span class="nc">Int</span> <span class="n">numberOfTaylorSwiftAlbums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">numberOfTaylorSwiftAlbums</span><span class="o">;</span>
+    <span class="o">}</span> 
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNumberOfTaylorSwiftAlbums</span><span class="o">(</span><span class="nc">Int</span> <span class="n">numberOfTaylorSwiftAlbums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">numberOfTaylorSwiftAlbums</span> <span class="o">=</span> <span class="n">numberOfTaylorSwiftAlbums</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getFavoriteQuote</span><span class="o">(</span><span class="nc">String</span> <span class="n">favoriteQuote</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">favoriteQuote</span><span class="o">;</span>
+    <span class="o">}</span> 
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setFavoriteQuote</span><span class="o">(</span><span class="nc">String</span> <span class="n">favoriteQuote</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">favoriteQuote</span> <span class="o">=</span> <span class="n">favoriteQuote</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>Lindo, não? O único problema é que o código acima não compila pois os tipos que usamos tem nomes diferentes em Java, poderíamos criar um <a href="https://github.com/kylef/Stencil/blob/master/docs/custom-template-tags-and-filters.rst">filtro customizado do Stencil</a> (provavelmente chamado <code class="language-plaintext highlighter-rouge">javaTypeName</code>) que fizesse essa conversão. O ponto deste exemplo é mostrar o quão flexível templates nos permitem ser!</p>
+
+<h2 id="cliente-http">Cliente HTTP</h2>
+<p>Como exemplo final vamos fazer um pequeno cliente HTTP de uma API Rest.</p>
+
+<p>Dado uma interface da API (expressa em um protocol) queremos produzir uma implementação concreta.
+Para fazer isso usaremos o fato de que Sourcery copia o que inserimos dentro das anotações para nosso código. Usaremos dicionários de Swift para simular anotações de parâmetros.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">GitHubService</span><span class="p">:</span> <span class="kt">AutoImplementable</span> <span class="p">{</span>
+  <span class="c1">/// sourcery: GET = "users/{user}/repos"</span>
+  <span class="c1">/// sourcery: Path = ["user": user]</span>
+  <span class="kd">func</span> <span class="nf">listRepos</span><span class="p">(</span><span class="k">for</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">test</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">Completion</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Repo</span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Cancelable</span>
+
+  <span class="c1">/// sourcery: GET = "group/{id}/users"</span>
+  <span class="c1">/// sourcery: Path = ["id": groupId]</span>
+  <span class="kd">func</span> <span class="nf">groupList</span><span class="p">(</span><span class="k">for</span> <span class="nv">groupId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">Completion</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">User</span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Cancelable</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Usando o template:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{% for protocol in types.protocols.implementing:"AutoImplementable" %}
+struct {{protocol.name}}Implementation: {{protocol.name}} {
+	{% for method in protocol.methods %}
+	func {{method.name}} -&gt; {{method.returnTypeName}} {
+		let httpMethod: HTTPMethod = .{% if method.annotations.GET %}get{% endif %}{% if method.annotations.POST %}post{% endif %}{% if method.annotations.PUT %}put{% endif %}{% if method.annotations.DELETE %}delete{% endif %}
+		let rawPath = "{{method.annotations.GET}}{{method.annotations.PUT}}{{method.annotations.POST}}{{method.annotations.DELETE}}"
+		let rawQuery: [String: Any] = {% ifnot method.annotations.Query %}[:]{% endif %}{{method.annotations.Query}}
+
+		let path = rawPath.expanded(using: {% ifnot method.annotations.Path %}[:]{% endif %}{{method.annotations.Path}})
+		let pathAndQuery = path.adding(rawQuery)
+
+		return request(httpMethod, path: path, completion: completion)
+	}
+
+	{% endfor %}
+}
+{% endfor %}</code></pre></figure>
+
+<p>O código gerado neste caso é:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">struct</span> <span class="kt">GitHubServiceImplementation</span><span class="p">:</span> <span class="kt">GitHubService</span> <span class="p">{</span>
+	<span class="kd">func</span> <span class="nf">listRepos</span><span class="p">(</span><span class="k">for</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">Completion</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Repo</span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Cancelable</span> <span class="p">{</span>
+		<span class="k">let</span> <span class="nv">httpMethod</span><span class="p">:</span> <span class="kt">HTTPMethod</span> <span class="o">=</span> <span class="o">.</span><span class="k">get</span>
+		<span class="k">let</span> <span class="nv">rawPath</span> <span class="o">=</span> <span class="s">"users/{user}/repos"</span>
+		<span class="k">let</span> <span class="nv">rawQuery</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span>
+
+		<span class="k">let</span> <span class="nv">path</span> <span class="o">=</span> <span class="n">rawPath</span><span class="o">.</span><span class="nf">expanded</span><span class="p">(</span><span class="nv">using</span><span class="p">:</span> <span class="p">[</span><span class="s">"user"</span><span class="p">:</span> <span class="n">user</span><span class="p">])</span>
+		<span class="k">let</span> <span class="nv">pathAndQuery</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="nf">adding</span><span class="p">(</span><span class="n">rawQuery</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="nf">request</span><span class="p">(</span><span class="n">httpMethod</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="n">completion</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="kd">func</span> <span class="nf">groupList</span><span class="p">(</span><span class="k">for</span> <span class="nv">groupId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">Completion</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">User</span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Cancelable</span> <span class="p">{</span>
+		<span class="k">let</span> <span class="nv">httpMethod</span><span class="p">:</span> <span class="kt">HTTPMethod</span> <span class="o">=</span> <span class="o">.</span><span class="k">get</span>
+		<span class="k">let</span> <span class="nv">rawPath</span> <span class="o">=</span> <span class="s">"group/{id}/users"</span>
+		<span class="k">let</span> <span class="nv">rawQuery</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span>
+
+		<span class="k">let</span> <span class="nv">path</span> <span class="o">=</span> <span class="n">rawPath</span><span class="o">.</span><span class="nf">expanded</span><span class="p">(</span><span class="nv">using</span><span class="p">:</span> <span class="p">[</span><span class="s">"id"</span><span class="p">:</span> <span class="n">groupId</span><span class="p">])</span>
+		<span class="k">let</span> <span class="nv">pathAndQuery</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="nf">adding</span><span class="p">(</span><span class="n">rawQuery</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="nf">request</span><span class="p">(</span><span class="n">httpMethod</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="n">completion</span><span class="p">)</span>
+	<span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>Repare como utilizamos os dicionários para mapear <code class="language-plaintext highlighter-rouge">String</code>s para valores específicos que serão passados para a função, por isso nosso dicionário tem o formato <code class="language-plaintext highlighter-rouge">["chave": valor]</code>, fazendo isso teremos uma garantia em tempo de compilação de que os valores utilizados existem.</p>
+
+<p>Cabe ressaltar não é possível acessar dentro do template as anoteações dos campos indvidualmente porém isso não é um problema pois temos uma extensão que permite expandir <code class="language-plaintext highlighter-rouge">String</code>s usando dicionários. Além disso o código gerado conta com outras abstrações como a função genérica <code class="language-plaintext highlighter-rouge">request</code>, a closure genérica <code class="language-plaintext highlighter-rouge">Completion</code>, o <code class="language-plaintext highlighter-rouge">enum HTTPMethod</code> e o protocolo <code class="language-plaintext highlighter-rouge">Cancelable</code>, o código dessas abstrações não será incluso para manter o artigo sucinto porém elas podem facilmente ser subistituídas por outras de sua preferência.</p>
+
+<h1 id="mais-sobre-sourcery">Mais sobre Sourcery</h1>
+<p>Além de Stencil o Sourcery também permite o uso de <a href="https://github.com/krzysztofzablocki/Sourcery/blob/master/SourceryTests/Stub/SwiftTemplates/Equality.swifttemplate">SwiftTemplates</a> e <a href="https://github.com/krzysztofzablocki/Sourcery/blob/master/SourceryTests/Stub/JavaScriptTemplates/Equality.js">templates em JavaScript</a>, usando o <a href="http://ejs.co">EJS</a>.</p>
+
+<p>Para saber mais soubre Sourcery dê uma lida no <a href="https://github.com/krzysztofzablocki/Sourcery">README do repositório</a>, que contém mais informações sobre o que pode ser extraído de cada tipo e detalhes sobre como especificar o local de armazenamento do código gerado.</p>
+
+<h1 id="outras-ferramentas">Outras ferramentas</h1>
+<p>Para trabalhar com Strings localizadas, Cores, Imagens, Storyboards e Fontes use o <a href="https://github.com/SwiftGen/SwiftGen">SwiftGen</a>, uma ferramenta para gerar código e te ajudar a garantir (em tempo de compilação) que os recursos sendo utilizados de fato existem. SwiftGen também utiliza templates Stencil.</p>
+
+<h1 id="em-suma">Em suma</h1>
+<p>Metaprogramação é uma ferramenta muito poderosa pois permite que você escreva menos código, código mais expressivo. Sourcery é uma ferramenta que faz com que você alavanque o sistema de tipos junto com o compilador para economizar tempo e reduzir potenciais erros. Além disso você sempre pode usar mais metapgromação: Se perceber que há algo que se repete muito você pode fazer um programa que faz um programa que faz um programa.</p>
+
+<p>E você? Qual código faz no dia-a-dia que é repetitivo? Como você resolveu isso?</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/viper/2017/03/13/comecando-com-viper/" data-toggle="tooltip" data-placement="top" title="Começando com VIPER">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/reativo/2017/03/16/Eu-preciso-reativar-minha-aplicacao/" data-toggle="tooltip" data-placement="top" title="Eu preciso reativar minha aplicação?">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

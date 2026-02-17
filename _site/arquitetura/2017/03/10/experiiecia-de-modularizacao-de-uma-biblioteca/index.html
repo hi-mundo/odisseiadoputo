@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>Experiências na modularização de um projeto de um SDK - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/arquitetura/2017/03/10/experiiecia-de-modularizacao-de-uma-biblioteca/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Experiências na modularização de um projeto de um SDK</h1>
+                        
+                        <span class="meta">Postado por Tales Pinheiro em 10/03/2017</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=Experiências na modularização de um projeto de um SDK&url=http://localhost:4000/arquitetura/2017/03/10/experiiecia-de-modularizacao-de-uma-biblioteca/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/arquitetura/2017/03/10/experiiecia-de-modularizacao-de-uma-biblioteca/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/arquitetura/2017/03/10/experiiecia-de-modularizacao-de-uma-biblioteca/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/arquitetura/2017/03/10/experiiecia-de-modularizacao-de-uma-biblioteca/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<blockquote>
+  <p>Tales Pinheiro (<a href="https://twitter.com/talesp" target="_blank">@talesp</a>) é mestre em computação pelo IME-USP, trabalhou por 8 anos com backend bancário programando principalmente em C, quando em 2007 (antes do anúncio do primeiro iPhone!) resolveu aprender Objective-C. Atualmente é um dos lideres do capitulo iOS na Concrete Solutions, onde continua em um projeto Objective-C, mas ajudando outros em Swift</p>
+</blockquote>
+
+<h1 id="a-história-inicial">A história inicial</h1>
+
+<p>Nos último pouco mais de dois anos, a consultoria em que trabalho vem desenvolvendo diversos aplicativos para uma das maiores empresas do Brasil. Nós fomos inicialmente responsáveis por reescrever como código nativo e melhorar os dois principais aplicativos desse cliente, pois as versões iniciais eram desenvolvidas numa tecnologia hibrida.</p>
+
+<p>Para facilitar a nossa vida e por questões de segurança (menos pessoas conhecendo áreas criticas do cliente), resolvemos criar um SDK/Framework com as partes comuns aos aplicativos, incluindo nele as partes comuns aos diversos aplicativos.</p>
+
+<p>Os projetos cresceram, o SDK cresceu, os times aumentaram em tamanho e em número e, é claro, a complexidade aumentou em todas as pontas. Precisavamos novamente simplificar a nossa vida.</p>
+
+<p>Eu passei um tempo em um time responsável por manter o funcionamento do fluxo e desenvolvimento, que garante a coisas como documentação de <em>coding style</em>, cobertura de código, qualidade de código, <em>merges</em> solicitados pelos diversos times, entre outras coisas da qualidade geral do projeto, de um dos aplicativos (temos outro time responsável pelo menos no outro grande aplicativo desse cliente), mas atualmente estou no time do SDK.</p>
+
+<p>Esse é um projeto menor, tocado por menos pessoas, mas bastante complexo, inicialmente desenvolvido por apenas um time, mas que já engloba dois (o meu time e um time de outra consultoria, especializada em segurança), com um terceiro entrando em breve.</p>
+
+<p>Por questões estratégicas, normalmente clientes desse tamanho não querem/podem depender de uma única consultoria, e ao longo do tempo algumas consultorias foram adicionadas ao projeto.</p>
+
+<p>Com o aumento da complexidade dos projetos e da quantidade de pessoas e empresas - com culturas e opiniões diferentes sobre coisas como arquitetura dos projetos - algo precisava ser feito para manter a sanidade dos times. Modularizar apenas com um SDK comum aos projetos não era suficiente.</p>
+
+<p>Além disso, precisei fazer uma prova de conceito usando o SDK e esbarrei em um problema: ele depende do <code class="language-plaintext highlighter-rouge">UIKit</code>. Por ser uma base de código menor, resolvemos modularizar ainda mais, começando pelo SDK.</p>
+
+<h2 id="cenário-inicial-do-sdk">Cenário inicial do SDK</h2>
+
+<p>Como disse antes, o SDK é comum a vários apps gerenciados pelo meu time (a parte <em>core</em>) com outro time de outra consultoria desenvolvendo pequenas bibliotecas da parte de segurança do aplicativo, que são enviadas para nós como bibliotecas que são <em>linkadas</em> estaticamente ao nosso SDK. Esporadicamente algumas pessoas direto do cliente ainda fazem um <em>bypass</em> no nosso time/processo em pequenas partes do projeto, para adicionar uma <em>feature</em> para um dos projetos principais, mas esquecendo do outro, causando <em>bug</em> (identificado rapidamente pelos times do outro aplicativo ainda em desenvolvimento). E está entrando um time de outra consultoria para mexer no SDK.</p>
+
+<p>Os aplicativos atualmente suportam o iOS 7, e isso exige que a distribuição do SDK seja como biblioteca para linkagem estática. Já temos no cliente aplicativos sendo desenvolvidos com suporte apenas ao iOS 9+, sendo escrito em Swift, mas como dependências em Swift devem ser <em>frameworks</em> dinâmicos, esse projeto teve inicialmente que usar CocoaPods para adicionar o SDK estaticamente, e o Carthage <em>linkando</em> dinamicamente as dependências de terceiros escritas em Swift, mas o time de <em>devops</em> do cliente barrou o Carthage - por enquanto, apenas CocoaPods pode ser usado nesse cliente.</p>
+
+<p>Como disse anteriormente, o SDK atual compreende então três grandes áreas, todas distribuídas como um “framework” - não no sentido de <em>framework</em> dinâmico criado pelo Xcode, mas numa estrutura similar criada via script, que embute os <em>assets</em> (<em>storyboards</em>, <code class="language-plaintext highlighter-rouge">XIB</code>s e imagens) e funcionalidades das três áreas abaixo:</p>
+
+<ul>
+  <li>Comunicação</li>
+  <li>Segurança</li>
+  <li>UI Comum aos projetos</li>
+</ul>
+
+<p>Além disso, o time do SDK mantém um projeto Sample, para que os times dos apps saibam como usar o SDK. Esse sample tem o código-fonte aberto internamente, mas o SDK é distribuído compilado.</p>
+
+<h2 id="sdk-atual">SDK “atual”</h2>
+
+<p><img src="/img/talesp/iphone-sample-ios.png" alt="center" /></p>
+
+<p>Além dos problemas acima, esbarramos em um novo recentemente. Um grande redesign está ocorrendo nos apps, melhorando o design e a usabilidade geral dos apps, mas que não serão lançados ao mesmo tempo. Como o SDK também inclui telas, agora telas antigas que deverão ter suporte e novas em desenvolvimento, uma solução paleativa foi criada: criar um <em>proxy</em> que determina qual a interface usada. Então, num exemplo simples, se tinhamos uma classe/tela <code class="language-plaintext highlighter-rouge">LoginViewController</code>, tivemos que adicionar a “nova” <code class="language-plaintext highlighter-rouge">LoginViewControllerNew</code>, e o proxy determina quem será usado. Além de duplicar classes, temos também <em>assets</em> duplicados. E como pretendemos (pelo menos o time de SDK está se adiantando para isso, ainda não tem previsão de desenvolvimento) flexibilizar o SDK, poderia dar à área de negócios a decisão de lançar para outras plataformas Apple (watchOS, tvOS, macOS), hoje estamos intimamente “presos” ao UIKit.</p>
+
+<h1 id="nossa-proposta">Nossa proposta</h1>
+
+<p>Pensamos então em separar os três componentes em 3 bibliotecas:</p>
+
+<ul>
+  <li><em>core</em>: menor base de código e mais simples de manutenção;</li>
+  <li>segurança: poderá ser mantida por outro time/consultoria;</li>
+  <li>UI: com versionamento do design simplificado, podendo criar novas “versões” com interfaces para macOS e watchOS;</li>
+</ul>
+
+<p>Para iniciar a modularização, resolvemos focar em separar inicialmente apenas a parte de UI, que agora passará a ter duas versões <em>major</em>: a versão <code class="language-plaintext highlighter-rouge">1.0.0</code> seria a versão atual, e a versão <code class="language-plaintext highlighter-rouge">2.0.0</code> será a versão do redesign.</p>
+
+<p>Futuramente pretendemos modularizar as maiores aplicações, o que eliminará o <em>merge hell</em>, vai facilitar a verificação de pontos críticos e <em>feature</em> problemáticas, além de uma melhor granulação dos indicadores da cobertura de qualidade, facilitando a manutenção, administração e evolução do produto.</p>
+
+<p>Nossa proposta então é tornar o SDK independente da UI, podendo ser criado um aplicativo <em>Sample</em> contendo apenas as funcionalidades “<em>core</em>”, como abaixo:</p>
+
+<p><img src="/img/talesp/proposed-arch-core.png" alt="" /></p>
+
+<p>Ou um Sample que inclui a interface, com a biblioteca de UI tendo a biblioteca <em>core</em> como dependência via CocoaPods.
+<img src="/img/talesp/proposed-arch-full.png" alt="" /></p>
+
+<h1 id="primeiro-passo-separar-a-ui">Primeiro passo: Separar a UI</h1>
+
+<p>O processo geral - já efetuado - pode ser descrito de forma bastante simples. Foi:</p>
+
+<ol>
+  <li>Criado um novo projeto, que contém apenas código de UI e <em>assets</em></li>
+  <li>Movido código de UI para novo projeto (mas inicialmente não foi movido o código de testes de UI)</li>
+  <li>Removido TODOS os arquivos de UI do projeto <em>core</em> e eliminada a dependência do UIKit</li>
+  <li>Removido Sample (que está se tornando um novo “app”, já em desenvolvimento) do <em>workspace</em> do projeto do SDK.</li>
+</ol>
+
+<p>Mas temos aqui um problema:</p>
+
+<p>Algumas telas incluídas no <em>core</em> são chamadas por métodos do <em>core</em>, não pelos apps principais. Por exemplo, alguns erros de comunicação já são exibidos para o usuário via chamada do <em>core</em>. Mas o <em>core</em> não pode depender de UI. Além disso, para times que usam a nova biblioteca de UI, desejamos que a comunicação deve ser transparente e sem configuração.</p>
+
+<p>Como ter duas bibliotecas se comúnicando, com o <em>core</em> chamando métodos de UI sem saber da existência desses ou do UIKit?</p>
+
+<h1 id="protocolos-ao-resgate">Protocolos, ao resgate</h1>
+
+<p>Na nossa solução, a biblioteca <em>core</em> define alguns protocolos de exibição de interface, que são então adotados pela biblioteca de UI - que tem o <em>core</em> como dependência.</p>
+
+<p>Mas queriamos que a biblioteca de UI fosse apenas adicionada ao Podfile dos aplicativos. Não queria ter que adicionar ao SDK a responsabilidade de registrar as classes de UI, nem ao desenvolvedor dos aplicativos chamar algum método de configuração. Alguns truqes de <em>runtime</em> do Objective-C (válidos em Swift se classe herda de <code class="language-plaintext highlighter-rouge">NSObject</code>) podem nos ajudar com isso. Mas antes…</p>
+
+<h1 id="pequeno-desvio-vamos-falar-sobre-inicialização-de-objetos-bibliotecas-e-frameworks">Pequeno desvio: vamos falar sobre inicialização de objetos, bibliotecas e <em>frameworks</em></h1>
+
+<p>Para melhor entender a solução, vou explicar um pouco dobre o processo de inicialização de bibliotecas e de objetos em Objective-C.</p>
+
+<h2 id="um-pouco-sobre-inicialização-de-objetos">Um pouco sobre inicialização de objetos</h2>
+
+<p>Praticamente toda classe da Foundation e do UIKit herda de <code class="language-plaintext highlighter-rouge">NSObject</code> (com exceção de algumas que herdam de <code class="language-plaintext highlighter-rouge">NSProxy</code>, mas não vem ao caso para nossa solução). E classes que herdam de <code class="language-plaintext highlighter-rouge">NSObject</code> podem implementar dois métodos que podem ser bastante úteis nesse problema. Para entender melhor os dois, recomendo altamente o artigo <a href="https://www.mikeash.com/pyblog/friday-qa-2009-05-22-objective-c-class-loading-and-initialization.html">Friday Q&amp;A 2009-05-22: Objective-C Class Loading and Initialization</a>, do Mike Ash (inclusive, recomendo fortemente o blog dele como um todo. ele está meio parado, mas o conteúdo é riquissimo).</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">+load</code>
+    <ul>
+      <li>esse método é chamado quando biblioteca é carregada em memória. Se implementar esse método numa classe de seu aplicativo, o método será chamado na inicialização do aplicativo, mesmo que a classe nunca seja referenciada durante o ciclo de vida do aplicativo. Por exemplo, se você tem uma classe que cuida de impressão, mas o usuário nunca mandar imprimir nada, e você implementar esse método nessa classe, ainda sim o método será chamado.</li>
+      <li>Se o método é implementado em uma biblioteca de terceiros, depende do tipo de <em>linkagem</em> da biblioteca com seu aplicativo:
+        <ul>
+          <li>linkagem estática: na inicialização do aplicativo</li>
+          <li>linkagem dinâmica: na primeira chamada de um método da biblioteca</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">+initialize</code>
+    <ul>
+      <li>Esse método é um pouco mais <em>lazy</em>, e só é chamado quando primeiro método da classe é chamado. Assim, se durante a vida da aplicação, uma referência qualquer - chamada de método de classe, instância ou algo como <code class="language-plaintext highlighter-rouge">NSStringFromClass</code> ou <code class="language-plaintext highlighter-rouge">NSClassFromString</code> - não for chamada, esse método não é chamado. Além disso, é garantido pelo runtime que esse método será chamado apenas uma vez por class, na primeira referência da mesma por terceiros.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>O método <code class="language-plaintext highlighter-rouge">+load</code> tem ainda uma característica especial em relação ao <em>runtime</em>: se a classe e uma ou mais categorias implementar o método <code class="language-plaintext highlighter-rouge">+load</code>, todos serão executados</p>
+
+<h3 id="observação-sobre-initialize-em-swift---xcode-83-beta-3">Observação sobre <code class="language-plaintext highlighter-rouge">initialize</code> em Swift - Xcode 8.3 beta 3</h3>
+
+<p>O documento de <em>Release Notes</em> do Xcode 8.3 beta 3 inclui a seguinte observação.</p>
+
+<blockquote>
+  <p>Swift will now warn when an NSObject subclass attempts to override the class <code class="language-plaintext highlighter-rouge">initialize</code> method. Swift doesn’t guarantee that references to class names trigger Objective-C class realization if they have no other side effects, leading to bugs when Swift code attempts to override initialize. (28954946)</p>
+</blockquote>
+
+<p>É bom tomar cuidado com isso, caso esteja usando Swift e pensar em uma implementação parecida</p>
+
+<p>E já que temos falado um pouco sobre <em>linkagem</em> estática e dinámica, e sobre bibliotecas e <em>frameworks</em>, vamos explicar um pouco sobre elas.</p>
+
+<h2 id="linkagem-estática-vs-dinâmica">“Linkagem” estática vs dinâmica</h2>
+
+<p><em>Linkar</em> uma biblioteca ou <em>framework</em> ao seu projeto funciona como a forma mais básica de gerenciamento de dependências e distribuição/reutilização de código - seu ou de terceiros - em multiplos projetos. Mas a forma como você <em>linka</em> a biblioteca ou framework impacta no tamanho do executável, como a biblioteca ou <em>framework</em> é distribuído e em que momento eles são carregados em memória e seu conteúdo é executado.</p>
+
+<h3 id="linkagem-estática"><em>Linkagem</em> estática</h3>
+
+<p>Vamos começar explicando a <em>linkagem</em> estática. Nela, o conteúdo executável da biblioteca ou <em>framework</em> que você está <em>linkando</em> ao seu projeto é anexado diretamente ao binário final. No caso de um aplicativo iOS, por exemplo, não é ao arquivo <code class="language-plaintext highlighter-rouge">meuapp.ipa</code>, mas ao executável embutido dentro do arquivo ipa. Para quem não sabe, o arquivo ipa é na verdade um arquivo comprimido, contendo seu aplicativo, informações da App Store e de <em>code signing</em>. Você pode alterar a extensão para <code class="language-plaintext highlighter-rouge">.zip</code>, descomprimir e abrir a pasta <code class="language-plaintext highlighter-rouge">Payload</code>, e lá estará seu aplicativo em um pacote com a extensão <code class="language-plaintext highlighter-rouge">.app</code>. Se clicar com o direito, e selecionar a opção “Mostrar conteúdo do pacote”, vai encontrar dentro desta pasta coisa como <em>assets</em>, uma pasta chamada <code class="language-plaintext highlighter-rouge">_CodeSignature</code> com a assinatura/hash dos arquivos embutidos no pacote (para anti-tampering, e evitar que arquivos sejam modificados embutindo código malicioso) e seu binário efetivamente, no formato de executável Unix.</p>
+
+<p>Assim, <em>linkar</em> estáticamente uma biblioteca ou framework (falaremos um pouco mais sobre este daqui a pouco) ao seu projeto deixa este executável maior, consequentemente com maior tempo de inicialização do aplicativo em memória.
+Mas até o iOS 8, esta era a única forma de <em>linkar</em> código de terceiro ao seu projeto</p>
+
+<p>Na imagem abaixo podemos ver que o <em>linker</em> pega os diversos arquivos compilados e as diversas bibliotecas que você inclui no seu projeto e gera um binário final. Esse binário contém seu código e as bibliotecas compiladas,e carrega tudo no <em>heap</em> de memória durante a execução
+<img src="/img/talesp/mono-static.png" alt="" /></p>
+
+<h3 id="linkagem-dinamica">Linkagem dinamica</h3>
+
+<p>A segunda forma  de <em>linkar</em> código de terceiro ao seu projeto é a dinâmica: Nesse, nenhum código ou conteúdo executável é anexado diretamente ao binário principal. O <em>linker</em> apenas adiciona referências ao conteúdo executável da biblioteca dinâmica, como endereços de memória e referência ao arquivo onde o executável deve buscar o código objeto e conteúdo executável.</p>
+
+<p>Assim, a principio, carregar o aplicativo em memória é mais rápido, pois a biblioteca é carregada dinamicamente quando um de seus simbolos é requisitado. No iOS, watchOS e tvOS não é possível, mas no macOS você pode distribuir uma nova versão da biblioteca sem ter que distribuir uma nova versão do aplicativo, já que o novo código é buscado/carregado na nova inicialização do aplicativo. Além disso, as bibliotecas dinâmicas possuem ciclo de vida e processo de inicialização e finalização/limpeza de memória própios.</p>
+
+<p>Mas não é porque o binário final do aplicativo fica menor que podemos sair adicionando diversas bibliotecas ao projeto no iOS: no processo de inicialização, a assinatura do seu aplicativo e de todas as bibliotecas é verificada, o que é um processo também demorado.</p>
+
+<p>Na imagem abaixo podemos ver que, diferente da <em>linkagem</em> estática, aqui apenas a referência as bibliotecas dinâmicas é adicionada ao seu aplicativo, e que as bibliotecas são carregadas, durante a execução, na pilha de memória, e não no <em>heap</em> junto com o aplicativo.
+<img src="/img/talesp/mono-dynamic.png" alt="" /></p>
+
+<h2 id="bibliotecas-libraries-vs-arcabouços-frameworks">Bibliotecas (<em>libraries</em>) vs Arcabouços (<em>Frameworks</em>)</h2>
+
+<p>Temos falado aqui de bibliotecas, mas e os <em>frameworks</em>?</p>
+
+<p>De forma mais técnica, uma biblioteca é um arquivo em formato binário <a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/MachOTopics/0-Introduction/introduction.html">Mach-O</a>, que dependendo da forma de <em>linkagem</em>, é carregado na inicialização do aplicativo ou dinamicamente de acordo com a necessidade.</p>
+
+<p>Bibliotecas dinâmicas evitam a repetição/cópia de código entre a aplicação e extensões - como extensões de teclado, <em>Today extenions</em> e da Siri - pois o binário existe em apenas um local - com a linkagem estática, o conteúdo da biblioteca é copiado dentro de cada extensão.</p>
+
+<p>Ao compilar um ou mais arquivos fontes, cada um gera um arquivo <code class="language-plaintext highlighter-rouge">*.o</code>, chamado de arquivo objeto, que contém o código executável daquele arquivo. Uma biblioteca é um recipiente para um conjunto de arquivos objetos. Bibliotecas estáticas usam a extensão <code class="language-plaintext highlighter-rouge">.a</code>, gerado ao <code class="language-plaintext highlighter-rouge">ar</code>quivar um conjunto de arquivos objeto, e bibliotecas dinâmicas possuem a extensão <code class="language-plaintext highlighter-rouge">.dylib</code> (aqui vale uma nota, lembrada pelo <a href="https://medium.com/@ronaldolima">Ronaldo F. Lima</a> durante o processo de revisão - <code class="language-plaintext highlighter-rouge">dylib</code> é usada apenas pelo <a href="https://pt.wikipedia.org/wiki/Darwin_(sistema_operacional)">Darwin</a>, base BSD do macOS; outras vasriações de Unix e o Linux costumam usar a extensão <code class="language-plaintext highlighter-rouge">.so</code>, de <em>shared object</em>).</p>
+
+<p>Uma característica do processo de <em>linkagem</em> é que na compilação o <em>linker</em> só pode usar arquivos objeto de uma arquitetura. Por isso existem dois “formatos” de biblioteca estática, chamados de <em>container</em>:</p>
+
+<ol>
+  <li>arquivos objeto de mesma arquitura em único <code class="language-plaintext highlighter-rouge">ar</code><em>chive</em></li>
+  <li>binário <em>fat</em> Mach-O, criado com comando <code class="language-plaintext highlighter-rouge">lipo</code></li>
+</ol>
+
+<p>Com o comando <code class="language-plaintext highlighter-rouge">lipo</code> é possível pegar diversos arquivos de biblioteca com os mesmo arquivos objetos mas em diferentes arquiteturas, e incluir tudo em um único “binário gordo”, facilitando a distribuição.</p>
+
+<p>Já os <em>frameowrks</em> são análogos a bibliotecas, mas funcionam como um pacote, onde é possível incluir <em>assets</em> (sons, imagens, vídeos, fontes, etc), <em>storyboards</em>, arquivos <code class="language-plaintext highlighter-rouge">NIB</code> (a versão compilada do <code class="language-plaintext highlighter-rouge">XIB</code>) entre outras coisas. Frameworks dinâmicos pode também ser <a href="https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/VersionInformation.html#//apple_ref/doc/uid/20002255-BCIECADD">versionados</a></p>
+
+<p>Infelizmente o Xcode não possui um <em>template</em> para criação de bibliotecas estáticas, mas é possível criá-las via <em>script</em>, sendo assim possível distribuir o nosso SDK como um <em>framework</em>, mas para linkagem estática, distribuindo assim um conjunto as imagens e storyboards comuns aos aplicativos. De modo geral, para distribuir os <em>assets</em> é necessário adicionar um <em>taget</em> do tiplo <em>Bundle</em> ao seu projeto - mas aqui, uma atenção: mesmo que seu projeto seja para iOS, este deve ser um target “<strong>OS X</strong>”, e para criar o <em>framework</em> deve ser criada uma estrutura especial de pastas, com uma pasta raiz com a “extensão” <code class="language-plaintext highlighter-rouge">.framework</code>. Para mais detalhes de como criar um frameowrk estático, veja <a href="https://github.com/kstenerud/iOS-Universal-Framework">esse link</a>.</p>
+
+<h1 id="voltando-a-programação-normal">Voltando a programação normal</h1>
+
+<p>Nosso SDK <em>core</em> consiste agora de algumas classes <em>singleton</em>, modelos, <em>categories</em>, protocolos e constantes, além das bibliotecas de segurança mantidas por terceiros. Essas classes podem ser acessadas diretamente dos aplicativos ou como direto pelo SDK de UI, já que este também - intencionalmente - depende da biblioteca <em>core</em>.</p>
+
+<p>Como a biblioteca <em>core</em> é garantida de já estar em memória quando a biblioteca de UI é inicializada - e ambas são inicializadas durante a inicialização do aplicativo por causa da <em>linkagem</em> estática - o que fazemos é definir um protocolo no SDK <em>core</em>, adotar e implementar esse protocolo na biblioteca de UI.</p>
+
+<p>Vamos ver um exemplo de como isso funciona. Um exemplo de conteúdo de interface que é disparado pelo <em>core</em> são alertas e erros - de conexão ou do <em>backend</em>. Assim, tínhamos no <em>core</em> - agora na biblioteca de UI - classes de <em>view</em> ou <em>view controller</em> para exibir essas telas. Mas o <em>core</em> não sabe mais essas classes - e nem deve ser responsabilidade dele saber (agora temos a flexibilidade de alterar todo o fluxo) - o que fazemos é declarar um protocolo com um método responsável por exibir a interface. Por exemplo, podemos declarar na biblioteca <em>core</em> o protocolo <code class="language-plaintext highlighter-rouge">TPAAlertDelegate</code> como abaixo:</p>
+
+<div class="language-objectivec highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@protocol</span> <span class="nc">TPAAlertDelegate</span>
+
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">presentInterfaceWithTitle</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="n">title</span> <span class="n">message</span><span class="o">:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">message</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</code></pre></div></div>
+
+<p>E, por exemplo, na interface da classe de rede - <em>singleton</em> - que inicialmente mandava exibir a <em>view</em> ou <em>view controller</em> declaramos uma variável que armazenará a referência fraca para a classe que exibirá efetivamente a interface.</p>
+
+<div class="language-objectivec highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">TPANetworkManager</span><span class="p">:</span> <span class="nc">NSObject</span>
+<span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="n">sharedManager</span><span class="p">;</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">weak</span><span class="p">)</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">TPAAlertDelegate</span><span class="o">&gt;</span><span class="n">alertInterfaceDelegate</span><span class="p">;</span>
+<span class="k">@end</span>
+</code></pre></div></div>
+
+<p>Perceba aqui que o tipo declarado é <code class="language-plaintext highlighter-rouge">Class&lt;TPAAlertDelegate&gt;</code> e não <code class="language-plaintext highlighter-rouge">id&lt;TPAAlertDelegate&gt;</code> como normalmente fazemos. Já explicamos por quê.</p>
+
+<p>Agora digamos que a interface a ser exibida é uma <em>view controller</em> chamada aqui de <code class="language-plaintext highlighter-rouge">TPAAlertViewController</code>. Para fazer as duas interagirem de forma transparente e sem a interação/configuração do desenvolvedor dos aplicativos - já que esses são SDKs desenvolvidos e mantidos pelo time de SDK, eu gostaria de evitar jogar essa responsabilidade para outro - implementamos o método <code class="language-plaintext highlighter-rouge">+load</code> na classe <code class="language-plaintext highlighter-rouge">TPAAlertViewController</code> como a seguir.</p>
+
+<div class="language-objectivec highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">TPAAlertViewController</span>
+
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">load</span> <span class="p">{</span>
+	<span class="p">[</span><span class="n">TPANetworkManager</span> <span class="nf">sharedManager</span><span class="p">].</span><span class="n">alertInterfaceDelegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+</code></pre></div></div>
+
+<p>Aqui, <code class="language-plaintext highlighter-rouge">self</code> está referenciando a classe <code class="language-plaintext highlighter-rouge">TPAAlertViewController</code>, e não a uma instância desta, já que esse método é chamado, como dissemos quando a biblioteca que contém esta classe está sendo carregada em memória - ou seja, na inicialização do aplicativo. Por isso a <em>property</em> <code class="language-plaintext highlighter-rouge">alertInterfaceDelegate</code> deve ser declarada como <code class="language-plaintext highlighter-rouge">Class&lt;TPAAlertDelegate&gt;</code>. Além disso, como a biblioteca de UI depende da biblioteca <em>core</em>, já temos a classe <code class="language-plaintext highlighter-rouge">TPANetworkManager</code> carregada na pilha de memória, e o <em>singleton</em> pode ser carregado/inicializado normalmente e configurado sem intervenção de quem “consome” esses SDKs.</p>
+
+<p>Com tudo configurado podemos, na implementação do método do SDK <em>core</em>, que anteriormente inicializava uma <em>view</em> ou <em>view controller</em>, no caso de um erro de requisição, podemos chamar o método do <em>delegate</em>.</p>
+
+<div class="language-objectivec highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@implementation</span> <span class="nc">TPANetworkManager</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">someMethodCalledByMainApp</span> <span class="p">{</span>
+	<span class="p">[</span><span class="n">AFNetworking</span> <span class="n">request</span><span class="p">...</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+			<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">alertInterfaceDelegate</span> <span class="nf">presentInterfaceWithTitle</span><span class="p">:</span><span class="s">@"Erro"</span>
+			                                               <span class="nl">message:</span><span class="n">error</span><span class="p">.</span><span class="n">message</span><span class="p">];</span>
+		<span class="p">}</span>
+	<span class="p">];</span>
+<span class="err">}</span>
+<span class="k">@end</span>
+</code></pre></div></div>
+
+<p>Aqui temos um exemplo simples, mas é interessante tratar de alguma forma de que <code class="language-plaintext highlighter-rouge">self.alertInterfaceDelegate</code> está configurado - se não estiver, é erro do desenvolvedor dos aplicativos, que não importaram a biblioteca de UI como dependência. Podemos então fazer o tratamento de erro desejado para erro do programador - como gerar uma exceção com uma finalização anormal do app, algo que seja detectado instantaneamente pelo desenvolvedor, não algo que vai ser detectado pelo usuário do aplicativo.</p>
+
+<h1 id="sample-core-uihow-to-handle-it"><em>Sample</em>, <em>Core</em>, <em>UI</em>…how to handle it?</h1>
+
+<p>Ok, antes tinhamos um único <em>workspace</em> contendo 3 projetos: <em>Sample</em>, <em>Pods</em> usados pelo SDK e o SDK propriamente, mas agora temos 3 projetos separados, sendo as bibliotecas <em>core</em> e de UI distribuídas via CocoaPods. Agora imaginemos a seguinte situação: estamos alterando a biblioteca de UI, adicionando uma nova tela que será chamada pelo <em>core</em>, e para isto precisamos alterar este último para fazer a nova chamada da tela sob determinada condição. Devemos então fazer a alteração na biblioteca <em>core</em>, gerar uma nova versão, publicar esta, voltar no projeto de UI, efetuar o <code class="language-plaintext highlighter-rouge">pod update</code> e seguir com o desenvolvimento da UI, certo? Errado, isso é trabalhoso demais.</p>
+
+<p>Pods…local pods FTW!</p>
+
+<p>mantémos os dois repositórios localmente, e no <code class="language-plaintext highlighter-rouge">Podfile</code> da biblioteca de UI, adicionamos o <em>core</em> como dependência, mas adicionamos o atributo <code class="language-plaintext highlighter-rouge">:path</code> apontado para o caminho local.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">target</span> <span class="s1">'UI'</span> <span class="k">do</span>
+	<span class="o">...</span>
+	<span class="n">pod</span> <span class="s1">'SDKCore'</span><span class="p">,</span> <span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s1">'path/to/sdk-core/'</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Agora não precisamos publicar toda vez que uma alteração é feita na biblioteca <em>core</em>, facilitando muito. Mas ainda tem uma melhoria, proposta pelo artigo <a href="http://albertodebortoli.com/blog/2014/03/11/cocoapods-working-with-internal-pods/">CocoaPods: Working With Internal Pods Without Hassle</a>, user um pouco de <code class="language-plaintext highlighter-rouge">git submodule</code>!</p>
+
+<p>Um exemplo de como usar isso no projeto da biblioteca de UI seria:</p>
+
+<ol>
+  <li>No projeto UI (<em>core</em> como dependência)
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">$ mkdir Vendor</code></li>
+      <li><code class="language-plaintext highlighter-rouge">$ cd Vendor</code></li>
+      <li><code class="language-plaintext highlighter-rouge">$ git submodule add server/path/to/sdk-core.git</code></li>
+    </ul>
+  </li>
+  <li>crie um grupo no projeto <code class="language-plaintext highlighter-rouge">UI</code>, <code class="language-plaintext highlighter-rouge">ctrl</code>+click, <em>Add Files do UI.xcodeproj</em>
+    <ul>
+      <li>navegue até <code class="language-plaintext highlighter-rouge">Vendor/sdk-core</code> e adicione o projeto <code class="language-plaintext highlighter-rouge">sdk-core.xcodeproj</code></li>
+      <li>navegue até <code class="language-plaintext highlighter-rouge">Vendor/sdk-core/Pods</code> e adicione o projeto <code class="language-plaintext highlighter-rouge">Pods.xcodeproj</code></li>
+    </ul>
+  </li>
+</ol>
+
+<p>E podemos deixar o <code class="language-plaintext highlighter-rouge">podfile</code> do projeto de UI como o modelo a seguir:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">target</span> <span class="s1">'UI'</span> <span class="k">do</span>
+	<span class="o">...</span>
+	<span class="n">pod</span> <span class="s1">'SDKCore'</span><span class="p">,</span> <span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s1">'./Vendor/sdk-core/'</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Agora podemos executar <code class="language-plaintext highlighter-rouge">pod install</code> no projeto UI que ele irá compilar com a biblioteca <em>core</em>, mas no <code class="language-plaintext highlighter-rouge">.podspec</code> deixamos o <em>core</em> sendo baixado do servidor. Para quem desenvolve as duas bibliotecas, temos uma única janela e um único local de alteração, com alterações entre projetos facilitadas.</p>
+
+<p>Qual problema é resolvido com a combinação <em>local pods</em> + <code class="language-plaintext highlighter-rouge">git submodule</code>? Um resumo seria:</p>
+
+<ul>
+  <li>Situação: 2 projetos independentes
+    <ul>
+      <li>duas janelas do Xcode</li>
+      <li>UI exige alteração do <em>core</em>
+        <ol>
+          <li>Altera o projeto <em>core</em></li>
+          <li>Gera nova versão</li>
+          <li>Sobe para repositório local de <em>pods</em> internos</li>
+          <li><code class="language-plaintext highlighter-rouge">pod update sdk-core</code> dentro do projeto UI</li>
+          <li>burocrático e demorado</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Mas com a dupla <code class="language-plaintext highlighter-rouge">git submodule</code> e CocoaPods temos:</p>
+
+<ul>
+  <li>Fácil manutenção
+    <ul>
+      <li>uma única área de trabalho, dois projetos independentes</li>
+      <li>compilado da forma tradicional</li>
+      <li>para quem precisa dar manutenção nos dois projetos
+        <ol>
+          <li>Clonar o projeto UI</li>
+          <li><code class="language-plaintext highlighter-rouge">$ git submodule update --init</code> - UI baixa as dependências de submodulos</li>
+          <li>Alterar dentro do workspace o projeto</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>Fácil distribuição</li>
+  <li>Fácil versionamento
+    <ul>
+      <li>projetos podem ser versionados individualmente para quem vai usar, e não desenvolver</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Ao terminar as alterações dois dois projetos, devemos:</p>
+
+<ol>
+  <li>efetuar o <code class="language-plaintext highlighter-rouge">commit</code> da biblioteca <em>core</em>;</li>
+  <li>efetuar o <code class="language-plaintext highlighter-rouge">commit</code> da biblioteca de UI</li>
+</ol>
+
+<p>O <code class="language-plaintext highlighter-rouge">push</code> pode ser feito a qualquer momento. Mas é importante que o <code class="language-plaintext highlighter-rouge">commit</code> da biblioteca de UI seja feito após o <code class="language-plaintext highlighter-rouge">commit</code> da biblioteca <em>core</em>, pois será feita uma referência ao <code class="language-plaintext highlighter-rouge">commit</code> exato do <em>core</em> do momento que o é feito o <code class="language-plaintext highlighter-rouge">commit</code> do projeto de UI. Isso é válido se você mudar de <em>branch</em> no projeto <em>core</em>, por exemplo.</p>
+
+<p>Agora no projeto <em>Sample</em> basta fazer algo semelhante, porém adicionando o repositório da biblioteca de UI como dependência, e para baixar todos os submodules recursivamente, executar o comando:</p>
+
+<p><code class="language-plaintext highlighter-rouge">$ git submodule update --init --recursive</code></p>
+
+<p>Que irá baixar o código da biblioteca de UI e da biblioteca <em>core</em>.</p>
+
+<p>A estrutura de diretórios de nossos projetos agora fica similar a esta:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/Sample
+    └── .git
+    └── .gitsubmodules
+    └── Podfile
+    └── Pods
+    └── Sample.xcodeproj
+    └── Sample.xcworkspace
+    └── Sources
+    └── Vendor
+        └── SDKUI (submodule)
+            └── .git
+            └── .gitsubmodules
+            └── Podfile
+            └── Pods
+            └── SDKUI.podspec
+            └── SDKUI.xcodeproj
+            └── SDKUI.xcworkspace
+            └── Sources
+            └── Vendor
+                └── SDKCore (submodule)
+                    └── .git
+                    └── Podfile
+                    └── Pods
+                    └── SDKCore.podspec
+                    └── SDKCore.xcodeproj
+                    └── SDKCore.xcodeproj
+                    └── Sources
+</code></pre></div></div>
+
+<p>E a estrutura dos projetos dentro do Xcode ficam assim:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>▼ Sample (projeto)
+  ▶ Source
+  ▶ Products
+  ▶ Frameworks
+  ▶ Pods
+  ▼ Vendor
+    ▼ SDKUI
+      ▶ Source
+      ▶ Products
+      ▶ Frameworks
+      ▶ Pods
+      ▼ Vendor
+        ▼ SDKCore
+          ▶ Source
+          ▶ Products
+          ▶ Frameworks
+          ▶ Pods
+        ▶ Pods (Projeto)
+    ▶ Pods (Projeto)
+▶ Pods (Projeto)
+</code></pre></div></div>
+
+<h1 id="resultados">Resultados</h1>
+
+<p>Após algumas <em>sprints</em>, o resultado foi:</p>
+
+<p>SDK (apenas o <em>core</em>):</p>
+
+<ul>
+  <li>Redução das linhas de código: de 28000* para 13500 (sendo 7000 linhas de testes)</li>
+  <li>Cobertura de testes: de 85% para 83%
+    <ul>
+      <li>enquanto esse processo era feito, outro desenvolvedor do time chegou a 95% de cobertura na principal <em>branch</em> de desenvolvimento</li>
+      <li>Estes 95% parecem ser um “máximo teórico”, pois as bibliotecas de segurança são escritas majoritariamente em <code class="language-plaintext highlighter-rouge">C</code>, impedindo/dificultando a injeção de dependência e <em>mocks</em>/<em>stubs</em></li>
+    </ul>
+  </li>
+</ul>
+
+<p>UI:</p>
+
+<ul>
+  <li>Projeto novo, iniciado com aproximadamente 9500 linhas de código (sendo 5500 linhas de testes)
+    <ul>
+      <li>o <em>storyboard</em> deve ser convertido para arquivo <code class="language-plaintext highlighter-rouge">xib</code> ou código-fonte em breve</li>
+    </ul>
+  </li>
+  <li>Após migração dos testes da versão anterior da biblioteca <em>core</em>, já nasceu com 82% de cobertura de código</li>
+  <li>Pode ser facilmente versionada e distribuída com CocoaPods</li>
+  <li>Times dos apps só precisam adicionar ao Podfile - nenhuma configuração necessária</li>
+  <li>Podemos criar bibliotecas de UI para macOS/watchOS/tvOS - aplicativo só tem que adicionar a biblioteca de UI correta</li>
+</ul>
+
+<p>Sample:</p>
+
+<ul>
+  <li>Projeto simplificado
+    <ul>
+      <li>Redução de linhas de código: de 28000* para 2100</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="proxímos-passos">Proxímos passos</h1>
+
+<p>Com a primeira experiência na definição de um núcleo comum e na integração das dependências, podemos agora gerar a nova versão da biblioteca de interface de forma muito mais simples e sem duplicação de código e recursos.</p>
+
+<p>Além disso, podemos agora partir para a modularização mais fina desse projeto, como a separação melhor da camada de segurança.</p>
+
+<p>Por último, pretendemos expor a solução de forma que os outros times dos aplicativos possam também modularizar as funcionalidades, ganhando assim a simplificação do trabalho do time de integração, mais detalhes de qualidade de código por times e áreas do aplicativo, facilidade na evolução de áreas separadas dos mesmos e maior estabilidade geral dos aplicativos.</p>
+
+<h1 id="referências">Referências:</h1>
+
+<ul>
+  <li><a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/OverviewOfDynamicLibraries.html">Overview of Dynamic Libraries</a></li>
+  <li><a href="https://pewpewthespells.com/blog/static_and_dynamic_libraries.html">Static and Dynamic Libraries</a></li>
+  <li><a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/MachOTopics/0-Introduction/introduction.html">Match-O Programming Topics</a></li>
+  <li><a href="https://idevzilla.com/2015/09/21/git-submodule-tutorial-cocoapods-might-not-be-the-solution/">Git submodule tutorial – Cocoapods might not be the solution</a></li>
+  <li><a href="http://albertodebortoli.com/blog/2014/03/11/cocoapods-working-with-internal-pods/">CocoaPods: Working With Internal Pods Without Hassle</a></li>
+  <li><a href="https://www.mikeash.com/pyblog/friday-qa-2009-05-22-objective-c-class-loading-and-initialization.html">Objective-C Class Loading and Initialization</a></li>
+  <li><a href="http://product.hubspot.com/blog/architecting-a-large-ios-app-with-cocoapods">Using CocoaPods to Modularize a Big iOS App</a></li>
+  <li><a href="https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html">Framework Programming Guide</a></li>
+</ul>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/comunidade/2017/03/10/Bugreport-101/" data-toggle="tooltip" data-placement="top" title="Bugreport 101">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/testes/2017/03/11/uitests-com-embassy-e-ambassador/" data-toggle="tooltip" data-placement="top" title="UITests com Embassy e Ambassador">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

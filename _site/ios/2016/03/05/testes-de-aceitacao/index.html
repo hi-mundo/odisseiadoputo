@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>Testes de Aceitação em iOS - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/ios/2016/03/05/testes-de-aceitacao/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Testes de Aceitação em iOS</h1>
+                        
+                        <h2 class="subheading">Como escrever testes de aceitação em iOS.</h2>
+                        
+                        <span class="meta">Postado por Felipe B. Valio em 05/03/2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=Testes de Aceitação em iOS&url=http://localhost:4000/ios/2016/03/05/testes-de-aceitacao/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/ios/2016/03/05/testes-de-aceitacao/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ios/2016/03/05/testes-de-aceitacao/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/ios/2016/03/05/testes-de-aceitacao/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<p>É comum classificar testes automatizados em três tipos: testes unitários, de aceitação e de UI. Existe um concenso de que um balanço ideal entre estes três tipos se dá pela seguinte pirâmide:</p>
+
+<p><img src="/img/felipebvalio/TestsPyramid.png" alt="" /></p>
+
+<p>Testes unitários formam a base porque são os mais numerosos. Costumam ser os mais aceitos pelos desenvolvedores por serem fáceis de se escrever e não requererem uma estrutura de código muito específica. Também ajudam a criar um código mais limpo e bem organizado. Porém a sua fraqueza reside no fato desses testes serem isolados e não garantirem a coesão do código em um nível mais elevado. É possível garantir que um método ou classe funcionam corretamente, mas não um fluxo inteiro de navegação.</p>
+
+<p>Testes de UI residem no topo porque com poucos deles é possível abrangir grandes partes do app, porém escrevê-los costuma requerer muito esforço, utilização de frameworks externos e a sua execução demora bastante (pode passar de uma hora). Quanto mais testes de UI um projeto possui, maior a dificuldade em criar mais. Por isso é comum criar poucos testes, apenas abrangendo os fluxos mais básicos.</p>
+
+<p>Chegamos por fim na camada intermediária. Testes de aceitação costumam ser os mais desconhecidos, e por isso, injustamente ignorados. Em minhas experiências com testes automatizados, os de aceitação são os mais valiosos, pois conseguem garantir que qualquer funcionalidade do app continue funcionando ao longo da evolução do app. São bastante flexíveis, abrangentes e, se for seguida uma estrutura de código bem definida, escrevê-los torna-se uma tarefa simples. Podemos, por exemplo, escrever testes para garantir o fluxo de navegação de uma tela em um iPad, iOS 8, orientação horizontal, sem conexão com internet.</p>
+
+<p>Testes de aceitação são também conhecidos como testes subcutâneos porque, fazendo uma analogia com as camadas da pele de uma pessoa, a camada mais externa (e fina) fica excluída dos testes. Nesta camada fica o código difícil de testar, como detalhes de UI e chamadas para o sistema. É muito importante que esta camada seja o mais fina possível, pois assim teremos uma boa cobertura de código sob os testes.</p>
+
+<h1 id="escrevendo-testes-de-aceitação">Escrevendo testes de aceitação</h1>
+
+<p>Para escrever os testes de aceitação propostos aqui dois conceitos são necessários: Conductor e Repositórios. O conceito de Conductor é uma extensão do tradicional Model-View-Controller (MVC) e foi criado para remover lógica de dentro dos view controllers. Desta forma, um view controller pode focar apenas em manipular a interface.</p>
+
+<p>Já os repositórios são usados para garantir um bom encapsulamento de qualquer gerador/consumidor de dados, facilitando assim manipular os dados (<em>mock</em>) durante a execução dos testes.</p>
+
+<h1 id="conductor-em-ios">Conductor em iOS</h1>
+
+<p>Vamos construir o conductor para um exemplo prático: uma tela de login.</p>
+
+<p>Considere uma tela com dois campos de texto (email e senha) e um botão de confirmação. O usuário entra com seus dados, confirma e aguarda a resposta, que pode ser de sucesso (é direcionado para a próxima tela) ou de falha (um pop-up é exibido). O fluxo de telas segue abaixo:</p>
+
+<p><img src="/img/felipebvalio/SignInFlow.png" alt="" /></p>
+
+<p>Nossa idéia aqui é remover qualquer lógica do view controller e colocá-la no conductor. Uma boa heurística para avaliar se um view controller possui lógica é verificar se ele possui IFs.</p>
+
+<blockquote>
+  <p>Um bom view controller é um view controller sem IFs</p>
+</blockquote>
+
+<p>Vamos atribuir ao view controller e ao conductor as seguintes tarefas:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>View Controller</th>
+      <th style="text-align: right">Conductor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Capturar input do usuário</td>
+      <td style="text-align: right">Validar e-mail e senha</td>
+    </tr>
+    <tr>
+      <td>Exibir alertas</td>
+      <td style="text-align: right">Comunicar com back-end</td>
+    </tr>
+    <tr>
+      <td>Exibir um indicador de atividades</td>
+      <td style="text-align: right">Decidir se o login foi bem-sucedido</td>
+    </tr>
+    <tr>
+      <td>Navegar para outras telas</td>
+      <td style="text-align: right"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br />
+O diálogo entre o view controller e o conductor será da seguinte forma:</p>
+
+<p><img src="/img/felipebvalio/ViewController-Conductor.png" alt="" /></p>
+
+<!-- 
+View Controller -> usuário confirmou com o seguinte email e senha: -> Conductor
+View Controller <- - - -  exiba o indicador de atividades <- - - - -  Conductor
+View Controller <- - - - esconda o indicador de atividades <- - - - - Conductor
+View Controller <- -  exiba um alerta com a seguinte mensagem: <- - - Conductor
+View Controller <- - - - navegue para a tela de bem-vindo <- - - - -  Conductor
+ -->
+
+<p>Vejamos como o nosso conductor pode ser:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">SignInConductor</span><span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">showActivityIndicator</span><span class="p">:</span> <span class="kt">Void</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">var</span> <span class="nv">hideActivityIndicator</span><span class="p">:</span> <span class="kt">Void</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">var</span> <span class="nv">navigateToWelcomeScreen</span><span class="p">:</span> <span class="kt">Void</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">var</span> <span class="nv">showAlertWithMessage</span><span class="p">:</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{</span><span class="n">message</span> <span class="k">in</span><span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">didConfirmWithEmail</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>E agora como o view controller utiliza o conductor:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">SignInViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+    <span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">emailTextField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">passwordTextField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="o">!</span>
+
+    <span class="k">let</span> <span class="nv">signInConductor</span> <span class="o">=</span> <span class="kt">SignInConductor</span><span class="p">()</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+
+        <span class="n">signInConductor</span><span class="o">.</span><span class="n">showActivityIndicator</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+            <span class="k">guard</span> <span class="k">let</span> <span class="nv">view</span> <span class="o">=</span> <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="n">view</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+            <span class="kt">MBProgressHUD</span><span class="o">.</span><span class="nf">showHUDAddedTo</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+        <span class="p">}</span>
+        
+        <span class="n">signInConductor</span><span class="o">.</span><span class="n">hideActivityIndicator</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+            <span class="k">guard</span> <span class="k">let</span> <span class="nv">view</span> <span class="o">=</span> <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="n">view</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+            <span class="kt">MBProgressHUD</span><span class="o">.</span><span class="nf">hideHUDForView</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+        <span class="p">}</span>
+        
+        <span class="n">signInConductor</span><span class="o">.</span><span class="n">showAlertWithMessage</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">message</span> <span class="k">in</span>
+            <span class="k">let</span> <span class="nv">alert</span> <span class="o">=</span> <span class="kt">UIAlertController</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span> <span class="nv">preferredStyle</span><span class="p">:</span> <span class="kt">UIAlertControllerStyle</span><span class="o">.</span><span class="kt">Alert</span><span class="p">)</span>
+            <span class="n">alert</span><span class="o">.</span><span class="nf">addAction</span><span class="p">(</span><span class="kt">UIAlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Ok"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="kt">UIAlertActionStyle</span><span class="o">.</span><span class="kt">Default</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kc">nil</span><span class="p">))</span>
+            <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">presentViewController</span><span class="p">(</span><span class="n">alert</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+        <span class="p">}</span>
+        
+        <span class="n">signInConductor</span><span class="o">.</span><span class="n">navigateToWelcomeScreen</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">welcomeController</span> <span class="o">=</span> <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="n">storyboard</span><span class="p">?</span><span class="o">.</span><span class="nf">instantiateViewControllerWithIdentifier</span><span class="p">(</span><span class="s">"WelcomeViewController"</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">showViewController</span><span class="p">(</span><span class="n">welcomeController</span><span class="p">,</span> <span class="nv">sender</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">didConfirm</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">signInConductor</span><span class="o">.</span><span class="nf">didConfirmWithEmail</span><span class="p">(</span><span class="n">emailTextField</span><span class="o">.</span><span class="n">text</span><span class="o">!</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="n">passwordTextField</span><span class="o">.</span><span class="n">text</span><span class="o">!</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Agora vamos incluir um pouco da lógica necessária para o conductor funcionar:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">SignInConductor</span><span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">showActivityIndicator</span><span class="p">:</span> <span class="kt">Void</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">var</span> <span class="nv">hideActivityIndicator</span><span class="p">:</span> <span class="kt">Void</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">var</span> <span class="nv">navigateToWelcomeScreen</span><span class="p">:</span> <span class="kt">Void</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">var</span> <span class="nv">showAlertWithMessage</span><span class="p">:</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{</span><span class="n">message</span> <span class="k">in</span><span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">didConfirmWithEmail</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="o">!</span><span class="nf">isValidEmail</span><span class="p">(</span><span class="n">email</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nf">showAlertWithMessage</span><span class="p">(</span><span class="s">"The email is invalid"</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">!</span><span class="nf">isValidPassword</span><span class="p">(</span><span class="n">password</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nf">showAlertWithMessage</span><span class="p">(</span><span class="s">"The password is invalid"</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="nf">showActivityIndicator</span><span class="p">()</span>
+            <span class="nf">performSignInInBackEnd</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="n">password</span><span class="p">)</span> <span class="p">{</span> <span class="n">success</span> <span class="k">in</span>
+                <span class="k">self</span><span class="o">.</span><span class="nf">hideActivityIndicator</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">success</span> <span class="p">{</span>
+                    <span class="k">self</span><span class="o">.</span><span class="nf">navigateToWelcomeScreen</span><span class="p">()</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">self</span><span class="o">.</span><span class="nf">showAlertWithMessage</span><span class="p">(</span><span class="s">"Sign in failed"</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">isValidEmail</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">email</span><span class="o">.</span><span class="nf">rangeOfString</span><span class="p">(</span><span class="s">"@"</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+    
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">isValidPassword</span><span class="p">(</span><span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">password</span><span class="o">.</span><span class="n">characters</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">6</span>
+    <span class="p">}</span>
+    
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">performSignInInBackEnd</span><span class="p">(</span><span class="n">email</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">onComplete</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">onComplete</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Perceba que temos estruturas bem diferentes no view controller e no conductor. O view controller não toma decisões, apenas executa tarefas, todas simples e isoladas, especificamente focadas em UI. Já o conductor concentra toda tomada de decisão e orienta o view controller. Se existe algum furo na nossa lógica, é no conductor que ele está, e por isso é no conductor que iremos focar os testes.</p>
+
+<h2 id="testando-um-conductor">Testando um Conductor</h2>
+
+<p>Vamos escrever um teste para verificar o fluxo quando o email não for preenchido. Qual seria o fluxo neste caso? Ao pressionar o botão de login, um alerta é apresentado pedindo o email. Não deve ser exibido um indicador de atividades nem deve prosseguir para a tela de bem-vindo. Vejamos o teste para isso:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">SignInConductorTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">testSignInWithEmptyEmail</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="nv">didShowAlert</span> <span class="o">=</span> <span class="kc">false</span>
+        <span class="k">let</span> <span class="nv">signInConductor</span> <span class="o">=</span> <span class="kt">SignInConductor</span><span class="p">()</span>
+        
+        <span class="n">signInConductor</span><span class="o">.</span><span class="n">showAlertWithMessage</span> <span class="o">=</span> <span class="p">{</span> <span class="n">message</span> <span class="k">in</span>
+            <span class="n">didShowAlert</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="p">}</span>
+        
+        <span class="n">signInConductor</span><span class="o">.</span><span class="n">navigateToWelcomeScreen</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="kt">XCTFail</span><span class="p">(</span><span class="s">"This action should not be executed"</span><span class="p">)</span>
+        <span class="p">}</span>
+        
+        <span class="n">signInConductor</span><span class="o">.</span><span class="n">showActivityIndicator</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="kt">XCTFail</span><span class="p">(</span><span class="s">"This action should not be executed"</span><span class="p">)</span>
+        <span class="p">}</span>
+        
+        <span class="n">signInConductor</span><span class="o">.</span><span class="n">hideActivityIndicator</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="kt">XCTFail</span><span class="p">(</span><span class="s">"This action should not be executed"</span><span class="p">)</span>
+        <span class="p">}</span>
+        
+        <span class="n">signInConductor</span><span class="o">.</span><span class="nf">didConfirmWithEmail</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="s">""</span><span class="p">)</span>
+        <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">didShowAlert</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Qualquer comportamento diferente de exibir um alerta resultará em falha. Este teste não se preocupa saber qual é a mensagem de erro nem qual o motivo do mesmo porque isso não nos interessa agora. Podemos escrever testes para diversos casos, explorando combinações de email e senha válidos e inválidos, mas como todos esses testes seguirão a mesma estrutura, vamos deixar isto como exercício.</p>
+
+<p>Vamos escrever agora um teste para um fluxo de sucesso:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testSignInWithValidCredentials</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">didShowActivityIndicator</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="k">var</span> <span class="nv">didHideActivityIndicator</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="k">var</span> <span class="nv">didNavigateToWelcomeScreen</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="k">let</span> <span class="nv">signInConductor</span> <span class="o">=</span> <span class="kt">SignInConductor</span><span class="p">()</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="n">showAlertWithMessage</span> <span class="o">=</span> <span class="p">{</span> <span class="n">message</span> <span class="k">in</span>
+        <span class="kt">XCTFail</span><span class="p">(</span><span class="s">"This action should not be executed"</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="n">navigateToWelcomeScreen</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">didNavigateToWelcomeScreen</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="n">showActivityIndicator</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">didShowActivityIndicator</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="n">hideActivityIndicator</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">didHideActivityIndicator</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="nf">didConfirmWithEmail</span><span class="p">(</span><span class="s">"abc@def.ghi"</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="s">"abcdef"</span><span class="p">)</span>
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">didShowActivityIndicator</span><span class="p">)</span>
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">didHideActivityIndicator</span><span class="p">)</span>
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">didNavigateToWelcomeScreen</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Temos agora o caso oposto. Não deve ser exibido o alerta de erro e todas as outras ações devem ser tomadas. Podemos tornar a validação ainda mais complexa, por exemplo, para garantir que o indicador de atividades não é ocultado antes de ser exibido, mas vamos deixar as coisas simples por enquanto.</p>
+
+<h1 id="repositórios">Repositórios</h1>
+
+<p>Vamos agora olhar para o método performSignInInBackEnd. Na prática ele fará uma requisição para algum lugar, mas como isso é feito não nos interessa neste artigo. O que queremos, na verdade, é testar como o conductor se comporta para as diferentes situações que podem decorrer dessa requisição. Para isso iremos fazer um <em>mock</em> da requisição para o back-end, e para isso é necessário que seja trivial substituir tal código por outro bem conhecido e bem comportado.</p>
+
+<p>Usaremos um conceito conhecido como repositório. Um repositório é basicamente um gerador ou consumidor de informações. Acesso ao Keychain, banco de dados, requisições remotas e informações do sistema são exemplos de possíveis repositórios. Um repositório segue uma regra básica: ele deve ser tão bem encapsulado a ponto ponto de ser trivial substituí-lo.</p>
+
+<blockquote>
+  <p>É necessário ser trivial substituir um repositório por outro equivalente</p>
+</blockquote>
+
+<p>O nosso SignInConductor se comporta de acordo quando não há conexão com a rede? Vamos escrever um teste para verificar isso.</p>
+
+<p>Primeiro definimos o repositório:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">typealias</span> <span class="kt">StatusCode</span> <span class="o">=</span> <span class="kt">Int</span>
+
+<span class="kd">protocol</span> <span class="kt">SignInRepository</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">trySignInWithEmail</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">onComplete</span><span class="p">:</span> <span class="kt">StatusCode</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Em segundo lugar, modificamos o conductor para utilizar este repositório:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">SignInConductor</span><span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">signInRepository</span><span class="p">:</span> <span class="kt">SignInRepository</span>
+    
+    <span class="nf">init</span><span class="p">(</span><span class="nv">signInRepository</span><span class="p">:</span> <span class="kt">SignInRepository</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">signInRepository</span> <span class="o">=</span> <span class="n">signInRepository</span>
+    <span class="p">}</span>
+    
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">performSignInInBackEnd</span><span class="p">(</span><span class="n">email</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">onComplete</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">signInRepository</span><span class="o">.</span><span class="nf">trySignInWithEmail</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="n">password</span><span class="p">)</span> <span class="p">{</span> <span class="n">statusCode</span> <span class="k">in</span>
+            <span class="nf">onComplete</span><span class="p">(</span><span class="n">statusCode</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Terceiro, criamos uma classe concreta para esse repositório, uma que tenha como comportamento sempre falhar com erro 503 (Service unavailable):</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">NoConnectionSignInRepository</span><span class="p">:</span> <span class="kt">SignInRepository</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">trySignInWithEmail</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">onComplete</span><span class="p">:</span> <span class="kt">StatusCode</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">onComplete</span><span class="p">(</span><span class="mi">503</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>E finalmente, utilizamos este repositório no teste:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">testSignInOffline</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">didShowActivityIndicator</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="k">var</span> <span class="nv">didHideActivityIndicator</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="k">var</span> <span class="nv">didShowAlert</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="k">let</span> <span class="nv">signInConductor</span> <span class="o">=</span> <span class="kt">SignInConductor</span><span class="p">(</span><span class="nv">signInRepository</span><span class="p">:</span> <span class="kt">NoConnectionSignInRepository</span><span class="p">())</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="n">showAlertWithMessage</span> <span class="o">=</span> <span class="p">{</span> <span class="n">message</span> <span class="k">in</span>
+        <span class="n">didShowAlert</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="n">navigateToWelcomeScreen</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="kt">XCTFail</span><span class="p">(</span><span class="s">"This action should not be executed"</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="n">showActivityIndicator</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">didShowActivityIndicator</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="n">hideActivityIndicator</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">didHideActivityIndicator</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    
+    <span class="n">signInConductor</span><span class="o">.</span><span class="nf">didConfirmWithEmail</span><span class="p">(</span><span class="s">"abc@def.ghi"</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="s">"abcdef"</span><span class="p">)</span>
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">didShowActivityIndicator</span><span class="p">)</span>
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">didHideActivityIndicator</span><span class="p">)</span>
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">didShowAlert</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Temos, com este teste, a garantia de que será exibido um indicador de atividades ao tentar efetuar o login e, ao falhar, uma mensagem será apresentada. Se existirem tratamentos diferentes para erros diferentes, podemos facilmente escrever testes semelhantes, com repositórios equivalentes.</p>
+
+<p>Como também não pode faltar, criaremos um repositório real que será utilizado normalmente pelo app:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">RemoteSignInRepository</span><span class="p">:</span> <span class="kt">SignInRepository</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">trySignInWithEmail</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">onComplete</span><span class="p">:</span> <span class="kt">StatusCode</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do here the code to request a sign-in</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Como este último repositório realiza uma chamada assíncrona, possivelmente demorada e dependente de um ambiente de homologação elaborado, não é comum escrever testes de aceitação utilizando-o, o que implica em possuirmos um código não coberto por testes. Por isso é importante manter o máximo possível de código sob o conductor, deixando tanto os view controllers como os repositórios magros e burros.</p>
+
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/tutorial/2016/03/03/scenekit-overview/" data-toggle="tooltip" data-placement="top" title="SceneKit Overview">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/open-source/2016/03/05/uikeycommand-teclas-de-atalho-dentro-do-seu-app/" data-toggle="tooltip" data-placement="top" title="UIKeyCommand: Teclas de atalho dentro do seu app">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

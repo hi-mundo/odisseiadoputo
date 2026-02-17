@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>WebView - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/webview/2016/03/12/webview-a-porta-de-entrada-para-desenvolvedores-web/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>WebView</h1>
+                        
+                        <h2 class="subheading">A Porta de entrada pra desenvolvedores web</h2>
+                        
+                        <span class="meta">Postado por Emiliano Barbosa em 12/03/2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=WebView&url=http://localhost:4000/webview/2016/03/12/webview-a-porta-de-entrada-para-desenvolvedores-web/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/webview/2016/03/12/webview-a-porta-de-entrada-para-desenvolvedores-web/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/webview/2016/03/12/webview-a-porta-de-entrada-para-desenvolvedores-web/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/webview/2016/03/12/webview-a-porta-de-entrada-para-desenvolvedores-web/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<h2 id="introdução">Introdução</h2>
+
+<p>O desenvolvimento de aplicativos chegou pra valer nas empresas, só que elas estão acabando de se tornar fluentes em mobile web e é natural ver como caminho viável colocar o site mobile dentro de uma app, afinal - Já tenho um site que parece um App, Porque não usar o mesmo? Eu acredito que em boa parte dos casos isso pode ser feito, mas é preciso ficar de olho nos detalhes de implementação e principalmente a expectativa do usuário, que espera na maioria dos casos um desempenho superior ao de um site.
+A WebView pode ser implementada utilizando a WKWebView (WK) e a UIWebView (UI), essa última acompanha o sistema desde sua versão 2, a WK foi introduzida com a versão 8 e apresenta um desempenho muito superior. Sua implementação reserva alguns desafios para as soluções que demandem comunicação do código nativo com o web, gerenciamento de cookies etc.
+Todos os exemplos de código desse artigo fazem parte desse projeto no Github: <a href="https://github.com/emilianoeloi/equinociOS-WebView">equinociOS-WebView</a>.</p>
+
+<h3 id="ponte-de-comunicação-javascriptobjective-c">Ponte de comunicação Javascript/Objective-C</h3>
+
+<p>Se eu estou dentro de uma App é claro que queremos usar o melhor dos dois mundos e é por isso que não raro a comunicação entre as plataforma será necessária. A velha UIWebView não apresenta uma forma objetiva de executar javascript, e dessa forma nada de comunicação fácil.</p>
+
+<ul>
+  <li>ObjC to JS</li>
+</ul>
+
+<p>Para enviar um javascript para a página será necessário incluir o código no método <code class="language-plaintext highlighter-rouge">'webView: shouldStartLoadWithRequest: navigationType:'</code>, assim antes do carregamento da página o código será incluído no contexto da página.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">isInnerEquinocios</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">equinocios.com</span><span class="dl">"</span>
+    <span class="p">}</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">hideHeader</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="nx">nav</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">nav</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">nav</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">isInnerEquinocios</span><span class="p">()){</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">nav</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">changeNavTitle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">JStoObjC://title=</span><span class="dl">"</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">hideHeader</span><span class="p">();</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">changeNavTitle</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">})();</span>
+</code></pre></div></div>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">injectJavascript</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">resource</span> <span class="p">{</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">jsPath</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="nf">mainBundle</span><span class="p">]</span> <span class="nf">pathForResource</span><span class="p">:</span><span class="n">resource</span> <span class="nf">ofType</span><span class="p">:</span><span class="s">@"js"</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">js</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithContentsOfFile</span><span class="p">:</span><span class="n">jsPath</span> <span class="nf">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span> <span class="n">error</span><span class="o">:</span><span class="nb">NULL</span><span class="p">];</span>
+
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">uiWebView</span> <span class="nf">stringByEvaluatingJavaScriptFromString</span><span class="p">:</span><span class="n">js</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="k">-</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">webView</span><span class="p">:(</span><span class="n">UIWebView</span> <span class="o">*</span><span class="p">)</span><span class="nv">webView</span> <span class="nf">shouldStartLoadWithRequest</span><span class="p">:(</span><span class="n">NSURLRequest</span> <span class="o">*</span><span class="p">)</span><span class="nv">request</span> <span class="nf">navigationType</span><span class="p">:(</span><span class="n">UIWebViewNavigationType</span><span class="p">)</span><span class="nv">navigationType</span><span class="p">{</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">injectJavascript</span><span class="p">:</span><span class="s">@"scripts"</span><span class="p">];</span>
+
+    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>JS to ObjC</li>
+</ul>
+
+<p>Obviamente o inverso não se trata de enviar código nativo para a App, é preciso estabelecer um protocolo de comunicação via url, por exemplo: <code class="language-plaintext highlighter-rouge">JStoObjC://title=equinociOS</code>, esse padrão deverá ser identificado do lado da App no método <code class="language-plaintext highlighter-rouge">webView: shouldStartLoadWithRequest: navigationType:</code> e então executar o código nativo.</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isJStoObjcSchema</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span><span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">url</span> <span class="nf">rangeOfString</span><span class="p">:</span><span class="s">@"JStoObjC://"</span><span class="p">].</span><span class="n">location</span> <span class="o">!=</span> <span class="n">NSNotFound</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">-</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="nf">titleWithUrl</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span><span class="p">{</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">title</span><span class="p">;</span>
+    <span class="n">NSArray</span> <span class="o">*</span><span class="n">urlParts</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span> <span class="nf">componentsSeparatedByString</span><span class="p">:</span><span class="s">@"="</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">urlParts</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">urlParts</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="n">title</span> <span class="nf">stringByRemovingPercentEncoding</span><span class="p">];</span>
+
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">title</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">-</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">webView</span><span class="p">:(</span><span class="n">UIWebView</span> <span class="o">*</span><span class="p">)</span><span class="nv">webView</span> <span class="nf">shouldStartLoadWithRequest</span><span class="p">:(</span><span class="n">NSURLRequest</span> <span class="o">*</span><span class="p">)</span><span class="nv">request</span> <span class="nf">navigationType</span><span class="p">:(</span><span class="n">UIWebViewNavigationType</span><span class="p">)</span><span class="nv">navigationType</span><span class="p">{</span>
+
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">absoluteUrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">request</span> <span class="nf">URL</span><span class="p">].</span><span class="n">absoluteString</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">([</span><span class="n">self</span> <span class="nf">isJStoObjcSchema</span><span class="p">:</span><span class="n">absoluteUrl</span><span class="p">]){</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">titleWithUrl</span><span class="p">:</span><span class="n">absoluteUrl</span><span class="p">];</span>
+        <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">injectJavascript</span><span class="p">:</span><span class="s">@"scripts"</span><span class="p">];</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"shoulrStart: %@"</span><span class="p">,[</span><span class="n">request</span> <span class="nf">URL</span><span class="p">]);</span>
+    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>O Projeto <a href="https://github.com/marcuswestin/WebViewJavascriptBridge">WebViewJavascriptBridge</a> faz o trabalho descrito acima de uma maneira bem mais completa.</p>
+
+<h4 id="wkwebview">WKWebView</h4>
+
+<p>O formato acima só seria obrigatório para atender a ~6% de base de dispositivos que ainda rodam o iOS7. Já para os aparelhos com iOS8+ a WKWebView apresentações uma solução bem mais elegante, veja:</p>
+
+<ul>
+  <li>Javascript</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">isInnerEquinocios</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">equinocios.com</span><span class="dl">"</span>
+    <span class="p">}</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">hideHeader</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="nx">nav</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">nav</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">nav</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">isInnerEquinocios</span><span class="p">()){</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">nav</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">changeNavTitle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nb">window</span><span class="p">.</span><span class="nx">webkit</span><span class="p">.</span><span class="nx">messageHandlers</span><span class="p">.</span><span class="nx">observe</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+        <span class="p">},</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">hideHeader</span><span class="p">();</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">changeNavTitle</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">})()</span>
+</code></pre></div></div>
+
+<ul>
+  <li>JS to ObjC</li>
+</ul>
+
+<p>A parte pesada aqui fica por conta do setup, no qual será necessário instanciar o <code class="language-plaintext highlighter-rouge">WKUserContenetController</code>, adicionar o <code class="language-plaintext highlighter-rouge">messageHandler</code> e implementar o método que vai receber a mensagem vinda da página <code class="language-plaintext highlighter-rouge">userContentController:didReceiveScriptMessage:</code>.</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@interface</span> <span class="nc">ViewController</span> <span class="p">()</span> <span class="o">&lt;</span><span class="n">WKNavigationDelegate</span><span class="p">,</span> <span class="n">WKUIDelegate</span><span class="p">,</span> <span class="n">UIWebViewDelegate</span><span class="p">,</span> <span class="n">WKScriptMessageHandler</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setupWKWebView</span><span class="p">{</span>
+    <span class="n">WKWebViewConfiguration</span> <span class="o">*</span><span class="n">theConfiguration</span> <span class="o">=</span> <span class="p">[[</span><span class="n">WKWebViewConfiguration</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
+    <span class="n">WKUserContentController</span> <span class="o">*</span><span class="n">controller</span> <span class="o">=</span> <span class="p">[[</span><span class="n">WKUserContentController</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">init</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">controller</span> <span class="nf">addScriptMessageHandler</span><span class="p">:</span><span class="n">self</span> <span class="nf">name</span><span class="p">:</span><span class="s">@"observe"</span><span class="p">];</span>
+
+    <span class="p">[</span><span class="n">theConfiguration</span> <span class="nf">setUserContentController</span><span class="p">:</span><span class="n">controller</span><span class="p">];</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">wkWebView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">WKWebView</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithFrame</span><span class="p">:</span><span class="n">CGRectZero</span> <span class="nf">configuration</span><span class="p">:</span><span class="n">theConfiguration</span><span class="p">];</span>
+
+    <span class="n">self</span><span class="p">.</span><span class="n">wkWebView</span><span class="p">.</span><span class="n">navigationDelegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">wkWebView</span><span class="p">.</span><span class="n">UIDelegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">userContentController</span><span class="p">:(</span><span class="n">WKUserContentController</span> <span class="o">*</span><span class="p">)</span><span class="nv">userContentController</span> <span class="nf">didReceiveScriptMessage</span><span class="p">:(</span><span class="n">WKScriptMessage</span> <span class="o">*</span><span class="p">)</span><span class="nv">message</span><span class="p">{</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">message</span><span class="p">.</span><span class="n">body</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>ObjC to JS</li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">webView</span><span class="p">:(</span><span class="n">WKWebView</span> <span class="o">*</span><span class="p">)</span><span class="nv">webView</span> <span class="nf">didFinishNavigation</span><span class="p">:(</span><span class="n">WKNavigation</span> <span class="o">*</span><span class="p">)</span><span class="nv">navigation</span><span class="p">{</span>
+
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">jsPath</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="nf">mainBundle</span><span class="p">]</span> <span class="nf">pathForResource</span><span class="p">:</span><span class="s">@"wk_script"</span> <span class="nf">ofType</span><span class="p">:</span><span class="s">@"js"</span><span class="p">];</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">js</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithContentsOfFile</span><span class="p">:</span><span class="n">jsPath</span> <span class="nf">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span> <span class="n">error</span><span class="o">:</span><span class="nb">NULL</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">wkWebView</span> <span class="nf">evaluateJavaScript</span><span class="p">:</span><span class="n">js</span> <span class="nf">completionHandler</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="trabalhando-com-cookies">Trabalhando com Cookies</h3>
+
+<p>Mas nem tudo são flores, o WKWebView não consegue usar de forma satisfatória o ‘NSHTTPCookieStorage’, e nesse caso o potencial do Javascript deve ser utilizado no processo de manipulação de cookies. Caso o seu projeto tenha por exemplo, um login nativo e que precise passar o token para a página para mandar o usuário logado na web você vai precisar escrever, deletar ou ler cookies da WebView.</p>
+
+<p>Na UI a manipulação de cookies é feito via <code class="language-plaintext highlighter-rouge">NSHTTPCookieStorage</code>.</p>
+
+<ul>
+  <li>Gravando um Cookie</li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">saveCookie</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span> <span class="nf">value</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">value</span><span class="p">{</span>
+    <span class="n">NSMutableDictionary</span> <span class="o">*</span><span class="n">cookieProperties</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableDictionary</span> <span class="nf">dictionary</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">cookieProperties</span> <span class="nf">setObject</span><span class="p">:</span><span class="n">key</span> <span class="nf">forKey</span><span class="p">:</span><span class="n">NSHTTPCookieName</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">cookieProperties</span> <span class="nf">setObject</span><span class="p">:</span><span class="n">value</span> <span class="nf">forKey</span><span class="p">:</span><span class="n">NSHTTPCookieValue</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">cookieProperties</span> <span class="nf">setObject</span><span class="p">:</span><span class="s">@"equinocios.com"</span> <span class="nf">forKey</span><span class="p">:</span><span class="n">NSHTTPCookieDomain</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">cookieProperties</span> <span class="nf">setObject</span><span class="p">:</span><span class="s">@"equinocios.com"</span> <span class="nf">forKey</span><span class="p">:</span><span class="n">NSHTTPCookieOriginURL</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">cookieProperties</span> <span class="nf">setObject</span><span class="p">:</span><span class="s">@"/"</span> <span class="nf">forKey</span><span class="p">:</span><span class="n">NSHTTPCookiePath</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">cookieProperties</span> <span class="nf">setObject</span><span class="p">:</span><span class="s">@"0"</span> <span class="nf">forKey</span><span class="p">:</span><span class="n">NSHTTPCookieVersion</span><span class="p">];</span>
+
+    <span class="n">NSHTTPCookie</span> <span class="o">*</span><span class="n">cookie</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSHTTPCookie</span> <span class="nf">cookieWithProperties</span><span class="p">:</span><span class="n">cookieProperties</span><span class="p">];</span>
+    <span class="p">[[</span><span class="n">NSHTTPCookieStorage</span> <span class="nf">sharedHTTPCookieStorage</span><span class="p">]</span> <span class="nf">setCookie</span><span class="p">:</span><span class="n">cookie</span><span class="p">];</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Deletando um Cookie</li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteCookie</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span><span class="p">{</span>
+    <span class="n">NSHTTPCookieStorage</span> <span class="o">*</span><span class="n">storage</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSHTTPCookieStorage</span> <span class="nf">sharedHTTPCookieStorage</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">NSHTTPCookie</span> <span class="o">*</span><span class="n">cookie</span> <span class="k">in</span> <span class="p">[</span><span class="n">storage</span> <span class="nf">cookies</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">([</span><span class="n">cookie</span><span class="p">.</span><span class="n">name</span> <span class="nf">isEqualToString</span><span class="p">:</span><span class="n">key</span><span class="p">])</span> <span class="p">{</span>
+            <span class="p">[</span><span class="n">storage</span> <span class="nf">deleteCookie</span><span class="p">:</span><span class="n">cookie</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="p">[[</span><span class="n">NSUserDefaults</span> <span class="nf">standardUserDefaults</span><span class="p">]</span> <span class="nf">synchronize</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Obtendo um Cookie</li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">cookie</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span><span class="p">{</span>
+    <span class="n">NSArray</span> <span class="o">*</span><span class="n">httpCookies</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSHTTPCookieStorage</span> <span class="nf">sharedHTTPCookieStorage</span><span class="p">]</span> <span class="nf">cookies</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">NSHTTPCookie</span> <span class="o">*</span><span class="n">cookie</span> <span class="k">in</span> <span class="n">httpCookies</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">([[</span><span class="n">cookie</span> <span class="nf">name</span><span class="p">]</span> <span class="nf">isEqualToString</span><span class="p">:</span><span class="n">key</span><span class="p">]){</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">cookie</span> <span class="nf">value</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Já para Manipular o cookie na WK precisaremos trabalhar com uma implementação javascript, vejo isso como um benefício já que o desenvolvedor web poderá fazer implementações otimizadas de acordo com sua necessidade.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">cookieMng</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">set</span><span class="dl">"</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cname</span><span class="p">,</span><span class="nx">value</span><span class="p">){</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="o">=</span><span class="nx">cname</span><span class="o">+</span><span class="dl">"</span><span class="s2">=</span><span class="dl">"</span><span class="o">+</span><span class="nx">value</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cname</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">cname</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">=</span><span class="dl">"</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">ca</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">;</span><span class="dl">'</span><span class="p">);</span>
+            <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">ca</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">ca</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+                <span class="k">while</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">==</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span><span class="nx">c</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="dl">""</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">delete</span><span class="dl">"</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cname</span><span class="p">){</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="o">=</span><span class="nx">cname</span><span class="o">+</span><span class="dl">"</span><span class="s2">=</span><span class="dl">"</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">wkSaveCookie</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span> <span class="nf">value</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">value</span><span class="p">{</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">js</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"window.cookieMng.set('%@','%@');"</span><span class="p">,</span><span class="n">key</span><span class="p">,</span><span class="n">value</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">wkWebView</span> <span class="nf">evaluateJavaScript</span><span class="p">:</span><span class="n">js</span> <span class="nf">completionHandler</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">wkDeleteCookie</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span><span class="p">{</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">js</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"window.cookieMng.delete('%@');"</span><span class="p">,</span><span class="n">key</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">wkWebView</span> <span class="nf">evaluateJavaScript</span><span class="p">:</span><span class="n">js</span> <span class="nf">completionHandler</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">wkCookie</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span> <span class="nf">completion</span><span class="p">:(</span><span class="n">WKCookieCompletion</span><span class="p">)</span><span class="nv">completion</span><span class="p">{</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">js</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"window.cookieMng.get('%@');"</span><span class="p">,</span><span class="n">key</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">wkWebView</span> <span class="nf">evaluateJavaScript</span><span class="p">:</span><span class="n">js</span> <span class="nf">completionHandler</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">id</span> <span class="n">jsReturn</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span> <span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSString</span> <span class="o">*</span><span class="n">local</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithFormat</span><span class="p">:</span><span class="s">@"%@"</span><span class="p">,</span><span class="n">jsReturn</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">([</span><span class="n">local</span> <span class="nf">isEqualToString</span><span class="p">:</span><span class="s">@""</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">completion</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">completion</span><span class="p">(</span><span class="n">jsReturn</span><span class="p">);</span>
+    <span class="p">}];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="performance">Performance</h3>
+
+<p>Nesse ponto que as coisas começam a complicar, o que se espera de um aplicativo é que seja performático e uma WebView nem sempre entrega isso de forma aceitável, caso seu conteúdo seja complexo, com muitas imagens, fontes customizadas, chamadas ajax etc isso tende a degradar o carregamento das páginas e não haverá cache que ajudará um segundo carregamento, já que além da obtenção dos dados o que torna uma página web rápida é também como ela foi construída.</p>
+
+<h4 id="cache">Cache</h4>
+
+<p>A política de cache padrão de um request é a <code class="language-plaintext highlighter-rouge">NSURLRequestUseProtocolCachePolicy</code>, a imagem abaixo (obtida da própria referência da Apple) descreve seu comportamento. Existem algumas outras políticas para os diversos casos: Cache parcial, sem cache etc.</p>
+
+<p><img src="/img/emilianoeloi/cache_policy.png" /></p>
+
+<ul>
+  <li>Request com política de Cache</li>
+</ul>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">loadWKWebViewWithUrl</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">absoluteUrl</span><span class="p">{</span>
+    <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="n">absoluteUrl</span><span class="p">];</span>
+    <span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="nf">requestWithURL</span><span class="p">:</span><span class="n">url</span> <span class="nf">cachePolicy</span><span class="p">:</span><span class="n">NSURLRequestReloadIgnoringLocalAndRemoteCacheData</span> <span class="n">timeoutInterval</span><span class="o">:</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">_wkWebView</span> <span class="nf">loadRequest</span><span class="p">:</span><span class="n">request</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Limpar Cache</li>
+</ul>
+
+<p>No caso de utilização de WebView é notório o consumo de memória, em específico da UIWebView em iOS 8+, e limpar o cache em caso de MemoryWarning ajudará a manter o bom funcionamento do seu aplicativo.</p>
+
+<blockquote>
+  <p>In apps that run in iOS 8 and later, use the WKWebView class instead of using UIWebView. Additionally, consider setting the WKPreferences property javaScriptEnabled to false if you render files that are not supposed to run JavaScript. UIWebView Reference</p>
+</blockquote>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">didReceiveMemoryWarning</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nf">didReceiveMemoryWarning</span><span class="p">];</span>
+    <span class="p">[[</span><span class="n">NSURLCache</span> <span class="nf">sharedURLCache</span><span class="p">]</span> <span class="nf">removeAllCachedResponses</span><span class="p">];</span>
+    <span class="p">[[</span><span class="n">NSURLCache</span> <span class="nf">sharedURLCache</span><span class="p">]</span> <span class="nf">setDiskCapacity</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">[[</span><span class="n">NSURLCache</span> <span class="nf">sharedURLCache</span><span class="p">]</span> <span class="nf">setMemoryCapacity</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>HTML embarcado</li>
+</ul>
+
+<p>Existe também a opção de carregar o HTML previamente embarcado no aparelho.</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">loadUIWebViewWithLocalData</span><span class="p">{</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">htmlFile</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="nf">mainBundle</span><span class="p">]</span> <span class="nf">pathForResource</span><span class="p">:</span><span class="s">@"index"</span> <span class="nf">ofType</span><span class="p">:</span><span class="s">@"html"</span><span class="p">];</span>
+    <span class="n">NSString</span><span class="o">*</span> <span class="n">htmlString</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nf">stringWithContentsOfFile</span><span class="p">:</span><span class="n">htmlFile</span> <span class="nf">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span> <span class="n">error</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">uiWebView</span> <span class="nf">loadHTMLString</span><span class="p">:</span><span class="n">htmlString</span> <span class="nf">baseURL</span><span class="p">:[</span><span class="n">NSURL</span> <span class="nf">URLWithString</span><span class="p">:</span><span class="s">@"http://equinocios.com"</span><span class="p">]];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="html">HTML</h3>
+
+<p>Preocupar-se com a performance do código web para uma WebView é ainda mais relevante, além de ela ser uma versão piorada do navegador, estarmos em um dispositivo que precisa otimizar o consumo de bateria. Então turbinar seu código vai ajudar substancialmente a sua WebView rodar suave. A idéia que o código seja escrito de maneira a minimizar reflows, repaints e todo script que possa bloquear a interação do usuário.</p>
+
+<h3 id="webkit">WebKit</h3>
+
+<p>Embora a WKWebView tenha sido lançada com o iOS8 em 2014 o Google Chrome, por exemplo, só foi adotá-la no início desse ano e só usa para iOS9+. E como era de se esperar a diferença de performance é gritante. Segue abaixo um comparativo da UIWebView vs WKWebView. Um dos motivos que foi citado pelo Google pra não utilização do WK é não ter um caminho obvio para gerenciar cookies.</p>
+
+<p>Observe no consumo de recursos da comparação abaixo:</p>
+
+<p><img src="http://emiliano.bocamuchas.org/__ui_to_gif_final.gif" />
+<img src="http://emiliano.bocamuchas.org/__wk_to_gif_final.gif" /></p>
+
+<h2 id="ferramenta-de-inspeção">Ferramenta de inspeção</h2>
+
+<p>E para um desenvolvedor web treinado nada é mais fundamental do que o inspect do navegador, e para a WebView isso continua igual, obviamente que é a ferramenta do Safari. É de simples utilização, basta habilitar o modo desenvolvedor do Safari e o menu desenvolvedor ficará disponível.</p>
+
+<p><img src="/img/emilianoeloi/inspect.png" /></p>
+
+<h2 id="browser-inapp">Browser inApp.</h2>
+
+<p>E para os que querem manter seu usuário ainda no contexto do seu aplicativo, já está disponível para iOS9+ o Safari View Controller, que é uma experiência completa de um browser dentro da sua App. Ele apresenta uma experiência consistente com o próprio Safari levando o auto-preenchimento de formulários, cookies, ou seja se o usuário estiver logado no Safari estará logado na SVC.</p>
+
+<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">-</span><span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">webView</span><span class="p">:(</span><span class="n">UIWebView</span> <span class="o">*</span><span class="p">)</span><span class="nv">webView</span> <span class="nf">shouldStartLoadWithRequest</span><span class="p">:(</span><span class="n">NSURLRequest</span> <span class="o">*</span><span class="p">)</span><span class="nv">request</span> <span class="nf">navigationType</span><span class="p">:(</span><span class="n">UIWebViewNavigationType</span><span class="p">)</span><span class="nv">navigationType</span><span class="p">{</span>
+
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">absoluteUrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">request</span> <span class="nf">URL</span><span class="p">].</span><span class="n">absoluteString</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">([</span><span class="n">self</span> <span class="nf">isJStoObjcSchema</span><span class="p">:</span><span class="n">absoluteUrl</span><span class="p">]){</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">titleWithUrl</span><span class="p">:</span><span class="n">absoluteUrl</span><span class="p">];</span>
+        <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">self</span> <span class="nf">isInnerURL</span><span class="p">:</span><span class="n">absoluteUrl</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">navigationType</span> <span class="o">==</span> <span class="n">UIWebViewNavigationTypeLinkClicked</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SFSafariViewController</span> <span class="o">*</span><span class="n">svc</span> <span class="o">=</span> <span class="p">[[</span><span class="n">SFSafariViewController</span> <span class="nf">alloc</span><span class="p">]</span><span class="nf">initWithURL</span><span class="p">:</span><span class="n">request</span><span class="p">.</span><span class="n">URL</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">self</span> <span class="nf">presentViewController</span><span class="p">:</span><span class="n">svc</span> <span class="nf">animated</span><span class="p">:</span><span class="nb">YES</span> <span class="n">completion</span><span class="o">:^</span><span class="p">{</span>
+
+        <span class="p">}];</span>
+        <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">self</span> <span class="nf">injectJavascript</span><span class="p">:</span><span class="s">@"ui_script"</span><span class="p">];</span>
+    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="conclusão">Conclusão</h2>
+
+<p>A WebView integra a App e seus recursos nativos à web, ou seja, você pode ter o melhor dos dois mundos ao seu favor.
+Existem soluções para web mobile que beiram o inacreditável de tão boa de usar, muitas delas superam muitas Apps por aí, mas é muito interessante entender até onde soluções web podem chegar e principalmente até onde uma WebView pode solucionar o problema proposto.
+Existem cenários em que a solução pode parecer tanto um aplicativo que um usuário treinado não conseguirá identificar, mas isso não será verdade em todos os casos, nos quais o conteúdo é complexo demais pra funcionar com fluidez, e o melhor para esses casos é já deixar claro para o usuário que se trata de um acesso a web e isso já calibrará a expectativa dele.
+E essa série de artigos do CocoaHeads é uma ótima oportunidade para desenvolvedores web se envolverem com a plataforma e entender que é tão interessante quanto a web e poder ter mais insumos para desenvolver soluções para Mobile.</p>
+
+<h3 id="agradecimentos">Agradecimentos</h3>
+
+<p>Agradeço <a href="https://github.com/shonorio">Solli</a> pela inciativa do projeto que celebra o Equinócio e a todos os membros da comunidade do CocoaHeads que prontamente absorveram a sugestão e em poucos dias já deixaram tudo preparado para um mês de artigos. Pra mim é um privilégio.</p>
+
+<h3 id="referências">Referências</h3>
+
+<ol>
+  <li><a href="https://developer.apple.com/support/app-store/">AppStore</a></li>
+  <li><a href="https://github.com/marcuswestin/WebViewJavascriptBridge">WebViewJavascriptBridge</a></li>
+  <li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSHTTPCookieStorage_Class/">NSHTTPCookieStorage</a></li>
+  <li><a href="https://developers.google.com/speed/articles/reflow#guidelines">Minimizing browser reflow</a></li>
+  <li><a href="http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/">Rendering: repaint, reflow/relayout, restyle</a></li>
+  <li><a href="http://www.joshuakehn.com/2014/10/29/using-javascript-with-wkwebview-in-ios-8.html">Using JavaScript with WKWebView in iOS 8</a></li>
+  <li><a href="http://blog.chromium.org/2016/01/a-faster-more-stable-chrome-on-ios.html">A faster, more stable Chrome on iOS</a></li>
+  <li><a href="https://bugs.chromium.org/p/chromium/issues/detail?id=423444">Use WKWebView on iOS 9+</a></li>
+</ol>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/regex/2016/03/11/o-que-sao-expressoes-regulares/" data-toggle="tooltip" data-placement="top" title="Seja um desenvolvedor regular">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/03/13/rxswift-como-eu-vim-parar-aqui/" data-toggle="tooltip" data-placement="top" title="RxSwift: como eu vim parar aqui?">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

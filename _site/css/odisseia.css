@@ -1,0 +1,274 @@
+/* A odisseia do puto — tema preto, branco e verde, vibe 2003 */
+
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111;
+  --text: #e8e8e8;
+  --text-muted: #999;
+  --accent: #00cc66;
+  --accent-soft: #00a050;
+  --accent-bright: #33ff99;
+  --border: #00cc66;
+  --border-soft: #1a3d2e;
+}
+
+body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+}
+
+a {
+  color: var(--accent-bright) !important;
+}
+a:hover, a:focus {
+  color: var(--accent) !important;
+  text-decoration: underline !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Tahoma, "Trebuchet MS", sans-serif !important;
+  color: var(--text) !important;
+  border-bottom: 1px dotted var(--border-soft);
+  padding-bottom: 0.25em;
+}
+
+/* Navbar — sempre fundo escuro, estilo 2003 */
+.navbar-custom {
+  background: var(--bg-card) !important;
+  border-bottom: 2px solid var(--border) !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+}
+.navbar-custom .navbar-brand {
+  color: var(--accent) !important;
+  font-weight: bold;
+}
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus {
+  color: var(--accent-bright) !important;
+}
+.navbar-custom .nav li a {
+  color: var(--text) !important;
+}
+.navbar-custom .nav li a:hover,
+.navbar-custom .nav li a:focus {
+  color: var(--accent) !important;
+}
+.navbar-custom .navbar-toggle .icon-bar {
+  background: var(--accent) !important;
+}
+@media (min-width: 768px) {
+  .navbar-custom {
+    background: var(--bg-card) !important;
+    border-bottom: 2px solid var(--border) !important;
+  }
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav li a {
+    color: var(--text) !important;
+  }
+  .navbar-custom .navbar-brand:hover,
+  .navbar-custom .nav li a:hover {
+    color: var(--accent) !important;
+  }
+}
+.navbar-custom.is-fixed {
+  background-color: var(--bg-card) !important;
+  border-bottom: 2px solid var(--border) !important;
+}
+.navbar-custom.is-fixed .navbar-brand,
+.navbar-custom.is-fixed .nav li a {
+  color: var(--text) !important;
+}
+.navbar-custom.is-fixed .navbar-brand:hover,
+.navbar-custom.is-fixed .nav li a:hover {
+  color: var(--accent) !important;
+}
+
+/* Header das páginas e posts — sem imagem, fundo escuro com faixa verde */
+.intro-header {
+  background: var(--bg) !important;
+  background-image: none !important;
+  border-bottom: 3px solid var(--border);
+  margin-bottom: 2rem;
+}
+.intro-header .site-heading,
+.intro-header .post-heading,
+.intro-header .page-heading {
+  padding: 6rem 0 3rem;
+  color: var(--text) !important;
+}
+.intro-header .site-heading h1,
+.intro-header .page-heading h1,
+.intro-header .post-heading h1 {
+  color: var(--text) !important;
+}
+.intro-header .site-heading .subheading,
+.intro-header .page-heading .subheading,
+.intro-header .post-heading .subheading,
+.intro-header .post-heading .meta {
+  color: var(--text-muted) !important;
+}
+.intro-header .post-heading .meta a {
+  color: var(--accent) !important;
+}
+.intro-header-overlay {
+  background: transparent !important;
+}
+hr.small {
+  border-color: var(--accent) !important;
+  max-width: 80px;
+}
+
+/* Conteúdo principal */
+.container .row {
+  background: var(--bg);
+}
+blockquote {
+  color: var(--text-muted) !important;
+  border-left: 4px solid var(--accent);
+  background: var(--bg-card);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+/* Lista de posts na home */
+.post-preview {
+  padding: 1rem 0;
+  border-bottom: 1px dotted var(--border-soft);
+}
+.post-preview > a {
+  color: var(--text) !important;
+}
+.post-preview > a:hover {
+  color: var(--accent) !important;
+  text-decoration: none !important;
+}
+.post-preview > a > .post-title {
+  color: var(--text) !important;
+}
+.post-preview > .post-meta {
+  color: var(--text-muted) !important;
+}
+.post-preview > .post-meta > a {
+  color: var(--accent) !important;
+}
+
+/* Pager — botões estilo 2003 */
+.pager li > a,
+.pager li > span {
+  background: var(--bg-card) !important;
+  color: var(--accent) !important;
+  border: 1px solid var(--border) !important;
+}
+.pager li > a:hover,
+.pager li > a:focus {
+  background: var(--accent) !important;
+  color: var(--bg) !important;
+  border-color: var(--accent) !important;
+}
+.pager .disabled > a,
+.pager .disabled > span {
+  color: var(--text-muted) !important;
+  background: var(--bg-card) !important;
+  border-color: var(--border-soft) !important;
+}
+
+/* Footer */
+footer {
+  border-top: 2px solid var(--border);
+  background: var(--bg-card) !important;
+  padding: 2rem 0;
+}
+footer .copyright,
+footer .copyright a {
+  color: var(--text-muted) !important;
+}
+footer .copyright a:hover {
+  color: var(--accent) !important;
+}
+footer .list-inline a {
+  color: var(--text-muted) !important;
+}
+footer .list-inline a:hover {
+  color: var(--accent) !important;
+}
+footer .fa-circle {
+  color: var(--border-soft) !important;
+}
+footer .fa-inverse {
+  color: var(--bg) !important;
+}
+
+/* Share */
+ul.share li a {
+  color: var(--text-muted) !important;
+}
+ul.share li a:hover {
+  color: var(--accent) !important;
+}
+
+/* Sobre */
+.about-team {
+  display: grid;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+.about-person {
+  padding: 1.5rem;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-card);
+}
+.about-person h3 {
+  color: var(--accent) !important;
+  border: none;
+  margin-top: 0;
+}
+.about-person .role {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+.about-footer {
+  margin-top: 2rem;
+  color: var(--text-muted);
+}
+
+/* HR */
+hr {
+  border-color: var(--border-soft) !important;
+}
+
+/* Blocos de código — tema escuro */
+.highlight pre, pre, .highlight .hll {
+  background-color: #0d1117 !important;
+  border: 1px solid var(--border-soft) !important;
+  color: var(--text) !important;
+  padding: 1rem !important;
+}
+.highlight .c, .highlight .cm, .highlight .c1, .highlight .cs { color: #8b949e; font-style: italic; }
+.highlight .k, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: var(--accent-bright); font-weight: bold; }
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .s1 { color: #f0b849; }
+.highlight .n, .highlight .na, .highlight .nb, .highlight .nc, .highlight .no, .highlight .ni, .highlight .ne, .highlight .nf, .highlight .nn, .highlight .nt, .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi { color: #79c0ff; }
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo, .highlight .il { color: #a5d6ff; }
+.highlight .o, .highlight .ow { color: var(--text-muted); }
+.highlight .err { color: #f85149; }
+.highlight .g, .highlight .gd, .highlight .ge, .highlight .gr, .highlight .gt { color: #f85149; }
+.highlight .gi { color: var(--accent); }
+.highlight .go, .highlight .gp, .highlight .gs, .highlight .gu { color: var(--text-muted); }
+.highlight .sr, .highlight .ss { color: #7ee787; }
+.highlight .bp { color: var(--text-muted); }
+code { color: var(--accent-bright); background: var(--bg-card); padding: 0.2em 0.4em; border-radius: 2px; }
+
+/* Selection */
+::selection {
+  background: var(--accent-soft);
+  color: var(--bg);
+}
+::-moz-selection {
+  background: var(--accent-soft);
+  color: var(--bg);
+}

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>RxSwift: como eu vim parar aqui? - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/2016/03/13/rxswift-como-eu-vim-parar-aqui/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>RxSwift: como eu vim parar aqui?</h1>
+                        
+                        <h2 class="subheading">Minha experiência aprendendo programação reativa e funcional</h2>
+                        
+                        <span class="meta">Postado por Bruno Koga em 13/03/2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=RxSwift: como eu vim parar aqui?&url=http://localhost:4000/2016/03/13/rxswift-como-eu-vim-parar-aqui/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/2016/03/13/rxswift-como-eu-vim-parar-aqui/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/2016/03/13/rxswift-como-eu-vim-parar-aqui/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/2016/03/13/rxswift-como-eu-vim-parar-aqui/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<blockquote>
+  <p>☝️
+Esse artigo não visa ensinar nenhum conceito ou técnica diretamente. Ele é muito mais um relato pessoal da minha experiência no aprendizado de alguns conceitos e paradigmas. Se você não tem ideia do que é programação reativa, eu recomendo fortemente <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">esse guia</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p>✌️
+A maioria dos exemplos contidos nesse artigo foram retirados de projetos reais e de documentações ou exemplos providos pelos autores das bibliotecas citadas. Todos os respectivos links estão disponíveis no final do artigo.</p>
+</blockquote>
+
+<h3 id="passado">Passado</h3>
+<p>Programo para iOS desde 2009. Até 8 meses atrás, Objective-C (e o básico de C) eram as duas únicas linguagens que eu sabia programar.</p>
+
+<p>E por muitos anos a minha abordagem para desenvolver software sempre envolveu: Objective-C, <a href="https://pt.wikipedia.org/wiki/Orientação_a_objetos">programação 100% orientada a objetos</a> e <a href="https://pt.wikipedia.org/wiki/Programação_imperativa">programação imperativa</a>. Foi assim que aprendi a programar e foi assim que sempre programei.</p>
+
+<h3 id="presente">Presente</h3>
+<p>Em junho de 2015, logo após o lançamento do Swift 2.0, entrei num projeto 100% escrito em Swift (1.2). Era meu primeiro contato real com Swift.</p>
+
+<p><img src="/img/brunokoga/aleera.jpg" alt="" />
+<span class="caption text-muted">Logo eu me vingarei!</span></p>
+
+<blockquote>
+  <p><strong>Opinião:</strong> aprender Swift é como aprender qualquer outra linguagem de programação. Sua sintaxe é relativamente simples de aprender e já há muita documentação e exemplos na internet. Não acho que Swift deveria ser barreira para ninguém: é algo que se aprende (o básico) em poucos dias. E é questão de dias para você ser produtivo usando Swift.</p>
+</blockquote>
+
+<p>Porém, a camada de comunicação com o servidor desse aplicativo era construída em cima de uma biblioteca escrita chamada <a href="https://github.com/Thomvis/BrightFutures">BrightFutures</a>. E com isso me deparei com dois outros conceitos que eu nunca havia estudado (muito menos usado): <a href="https://pt.wikipedia.org/wiki/Programação_funcional">programação funcional</a> e <a href="https://en.wikipedia.org/wiki/Reactive_programming">programação reativa</a>.</p>
+
+<blockquote>
+  <p><strong>Opinião:</strong> o resumo de programação funcional é, <strong>para mim</strong>, algo do tipo: uma mudança de pensamento que, ao invés de você pensar em classes e objetos e na interação entre essas entidades, você pensa muito mais em funções e composição de funções. É um tema bastante extenso. Pela minha experiência, isso é algo que leva um certo tempo para aprender e requer disciplina para ler teorias e documentações.</p>
+</blockquote>
+
+<p>E por fim: programação reativa. Até então, eu nunca tinha conseguido entender exatamete o que era programação reativa. Todas a vezes que tentei usar <a href="https://github.com/ReactiveCocoa/ReactiveCocoa">ReactiveCocoa</a> desisti no meio por perder o controle do que estava acontecendo.</p>
+
+<blockquote>
+  <p><strong>Opinião:</strong> <img src="/img/brunokoga/rac.png" alt="" />
+<span class="caption text-muted">meu snippet para <code class="language-plaintext highlighter-rouge">;rac</code> no TextExpander</span></p>
+</blockquote>
+
+<h3 id="futuro">Futuro</h3>
+<p>Voltando ao <code class="language-plaintext highlighter-rouge">BrightFutures</code>: na época, mesmo sem saber nada de programação funcional e programação reativa, foi fácil para eu entender a teoria e a filosofia por trás do <em>framework</em>: prover uma forma de tratar com código assíncrono e tratamento de erros através de <a href="https://en.wikipedia.org/wiki/Futures_and_promises">futuros e promessas</a>.</p>
+
+<p>E foi aí que comecei a entender <em>um pouco</em> o que significava programação funcional e porque o Swift era uma linguagem que permitia a implementação e o uso de conceitos funcionais.</p>
+
+<blockquote>
+  <p>Vamos começar a viajar um pouco. Essa é a hora ideal para uma dose de cafeína ☕️.</p>
+</blockquote>
+
+<p>Imagine o caso em que você tem uma série de eventos futuros que você quer que sejam encadeados, respeitando (ou não) uma ordem e que no final desse encadeamento de eventos (ou seja, no futuro) você quer ser notificado.</p>
+
+<p>Por exemplo: um aplicativo em que o usuário pode logar com a sua conta e baixar todos os seus posts. Temos então um evento de <code class="language-plaintext highlighter-rouge">logIn</code> que, em caso de sucesso, dispara um evento de <code class="language-plaintext highlighter-rouge">fetchPosts</code> para aquele usuário. Tanto o evento de <code class="language-plaintext highlighter-rouge">logIn</code> como o de <code class="language-plaintext highlighter-rouge">fetchPosts</code> seriam funções que retornam um “Futuro” (no caso do <em>BrightFutures</em>, um <code class="language-plaintext highlighter-rouge">Future</code>). O resultado da execução do <code class="language-plaintext highlighter-rouge">logIn</code>, por exemplo, é um <code class="language-plaintext highlighter-rouge">future</code> que representa um erro (em caso de erro) ou um <code class="language-plaintext highlighter-rouge">userId</code> (em caso de sucesso). No caso do <code class="language-plaintext highlighter-rouge">fetchPosts</code>, o retorno seria um  <code class="language-plaintext highlighter-rouge">future</code> representando um erro (falha) ou um array de posts (sucesso).</p>
+
+<p>Antes mesmo de ler sequer uma linha de código, a abstração acima faz sentido. O problema agora é como programar usando essa “arquitetura”. No exemplo acima, o código seria algo assim (código retirado do <a href="https://github.com/Thomvis/BrightFutures">repositório do Bright Futures</a>):</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">User</span><span class="o">.</span><span class="nf">logIn</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="o">.</span><span class="n">flatMap</span> <span class="p">{</span> <span class="n">user</span> <span class="k">in</span>
+    <span class="kt">Posts</span><span class="o">.</span><span class="nf">fetchPosts</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<span class="p">}</span><span class="o">.</span><span class="n">onSuccess</span> <span class="p">{</span> <span class="n">posts</span> <span class="k">in</span>
+    <span class="c1">// do something with the user's posts</span>
+<span class="p">}</span><span class="o">.</span><span class="n">onFailure</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+    <span class="c1">// either logging in or fetching posts failed</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A assinatura das funções <code class="language-plaintext highlighter-rouge">User.logIn</code> e <code class="language-plaintext highlighter-rouge">Posts.fetchPosts</code> seria algo assim:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">logIn</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">User</span><span class="p">,</span> <span class="kt">ErrorType</span><span class="o">&gt;</span>
+<span class="kd">func</span> <span class="nf">fetchPosts</span><span class="p">(</span><span class="nv">user</span><span class="p">:</span> <span class="kt">User</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Posts</span><span class="p">],</span> <span class="kt">ErrorType</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Se você não estiver acostumado com a sintaxe do Swift ou o código acima parecer muito confuso para você, essa é a explicação desse código (traduzido do <a href="https://github.com/Thomvis/BrightFutures">repositório do Bright Futures</a>):</p>
+
+<p>Quando o futuro retornado por <code class="language-plaintext highlighter-rouge">User.logIn</code> falha (por exemplo, se o <code class="language-plaintext highlighter-rouge">username</code> e <code class="language-plaintext highlighter-rouge">password</code> não estiverem corretos), tanto o <code class="language-plaintext highlighter-rouge">flatMap</code> como o <code class="language-plaintext highlighter-rouge">onSuccess</code> são pulados, e o closure <code class="language-plaintext highlighter-rouge">onFailure</code> é chamado com o <code class="language-plaintext highlighter-rouge">error</code> que ocorreu na tentativa de <code class="language-plaintext highlighter-rouge">logIn</code>. Se a tentativa de realizar o <code class="language-plaintext highlighter-rouge">logIn</code> for bem sucedida, o resultado da operação (que é um objeto <code class="language-plaintext highlighter-rouge">user</code>) é passado para o <code class="language-plaintext highlighter-rouge">flatMap</code>, que “transforma” o usuário em um <em>array</em> com seus posts. Se os posts não puderem ser baixados (por causa de um erro), <code class="language-plaintext highlighter-rouge">onSuccess</code> é pulado, e <code class="language-plaintext highlighter-rouge">onFailure</code> é chamado com o <code class="language-plaintext highlighter-rouge">error</code> que ocorreu na tentativa de baixar os posts. Se os posts puderem ser baixados com sucesso, <code class="language-plaintext highlighter-rouge">onSuccess</code> é chamado com os posts do usuário.</p>
+
+<blockquote>
+  <p><strong>Opinião:</strong> o código pode parecer estranho a princípio, mas novamente a teoria faz sentido. E por isso que acho que tanto programação funcional como programação reativa são dois conceitos que requerem estudo da teoria antes da prática. É um pouco diferente de aprender uma linguagem de programação nova (como Swift), que algo 100% <em>hands on</em> pode ser efetivo.</p>
+</blockquote>
+
+<p>Falando nisso, o <code class="language-plaintext highlighter-rouge">flatMap</code> aí em cima é um dos caras que fazem parte dos conceitos funcionais. Caso você não o entenda (ainda!), a idéia é que ele “transforma” (ou “mapeia”) o <strong>resultado</strong> de um <code class="language-plaintext highlighter-rouge">Future</code> no <strong>valor</strong> de um novo <code class="language-plaintext highlighter-rouge">Future</code>. Ou seja, ele transforma o resultado do <code class="language-plaintext highlighter-rouge">logIn</code> (que é um <code class="language-plaintext highlighter-rouge">user</code>) no valor de entrada para o <code class="language-plaintext highlighter-rouge">fetchPosts</code> (que por sua vez retorna outro <code class="language-plaintext highlighter-rouge">Future</code>).</p>
+
+<p>E é aí que entra a mágica do Swift ser tão restrito em relação a tipos (ou seja, ser uma linguagem <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html"><em>type safe</em></a>, totalmente diferente do Objective-C): o compilador consegue te garantir que os tipos de dados dos valores retornados por uma função e passados para outra função estão sempre corretos. E a partir daí, o atalho preferido do Xcode passa a ser <code class="language-plaintext highlighter-rouge">⌥ + click</code>:</p>
+
+<p><img src="/img/brunokoga/typesafe1.png" alt="" />
+<span class="caption text-muted"> O compilador está do nosso lado! Após concatenar várias funções, você (quase) sempre pode confiar nele para te dizer o tipo do retorno das suas funções. Essa técnica é muito útil para você checar se o tipo retornado é mesmo o que você espera.</span></p>
+
+<p><img src="/img/brunokoga/typesafe2.png" alt="" />
+<span class="caption text-muted">a mesma estratégia funciona também para os parâmetros das funções concatenadas. Mesmo que você não entenda o código acima, a idéia é que você tem a segurança de saber que está trabalhando com o tipo de dado correto (diferentemente do Objective-C, onde não há essa garantia).</span></p>
+
+<h3 id="resumindo">Resumindo</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Futures</code> são ações futuras (assíncronas, com tratamento de erros). O paradigma da programação funcional permite transformar e encadear essas ações de uma forma clara e segura. Além disso, ao trabalhar com <code class="language-plaintext highlighter-rouge">Futures</code>, estamos trabalhando de uma forma “reativa”. Em outras palavras, estamos programando baseado no “retorno” dos <code class="language-plaintext highlighter-rouge">futures</code>. Esses <code class="language-plaintext highlighter-rouge">futures</code> se responsabilizam de fazer o trabalho deles assincronamente. E ao encadear esses <code class="language-plaintext highlighter-rouge">futures</code>, estamos trabalhando com os conceitos funcionais. Por isso que, apesar de diferentes, esses dois termos são vistos comumente juntos: <strong>Programação Reativa Funcional</strong>.</p>
+
+<h3 id="rxswift">RxSwift</h3>
+
+<p><a href="https://github.com/ReactiveX/RxSwift">RxSwift</a> é a versão escrita em Swift do <a href="http://reactivex.io">ReactiveX</a>. O <a href="http://reactivex.io">ReactiveX</a> por sua vez é uma biblioteca que possibilita o uso de programação baseada em eventos (reativa), de forma assíncrona e que pode ser composta e encadeada (funcional) através de <a href="http://reactivex.io/documentation/operators.html"><strong>operadores</strong></a>.</p>
+
+<blockquote>
+  <p><strong>Opinião:</strong> novamente, a melhor forma - na minha opinião - de aprender os conceitos básicos de programação reativa é esse link: <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The introduction to Reactive Programming you’ve been missing</a>.</p>
+</blockquote>
+
+<p>A idéia básica da programação reativa é que você trabalha em cima de <em>streams</em> (fluxos, correntes, sequências) de dados. Cada <em>stream</em> é uma sequência de eventos que acontecem em uma linha de tempo e podem emitir três tipos de “coisas”: um valor, um erro ou um <em>sinal de finalizado</em>.</p>
+
+<p>No nosso exemplo anterior, usando <a href="(https://github.com/Thomvis/BrightFutures)">BrightFutures</a>, a nossa entidade <code class="language-plaintext highlighter-rouge">Future</code> nada mais é do que um <em>stream</em>, que pode produzir um valor (e um sinal de “finalizado” logo em seguida) ou um erro.</p>
+
+<p>Com o <code class="language-plaintext highlighter-rouge">RxSwift</code>, porém, as coisas são mais amplas que apenas <code class="language-plaintext highlighter-rouge">Futures</code>. Você pode definir outros tipos de <em>streams</em>. Um bom exemplo é um <code class="language-plaintext highlighter-rouge">UITextField</code>: ao invés de programar pensando nos conceitos de <em>delegates</em>, o <code class="language-plaintext highlighter-rouge">RxSwift</code> te permite <strong>observar</strong> os valores do <em>stream</em> <code class="language-plaintext highlighter-rouge">rx_text</code> do <code class="language-plaintext highlighter-rouge">UITextField</code> e <strong>reagir</strong> de acordo com a emissão desses valores. Veja um exemplo:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">lengthOfBytes</span> <span class="o">=</span>
+        <span class="n">textView</span><span class="o">.</span><span class="n">rx_text</span>
+            <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">lengthOfBytesUsingEncoding</span><span class="p">(</span><span class="kt">NSUTF8StringEncoding</span><span class="p">)</span> <span class="p">}</span>
+            <span class="o">.</span><span class="n">filter</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Com o código acima, estamos definindo que a cada vez que <code class="language-plaintext highlighter-rouge">rx_text</code> emitir um valor, nós iremos <em>mapear</em> (ou seja, transformar) esse valor em um <code class="language-plaintext highlighter-rouge">Int</code>, e então iremos filtrar esse valor, seguindo adiante apenas se ele for maior que 5.</p>
+
+<p>Fazendo novamente a comparação com <code class="language-plaintext highlighter-rouge">Futures</code>, o <code class="language-plaintext highlighter-rouge">RxSwift</code> encapsula seus <em>streams</em>  em <code class="language-plaintext highlighter-rouge">Observables</code>. Ou seja, o tipo de dado de <code class="language-plaintext highlighter-rouge">rx_text</code> é um <code class="language-plaintext highlighter-rouge">Observable&lt;String&gt;</code>, enquanto, no exemplo acima, o tipo de dados de <code class="language-plaintext highlighter-rouge">lengthOfBytes</code> é um <code class="language-plaintext highlighter-rouge">Observable&lt;Int&gt;</code> (ou seja, é um <em>stream</em> também):</p>
+
+<p><img src="/img/brunokoga/rxswift1.png" alt="" />
+<span class="caption text-muted">Lembre-se: <code class="language-plaintext highlighter-rouge">⌥ + click</code> é seu melhor amigo!</span></p>
+
+<p>A última peça que falta nesse quebra-cabeças do <code class="language-plaintext highlighter-rouge">RxSwift</code> é que <strong>nada acontece</strong> até você dar um <em>subscribe</em> no seu <em>stream</em> (ou na sua sequência de <em>streams</em>). Antes disso, você está apenas definindo as ações que você irá tomar, baseada nos eventos que podem acontecer. O <em>subscribe</em> é o sinal verde para que o <code class="language-plaintext highlighter-rouge">Observable</code> comece a emitir itens:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">messagesHandler</span><span class="o">.</span><span class="n">messages</span>
+            <span class="o">.</span><span class="nf">window</span><span class="p">(</span><span class="nv">timeSpan</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nv">count</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span> <span class="nv">scheduler</span><span class="p">:</span> <span class="kt">MainScheduler</span><span class="o">.</span><span class="n">instance</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">flatMap</span> <span class="p">{</span> <span class="n">observable</span> <span class="o">-&gt;</span> <span class="kt">Observable</span><span class="o">&lt;</span><span class="kt">ServerMessage</span><span class="o">&gt;</span> <span class="k">in</span>
+                <span class="n">observable</span><span class="o">.</span><span class="nf">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="o">.</span><span class="n">subscribeNext</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">message</span> <span class="k">in</span>
+                    <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">playMessageArrivedSound</span><span class="p">()</span>
+                <span class="p">}</span>
+            <span class="p">}</span><span class="o">.</span><span class="nf">addDisposableTo</span><span class="p">(</span><span class="n">disposeBag</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>O <code class="language-plaintext highlighter-rouge">disposeBag</code>, a grosso modo, é a forma do <code class="language-plaintext highlighter-rouge">RxSwift</code> liberar os recursos alocados, quando você acabar de observar a sequência (seja por opção ou porque ela terminou). Não vou entrar em detalhes sobre como usar o <code class="language-plaintext highlighter-rouge">dispose</code> do <code class="language-plaintext highlighter-rouge">RxSwift</code>. Não é algo muito complicado e você pode ler mais sobre o assunto <a href="https://github.com/ReactiveX/RxSwift/blob/master/Documentation/GettingStarted.md#disposing">aqui</a>.</p>
+</blockquote>
+
+<p>O <code class="language-plaintext highlighter-rouge">subscribeNext</code> é a forma que o seu <code class="language-plaintext highlighter-rouge">Observer</code> fala “a cada valor emitido, faça isso”. O código acima é um exemplo de como observar mensagens recebidas em um aplicativo de mensagens instantâneas e disparar um som cada vez que uma mensagem chega. Os operadores <code class="language-plaintext highlighter-rouge">window</code> e <code class="language-plaintext highlighter-rouge">flatMap</code> garantem que haja um intervalo mínimo de 0.5 segundo entre cada som disparado (para saber mais, veja <a href="http://stackoverflow.com/questions/35438268/rxswift-debounce-throttle-inverse">essa pergunta no StackOverflow</a>). No exemplo acima, não estamos reagindo em caso de erro, nem para os sinais de <code class="language-plaintext highlighter-rouge">completed</code>, já que, em teoria, esse <em>stream</em> de mensagens recebidas nunca encerra.</p>
+
+<p>Uma forma comum de se usar esse paradigma de observar <code class="language-plaintext highlighter-rouge">streams</code> é com <strong>binding</strong>. <a href="https://en.wikipedia.org/wiki/Data_binding">Data binding</a> é o processo de “conectar” a informação apresentada na sua UI com o seu modelo ou lógica de negócios.</p>
+
+<p>Usando o <code class="language-plaintext highlighter-rouge">RxSwift</code> por exemplo, a implementação de uma tela de Settings poderia ser a seguinte:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="c1">//bind, onde nameLabel = firstName + " " + lastName</span>
+        <span class="kt">Observable</span>
+         <span class="o">.</span><span class="nf">combineLatest</span><span class="p">(</span><span class="n">firstNameTextField</span><span class="o">.</span><span class="n">rx_text</span><span class="p">,</span> <span class="n">lastNameTextField</span><span class="o">.</span><span class="n">rx_text</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$0</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="nv">$1</span>
+        <span class="p">}</span><span class="o">.</span><span class="nf">bindTo</span><span class="p">(</span><span class="n">nameLabel</span><span class="o">.</span><span class="n">rx_text</span><span class="p">)</span>
+         <span class="o">.</span><span class="nf">addDisposableTo</span><span class="p">(</span><span class="n">disposeBag</span><span class="p">)</span>
+        
+        <span class="c1">//bind, onde mapeamos o valor do Switch em um emoji:</span>
+        <span class="n">settingsSwitch</span><span class="o">.</span><span class="n">rx_value</span>
+         <span class="o">.</span><span class="n">map</span> <span class="p">{</span>
+            <span class="nv">$0</span> <span class="p">?</span> <span class="s">"👍"</span> <span class="p">:</span> <span class="s">"👎"</span>
+        <span class="p">}</span><span class="o">.</span><span class="nf">bindTo</span><span class="p">(</span><span class="n">settingsLabel</span><span class="o">.</span><span class="n">rx_text</span><span class="p">)</span>
+         <span class="o">.</span><span class="nf">addDisposableTo</span><span class="p">(</span><span class="n">disposeBag</span><span class="p">)</span>
+</code></pre></div></div>
+<blockquote>
+  <p>Se a sintaxe de <code class="language-plaintext highlighter-rouge">$0</code> e <code class="language-plaintext highlighter-rouge">$1</code> for meio etranha pra você, eles são recursos do próprio Swift. Recomendo a leitura do capítulo de <em>Closures</em> do <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html">The Swift Programming Language</a>.</p>
+</blockquote>
+
+<p>E esse é o resultado:</p>
+
+<center><img src="/img/brunokoga/bind.gif" alt="" /></center>
+<p><span class="caption text-muted">Suas telas de Settings nunca mais serão as mesmas! ✨</span></p>
+
+<h3 id="e-esse-é-só-o-começo">E esse é só o começo</h3>
+
+<p>Acredite: esses são apenas os primeiros passos dentro do mundo de programação reativa e/ou funcional. Ainda existe muito a ser explorado e muito, muito a ser aprendido.
+Algo que tem me ajudado bastante nesse processo de aprendizado é ter a consciência de que o tema é extenso e não se aprende da noite pro dia (diferente de aprender uma nova linguagem de programação, por exemplo). A verdade é que Programação Funcional e Reativa são conceitos longos e complexos e que levam tempo para serem assimilados. Mas acredito que uma vez que você aprenda a teoria, a escolha de bibliotecas seja um “mero” detalhe.</p>
+
+<p>Espero que compartilhar a minha experiência possa ser útil para você começar a entender um pouco mais desses paradigmas de programação. Caso queira se aprofundar mais, coloquei alguns links nas <strong>Referências</strong> abaixo.</p>
+
+<h3 id="agradecimentos">Agradecimentos</h3>
+<ul>
+  <li><a href="https://twitter.com/larslockefeer">Lars</a> por me ensinar Swift e os conceitos do <a href="https://github.com/Thomvis/BrightFutures">BrightFutures</a>;</li>
+  <li><a href="https://twitter.com/thomvis88">Thomas</a> por ter escrito a <a href="https://github.com/Thomvis/BrightFutures">BrightFutures</a>;</li>
+  <li><a href="https://twitter.com/gsampaio">Mentos</a> por ter sido a inspiração para eu criar meu snippet <code class="language-plaintext highlighter-rouge">;rac</code> no TextExpander.</li>
+</ul>
+
+<h3 id="referências">Referências</h3>
+<p>Fontes utilizadas para a escrita deste artigo:</p>
+
+<ul>
+  <li><a href="https://github.com/Thomvis/BrightFutures">Bright Futures</a></li>
+  <li><a href="https://github.com/ReactiveX/RxSwift/blob/master/Documentation/Examples.md">RxSwift</a></li>
+  <li><a href="http://slack.rxswift.org">Slack do RxSwift</a></li>
+  <li><a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The introduction to Reactive Programming you’ve been missing</a></li>
+  <li><a href="http://reactivex.io">ReactiveX</a></li>
+  <li><a href="http://rxmarbles.com">RxMarbles</a></li>
+</ul>
+
+<p>Obrigado pela leitura!</p>
+
+<blockquote>
+  <p>Bruno Koga
+<br /><a href="https://twitter.com/brunokoga">@brunokoga</a>
+<br />http://www.brunokoga.com</p>
+</blockquote>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/webview/2016/03/12/webview-a-porta-de-entrada-para-desenvolvedores-web/" data-toggle="tooltip" data-placement="top" title="WebView">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/functional/2016/03/14/generic-functional-reactive-post/" data-toggle="tooltip" data-placement="top" title="Programação funcional e reativa é para todos">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

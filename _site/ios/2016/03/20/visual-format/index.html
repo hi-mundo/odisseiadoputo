@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>Auto Layout com Visual Format - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/ios/2016/03/20/visual-format/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Auto Layout com Visual Format</h1>
+                        
+                        <h2 class="subheading">Seu layout com uma linguagem visual e fácil</h2>
+                        
+                        <span class="meta">Postado por Daniel Bonates em 20/03/2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=Auto Layout com Visual Format&url=http://localhost:4000/ios/2016/03/20/visual-format/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/ios/2016/03/20/visual-format/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ios/2016/03/20/visual-format/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/ios/2016/03/20/visual-format/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<h2 id="uma-linguagem-visual-e-fácil-que-pode-resolver-problemas-complexos">Uma linguagem visual e fácil que pode resolver problemas complexos</h2>
+
+<p><em>Auto Layout</em> ainda é um tópico delicado para alguns desenvolvedores. Seja no Interface Builder ou via código, definir o posicionamento e dimensões dos objetos satisfazendo todos os requerimentos para ele funcionar perfeitamente ainda pode ser um desafio. Acho justo comparar o <em>Auto Layout</em> do iOS com o CSS, usado também para definições de layout, mas na platforma web. Eu mesmo já passei perrengues tentando ajustar um item sem quebrar o layout de outro; tipo o tal do <em>cobertor curto</em>.</p>
+
+<p><img src="/img/dbonates/css.gif" /></p>
+
+<p>A primeira dica pra conseguir um resultado bom é: planejar. Digo sobre a disposição dos objetos, considerando as dimensões e distância entre eles. Pode parecer óbvio, mas o mais intuitivo é você observar a imagem, começar a inseri-los na tela e depois dar conta de <em>layoutar</em> eles.</p>
+
+<h2 id="um-linguagem-simples-reduzida-e-visual">Um linguagem simples, reduzida e… visual!</h2>
+<p>Os métodos tradicionais para aplicar constraints no seu layout via código nem são complicados, e ainda te dão a oportunidade de inserir constraints individuais para cada item, basta um pouco de paciência e seu esforço será recompensado. Ainda assim, existe uma alternativa pouco explorada que pode facilitar ainda mais nosso trabalho, é a <em>Visual Format Language</em>.</p>
+
+<p>Trata-se de uma linguagem muito simples e resumida, mas com um poder de fogo considerável. Mas o mais legal é que para usá-la, basta uma string definindo os elementos na sequência em que eles aparecem na tela, considerando os eixos horizontal e/ou vertical <code class="language-plaintext highlighter-rouge">"H:[view1]-30-[view2]"</code> e pronto, funciona!</p>
+
+<p>É como <strong>desenhar seu layout usando apenas texto</strong>! Vamos a um exemplo simples.</p>
+
+<h2 id="mão-na-massa">Mão na massa</h2>
+
+<p>Digamos que nosso objetivo é preencher a view principal com um retângulo. Esse código cria a view:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">UIView</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRectZero</span><span class="p">)</span>
+<span class="n">v1</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span><span class="mf">0.5134</span><span class="p">,</span>  <span class="nv">green</span><span class="p">:</span><span class="mf">0.8424</span><span class="p">,</span>  <span class="nv">blue</span><span class="p">:</span><span class="mf">0.9366</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">v1</span><span class="o">.</span><span class="n">translatesAutoresizingMaskIntoConstraints</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addSubview</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Observações importantes:</p>
+<ul>
+  <li>Note que eu não defini o frame que desejamos para a <em>v1</em>. Vamos deixar o foco do nosso assunto tratar disso mais além!</li>
+  <li>Outro detalhe fácil de passar despercebido, é a propriedade <code class="language-plaintext highlighter-rouge">translatesAutoresizingMaskIntoConstraints</code>. Ela precisa ser anulada uma vez que você vai definir as constraints manualmente. Sem isso, o iOS irá criá-las automaticamente usando suas dimensões iniciais como parâmetro.</li>
+</ul>
+
+<p>Uma vez tendo <em>v1</em> sido adicionada à view principal, vamos alinhá-lo com nossas intenções de layout:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"H:|[v1]|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v1"</span><span class="p">:</span><span class="n">v1</span><span class="p">]))</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"V:|[v1]|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v1"</span><span class="p">:</span><span class="n">v1</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<p>O resultado:</p>
+
+<p><img src="/img/dbonates/full.png" /></p>
+
+<p>Eu sei, sem graça. Mas você conseguiu o que queria, não?! Lição brinde: programar é assim, você conquista o que você faz!</p>
+
+<h3 id="incrementando-de-leve">Incrementando de leve</h3>
+<p>Vamos adicionar uma margem = 20 nesse layout. Mudaremos a string de <code class="language-plaintext highlighter-rouge">H:|[v1]|</code> para:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">H</span><span class="p">:</span><span class="o">|-</span><span class="mi">20</span><span class="o">-</span><span class="p">[</span><span class="n">v1</span><span class="p">]</span><span class="o">-</span><span class="mi">20</span><span class="o">-|</span>
+</code></pre></div></div>
+
+<p>e <code class="language-plaintext highlighter-rouge">V:|[v1]|</code> para:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">V</span><span class="p">:</span><span class="o">|-</span><span class="mi">20</span><span class="o">-</span><span class="p">[</span><span class="n">v1</span><span class="p">]</span><span class="o">-</span><span class="mi">20</span><span class="o">-|</span>
+</code></pre></div></div>
+
+<p>Aí teremos como resultado:</p>
+
+<p><img src="/img/dbonates/m20.png" /></p>
+
+<p>Está começando a nascer :)</p>
+
+<h3 id="quebrando-em-partes">Quebrando em partes</h3>
+
+<p>O método <code class="language-plaintext highlighter-rouge">constraintsWithVisualFormat</code> é o que usamos pra aplicar a linguagem visual do <em>Auto Layout</em>. Ela tem alguns parâmetros interessantes que aumentam seu poder de fogo, mas eu quero me concentrar aqui no principal, o que usamos e que é o coração desse recurso.</p>
+
+<p>Usamos <code class="language-plaintext highlighter-rouge">"H:|-20-[v1]-20-|"</code>, mas a que se refere essa string? Vamos lá:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><em>string</em></th>
+      <th>utilização</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">H</code></td>
+      <td>significa que estamos tratando os elementos no layout no eixo horizontal</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">|</code></td>
+      <td>esse <em>pipe</em> faz referência à superview</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">-20-</code></td>
+      <td>especificamos um espaçamento igual a 20 entre os elementos à esquerda e à direira (no caso do eixo horizontal)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">[v1]</code></td>
+      <td>essa é a view sobre a qual estamos nos referindo na aplicação das constraints.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">["v1":v1]</code></td>
+      <td>Dicionário contendo as views citadas na string de layout</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="nota-importante">Nota importante:</h3>
+<p>Não tente adicionar as constraints antes de adicioná-las à view onde vão estar contidas, caso contrário um crash irá ocorrer dado que <code class="language-plaintext highlighter-rouge">v1</code> não será encontrado em <code class="language-plaintext highlighter-rouge">self.view</code> ainda.</p>
+
+<h3 id="múltiplas-views-no-layout">Múltiplas views no layout</h3>
+
+<p>Começando a ficar mais sério o papo, vamos adicionar mais views. Mantenha sua observidade (eu inventei essa palavra agora, significa “fique observando, stay focused”), em como tratar o layout continua sendo simples e visual.</p>
+
+<p>Esse é o código completo até agora com as duas views em nosso layout</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">UIView</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRectZero</span><span class="p">)</span>
+<span class="n">v1</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span><span class="mf">0.5134</span><span class="p">,</span>  <span class="nv">green</span><span class="p">:</span><span class="mf">0.8424</span><span class="p">,</span>  <span class="nv">blue</span><span class="p">:</span><span class="mf">0.9366</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">v1</span><span class="o">.</span><span class="n">translatesAutoresizingMaskIntoConstraints</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addSubview</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
+        
+<span class="k">let</span> <span class="nv">v2</span> <span class="o">=</span> <span class="kt">UIView</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRectZero</span><span class="p">)</span>
+<span class="n">v2</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span><span class="mf">0.969</span><span class="p">,</span>  <span class="nv">green</span><span class="p">:</span><span class="mf">0.443</span><span class="p">,</span>  <span class="nv">blue</span><span class="p">:</span><span class="mf">0.455</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">v2</span><span class="o">.</span><span class="n">translatesAutoresizingMaskIntoConstraints</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addSubview</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+
+<span class="c1">// constraints para a view 1</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"H:|-20-[v1]-20-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v1"</span><span class="p">:</span><span class="n">v1</span><span class="p">]))</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"V:|-20-[v1(==300)]"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v1"</span><span class="p">:</span><span class="n">v1</span><span class="p">]))</span>
+
+<span class="c1">// constraints para a view 2        </span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"H:|-20-[v2]-20-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v2"</span><span class="p">:</span><span class="n">v2</span><span class="p">]))</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"V:[v1]-20-[v2]-20-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v1"</span><span class="p">:</span><span class="n">v1</span><span class="p">,</span> <span class="s">"v2"</span><span class="p">:</span><span class="n">v2</span><span class="p">]))</span>
+</code></pre></div></div>
+<p>Esse é o resultado:</p>
+
+<p><img src="/img/dbonates/double.png" /></p>
+
+<p>Nesse trecho, além de adicionar a própria view:</p>
+
+<ol>
+  <li>
+    <p>temos um <code class="language-plaintext highlighter-rouge">==300</code> na definição de constraints para a <em>view 1</em>. É desse jeito que podemos definir um tamanho fixo ou variável para a view em questão. Por exemplo, ao invés de <code class="language-plaintext highlighter-rouge">==</code> poderíamos ter usado <code class="language-plaintext highlighter-rouge">&gt;=</code>.</p>
+  </li>
+  <li>
+    <p>Outro detalhe fica por conta de termos adicionados as duas views no parâmetro que relaciona as views envolvidas num dicionário: <code class="language-plaintext highlighter-rouge">["v1":v1, "v2":v2]</code>.</p>
+  </li>
+  <li>
+    <p>E por último, a definição da relação entre as duas views definindo a posição da <em>view 2</em> com relação à <em>view 1</em>, a uma distancia de 20 pixels: <code class="language-plaintext highlighter-rouge">V:[v1]-20-[v2]-20-|</code></p>
+  </li>
+</ol>
+
+<p>Ainda é um exemplo simples, mas você já consegue imaginar onde isso pode parar? Se estamos definindo uma string, por exemplo, que tal se ela embutir valores de variáveis? Exemplo:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">padding</span><span class="p">:</span><span class="kt">CGFloat</span> <span class="o">=</span> <span class="mf">10.0</span>
+</code></pre></div></div>
+<p>poderíamos alterar a string de visual format para:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"V:[v1]-</span><span class="se">\(</span><span class="n">padding</span><span class="se">)</span><span class="s">-[v2]-</span><span class="se">\(</span><span class="n">padding</span><span class="se">)</span><span class="s">-|"</span>
+</code></pre></div></div>
+<p>Isso pode ir mais longe:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// constraints para a view 1</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"H:|-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v1]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v1"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v1</span><span class="p">]))</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"V:|-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v1(==v2)]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v2]"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v1"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v1</span><span class="p">,</span><span class="s">"v2"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v2</span><span class="p">]))</span>
+
+<span class="c1">// constraints para o label dentro de view 1</span>
+<span class="n">v1</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"H:|-[swipeUpInfo]-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"swipeUpInfo"</span> <span class="p">:</span> <span class="n">swipeUpInfo</span><span class="p">]))</span>
+<span class="n">v1</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"V:|-[swipeUpInfo]-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"swipeUpInfo"</span> <span class="p">:</span> <span class="n">swipeUpInfo</span><span class="p">]))</span>
+
+<span class="c1">// constraints para a view 2</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"H:|-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v2]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v2"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v2</span><span class="p">]))</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"V:[v1]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v2(==v3)]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v3]"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v1"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v1</span><span class="p">,</span><span class="s">"v2"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v2</span><span class="p">,</span><span class="s">"v3"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v3</span><span class="p">]))</span>
+
+<span class="c1">// constraints para a view 3</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"H:|-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v3]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v3"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v3</span><span class="p">]))</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"V:[v2]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v3(==v4)]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v4]"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v2"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v2</span><span class="p">,</span><span class="s">"v3"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v3</span><span class="p">,</span><span class="s">"v4"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v4</span><span class="p">]))</span>
+
+<span class="c1">// constraints para a view 4</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"H:|-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v4]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v4"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v4</span><span class="p">]))</span>
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"V:[v3]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-[v4(==v3)]-</span><span class="se">\(</span><span class="n">pad</span><span class="se">)</span><span class="s">-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"v3"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v3</span><span class="p">,</span><span class="s">"v4"</span><span class="p">:</span><span class="k">self</span><span class="o">.</span><span class="n">v4</span><span class="p">]))</span>
+
+<span class="c1">// constraints para o label dentro de view 4</span>
+<span class="n">v4</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"H:|-[swipeDownInfo]-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"swipeDownInfo"</span> <span class="p">:</span> <span class="n">swipeDownInfo</span><span class="p">]))</span>
+<span class="n">v4</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span><span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraintsWithVisualFormat</span><span class="p">(</span><span class="s">"V:|-[swipeDownInfo]-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"swipeDownInfo"</span> <span class="p">:</span> <span class="n">swipeDownInfo</span><span class="p">]))</span>     
+</code></pre></div></div>
+
+<p>vai produzir isso:
+<img src="/img/dbonates/fourbars.png" /></p>
+
+<h2 id="vai-um-desafio">Vai um desafio?</h2>
+<p>A imagem a seguir, é uma célula dentro de uma CollectionView. Toda usando Visual Format Language:</p>
+
+<p><img src="/img/dbonates/cell.png" /></p>
+
+<p>Acredite, esses elementos todos podem ser posicionados e dimensionados usando o que citamos por aqui. Ao todo, 22 linhas de código aplicando as strings de layout mais algumas definindo variáveis, como <em>ratio</em>, <em>largura</em>, etc.</p>
+
+<h2 id="links-relacionados-e-código-fonte-desse-artigo">Links relacionados e código fonte desse artigo</h2>
+
+<p>A documentação da Apple sobre Visual Format Language é bem razoável e está nesse link, vale uma visita:
+<a href="https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage.html">https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage.html</a></p>
+
+<h3 id="sobre-código-fonte">Sobre código fonte</h3>
+<p>O código fonte desse projeto vai um pouco além do foi postado aqui, mas usando tudo que falamos, além de alguns adornos como usar o gesto swipe para alterar o valor usado para padding. Fique à vontade para explorá-lo, o link é esse:</p>
+
+<p><a href="https://github.com/dbonates/Auto-Layout-with-Visual-Format">https://github.com/dbonates/Auto-Layout-with-Visual-Format</a></p>
+
+<h2 id="conclusão">Conclusão</h2>
+<p>Trabalhar com <em>Auto Layout</em> pode ser muito bom e rápido se você usar toda versatilidade que a ferramenta oferece, e o que abordei aqui é apenas um dos recursos, porém muito interessante e pouco explorado. É possível fazer muita coisa usando a linguagem visual da Apple para <em>Auto Layout</em>. E eu espero que você tenha gostado e no mínimo tenha percebido que se bem compreendido, ele joga a seu favor, e sem muito esforço, ao contrário do que diz a lenda :P</p>
+
+<p>Bem é isso, pessoal.</p>
+
+<p>Críticas, comentários e sugestões? À vontade e sem neurose!</p>
+
+<p>Um forte abraço a todos e até a próxima!</p>
+
+<blockquote>
+  <p>Daniel Bonates<br />designer &amp; developer -  <a href="http://bonates.com" target="_blank">bonates.com</a></p>
+</blockquote>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/open-source/2016/03/19/backend-usando-swift-sim-e-possivel/" data-toggle="tooltip" data-placement="top" title="Backend usando Swift ? Sim, é possível!">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/runtime/2016/03/22/introducao-sobre-runtime-em-objective-c/" data-toggle="tooltip" data-placement="top" title="Introdução sobre Runtime em Objective-C">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

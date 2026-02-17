@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>Gerenciando subscriptions com In-App Purchases - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/subscription/2017/03/25/Gerenciando-subscriptions-com-In-App-Purchases/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Gerenciando subscriptions com In-App Purchases</h1>
+                        
+                        <h2 class="subheading">Porque parece complicado, mas não é.</h2>
+                        
+                        <span class="meta">Postado por Renan Protector em 25/03/2017</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=Gerenciando subscriptions com In-App Purchases&url=http://localhost:4000/subscription/2017/03/25/Gerenciando-subscriptions-com-In-App-Purchases/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/subscription/2017/03/25/Gerenciando-subscriptions-com-In-App-Purchases/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/subscription/2017/03/25/Gerenciando-subscriptions-com-In-App-Purchases/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/subscription/2017/03/25/Gerenciando-subscriptions-com-In-App-Purchases/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<blockquote>
+  <p>Renan Protector (<a href="https://twitter.com/reprotector" target="_blank">@reprotector</a>) é desenvolvedor iOS desde 2009. Atualmente Indie Dev, é Co-Founder do (<a href="https://getblogo.com" target="_blank">Blogo</a>) e do (<a href="https://spacecoworking.com" target="_blank">Space Coworking</a>).</p>
+</blockquote>
+
+<p>Em Junho de 2016 a Apple modificou sua política de subscriptions na App Store, permitindo que várias categorias de aplicativos possam utilizar esse modelo de negócios. A assinatura funciona como um In-App Purchase e toda a parte de pagamento é feito pela própria App Store. O foco desse artigo está na gestão das assinaturas, por isso não falaremos como implementar IAP (In-App Purchase) dentro do seu aplicativo. <a href="https://developer.apple.com/in-app-purchase/" target="_blank">Clique Aqui</a> para saber mais sobre IAP.</p>
+
+<p>Iremos falar sobre duas possibilidades: <strong>Assinatura apenas no app</strong> e <strong>Assinatura em vários ambientes</strong></p>
+
+<h2 id="apenas-em-1-app">Apenas em 1 App</h2>
+<p>Quando a assinatura é apenas para um único app iOS, não é preciso fazer muita coisa. O próprio app deve gerenciar a assinatura do usuário. Após completar a compra do IAP, o método <code class="language-plaintext highlighter-rouge">- (void)completeTransaction:(SKPaymentTransaction *)transaction</code> será chamado e a partir daí as funcionalidades já podem ser liberadas para o usuário.</p>
+
+<p>Para verificar se o usuário é assinante e se a assinatura está em dia, basta verificar o receipt<a href="#what_is_receipt">*</a> do aplicativo. Recomendo a utilização do <a href="https://github.com/rmaddy/VerifyStoreReceiptiOS" target="_blank">VerifyStoreReceiptiOS</a>, pois facilita muito a leitura dos campos do receipt dentro do aplicativo.</p>
+
+<p>Para saber como validar um receipt, veja o item: <a href="#validate_receipt">O que verificar nesse receipt?</a></p>
+
+<h2 id="múltiplos-apps-e-web">Múltiplos apps e Web</h2>
+
+<p>Quando a assinatura vai ser usada em vários ambientes, é necessário que você sincronize os dados da App Store. Você precisará de um serviço web para gerenciar as assinaturas e validá-las. Isso significa que seu aplicativo precisará de login para identificar seus usuários e suas respectivas assinaturas.</p>
+
+<h3 id="chega-de-papo-como-faço-isso-no-meu-app">Chega de papo, como faço isso no meu app?</h3>
+
+<p>Ao finalizar a compra do IAP, o seguinte método será chamado: <code class="language-plaintext highlighter-rouge">- (void)completeTransaction:(SKPaymentTransaction *)transaction</code>.</p>
+
+<p>Nesse momento, o receipt do seu app já estará atualizado com os dados de compra do IAP e você deverá enviá-lo para sua API. Sua API deve validar os dados junto à App Store para se certificar que o receipt é verdadeiro e original. Para saber mais sobre a validação do receipt na App Store, <a href="https://developer.apple.com/library/content/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateRemotely.html#//apple_ref/doc/uid/TP40010573-CH104-SW1" target="_blank">clique aqui.</a></p>
+
+<p>Em Ruby, a validação pode ser feito com o código abaixo, não esqueça de adicionar seu Token no request:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="k">def</span> <span class="nf">validate_receipt_remote</span><span class="p">(</span><span class="n">receipt_base64</span><span class="p">)</span>  
+	  <span class="n">receipt_base64</span><span class="p">.</span><span class="nf">gsub!</span> <span class="s1">' '</span><span class="p">,</span> <span class="s1">'+'</span>
+	  <span class="n">params_json</span> <span class="o">=</span> <span class="s2">"{ </span><span class="se">\"</span><span class="s2">receipt-data</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">"</span><span class="o">+</span><span class="n">receipt_base64</span><span class="o">+</span><span class="s2">"</span><span class="se">\"</span><span class="s2">, </span><span class="se">\"</span><span class="s2">password</span><span class="se">\"</span><span class="s2">: </span><span class="se">\”</span><span class="s2">SEU TOKEN AQUI</span><span class="se">\”</span><span class="s2">}”
+	  uri = URI("</span><span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">buy</span><span class="p">.</span><span class="nf">itunes</span><span class="p">.</span><span class="nf">apple</span><span class="p">.</span><span class="nf">com</span><span class="s2">") # Use "</span><span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">buy</span><span class="p">.</span><span class="nf">itunes</span><span class="p">.</span><span class="nf">apple</span><span class="p">.</span><span class="nf">com</span><span class="s2">" for production
+	  Net::HTTP.start(uri.host, uri.port, :use_ssl =&gt; uri.scheme == 'https') do |http|
+	    response = http.post('/verifyReceipt', params_json)	    
+	    return JSON.parse(response.body)
+	  end
+	end
+</span></code></pre></div></div>
+
+<p>Um exemplo de resposta dessa requisição (mantive apenas os campos que considero importante):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ 
+   "status"   =&gt;0,
+   "environment"   =&gt;"Production",
+   "receipt"   =&gt;   { 
+      "receipt_type"      =&gt;"Production",
+      "app_item_id"      =&gt;977160124,
+      "bundle_id"      =&gt;"com.Blogo.ios",
+      "application_version"      =&gt;"251",
+      "receipt_creation_date"      =&gt;"2017-03-12 11:22:41      Etc/GMT",
+      "request_date"      =&gt;"2017-03-24 17:22:53      Etc/GMT",
+      "original_purchase_date"      =&gt;"2016-10-16 03:54:25      Etc/GMT",
+      "original_application_version"      =&gt;"215",
+      "in_app"      =&gt;      [          
+         { 
+            "product_id"            =&gt;"com.blogo.pro.ios.month",
+            "transaction_id"            =&gt;"120000262038036",
+            "original_transaction_id"            =&gt;"120000262038036",
+            "purchase_date"            =&gt;"2016-10-16 05:45:23            Etc/GMT",
+            "original_purchase_date"            =&gt;"2016-10-16 05:45:24            Etc/GMT",
+            "expires_date"            =&gt;"2016-11-16 06:45:23            Etc/GMT",
+            "is_trial_period"            =&gt;"true"
+         }
+      ]
+   },
+   "latest_receipt_info"   =&gt;   [ 
+      { 
+         "product_id"         =&gt;"com.blogo.pro.ios.month",
+         "transaction_id"         =&gt;"120000262038036",
+         "original_transaction_id"         =&gt;"120000262038036",
+         "purchase_date"         =&gt;"2016-10-16 05:45:23         Etc/GMT",
+         "original_purchase_date"         =&gt;"2016-10-16 05:45:24         Etc/GMT",
+         "expires_date"         =&gt;"2016-11-16 06:45:23         Etc/GMT",
+         "is_trial_period"         =&gt;"true"
+      }
+   ],
+   "latest_receipt"   =&gt;"MIIXOwYJKoZIhvcNAQc….”
+}
+</code></pre></div></div>
+
+<h3 id="o-que-verificar-nesse-receipt"><a name="validate_receipt"></a>O que verificar nesse receipt?</h3>
+
+<p>A primeira coisa que deve ser verificada é se os campos <code class="language-plaintext highlighter-rouge">bundle_id</code> e <code class="language-plaintext highlighter-rouge">app_item_id</code> conferem com o do seu aplicativo.</p>
+
+<p>Nos dados do IAP, você deve validar a data de expiração e deve atrelar o <code class="language-plaintext highlighter-rouge">transaction_id</code> da assinatura com o usuário. O <code class="language-plaintext highlighter-rouge">transaction_id</code> deve ser um dado único por assinatura, por usuário. Por que isso? Se não for salvo dessa forma, o usuário pode dar logout no aplicativo, logar com outro usuário e assinar o IAP novamente. Como já está pago na App Store, a Apple vai retornar para o método <code class="language-plaintext highlighter-rouge">completeTransaction</code> como se a transação tivesse sido bem sucedida. Isso é <strong>MUITO IMPORTANTE</strong> para evitar fraudes no seu app.</p>
+
+<p><strong>Importante!</strong> Sempre use os dados do <code class="language-plaintext highlighter-rouge">latest_receipt_info</code>. O receipt é um arquivo local e os dados do <code class="language-plaintext highlighter-rouge">latest_receipt_info</code> são os últimos dados encontrados no serviço da Apple.</p>
+
+<p>Depois de validado, você deve guardar o arquivo de receipt na sua nuvem. Ele será usado para verificar se o usuário renovou a assinatura.</p>
+
+<h3 id="como-sei-se-o-usuário-é-um-assinante">Como sei se o usuário é um assinante?</h3>
+
+<p>Seu app deve se comunicar com sua base de dados online, perguntando se ele é um assinante ou não. Lembre-se que o usuário pode ter assinado em outro dispositivo, veja qual é o momento ideal para perguntar pro seu servidor se ele está ativo ou não. Em meus apps iOS, costumo verificar logo na abertura do app ou logo que o dispositivo tenha acesso a internet, caso estivesse sem interent no momento da abertura. Também costumo verificar novamente antes de entrar no processo de assinatura.</p>
+
+<h3 id="ótimo-já-sei-que-o-usuário-assinou-meu-iap-e-quando-acabar-o-período-como-sei-que-ele-renovou">Ótimo, já sei que o usuário assinou meu IAP. E quando acabar o período, como sei que ele renovou?</h3>
+
+<p>As assinaturas são renovadas 1 dia antes delas expirarem, mas pode ocorrer problemas no pagamento e o processo de renovação pode levar mais tempo. Minha experiência mostra que assinaturas podem ser renovadas automaticamente até 1 dia depois dela expirar. Portanto, não bloqueie as funcionalidades da assinatura assim que ela expirar. Espere pelo menos 1 dia pra ter certeza que ela não foi renovada.</p>
+
+<p>Para verificar se a assinatura foi renovada ou não, devemos pegar o receipt que foi salvo no momento da assinatura e fazer o mesmo processo de validação. Faça a validação do receipt pelo link da Apple e verifique o <code class="language-plaintext highlighter-rouge">latest_receipt_info</code>.  Caso a assinatura tenha sido renovada, um novo item de IAP terá sido criado. Basta, então, adicionar o novo transaction_id no seu banco de dados e liberar o uso das funcionalidades no seu aplicativo.</p>
+
+<p>Abaixo um exemplo de um receipt com assinaturas renovadas. Repare que o usuário entrou em trial no dia 16/10/16, renovou automaticamente a assinatura em 16/11/16 e não renovou no período de Janeiro a Março. Em 12/03/17 o usuário se inscreveu novamente em uma assinatura.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"latest_receipt_info"   =&gt;   [ 
+      { 
+         "product_id"         =&gt;"com.blogo.pro.ios.month",
+         "transaction_id"         =&gt;"120000262038036",
+         "original_transaction_id"         =&gt;"120000262038036",
+         "purchase_date"         =&gt;"2016-10-16 05:45:23         Etc/GMT",
+         "original_purchase_date"         =&gt;"2016-10-16 05:45:24         Etc/GMT",
+         "expires_date"         =&gt;"2016-11-16 06:45:23         Etc/GMT",
+         "is_trial_period"         =&gt;"true"
+      },
+      { 
+         "product_id"         =&gt;"com.blogo.pro.ios.month",
+         "transaction_id"         =&gt;"120000269815092",
+         "original_transaction_id"         =&gt;"120000262038036",
+         "purchase_date"         =&gt;"2016-11-16 06:45:23         Etc/GMT",
+         "original_purchase_date"         =&gt;"2016-10-16 05:45:24         Etc/GMT",
+         "expires_date"         =&gt;"2016-12-16 06:45:23         Etc/GMT",
+         "is_trial_period"         =&gt;"false"
+      },
+      { 
+         "product_id"         =&gt;"com.blogo.pro.ios.month",
+         "transaction_id"         =&gt;"120000303300763",
+         "original_transaction_id"         =&gt;"120000262038036",
+         "purchase_date"         =&gt;"2017-03-12 11:22:40         Etc/GMT",
+         "original_purchase_date"         =&gt;"2016-10-16 05:45:24         Etc/GMT",
+         "expires_date"         =&gt;"2017-04-12 11:22:40         Etc/GMT",
+         "is_trial_period"         =&gt;"false"
+      }
+   ]
+</code></pre></div></div>
+
+<h2 id="conclusão">Conclusão</h2>
+
+<p>A gestão de subscriptions com a App Store não é tão complicada quanto parece ser. Quando a assinatura é pra apenas um app, não é preciso fazer muitas coisa e o processo de validação é bem simples. Já para múltiplos ambientes, a documentação da Apple não é muito clara sobre como verificar se um usuário renovou a assinatura ou não. Esse artigo tenta ajudar a desvendar o mistério do <code class="language-plaintext highlighter-rouge">latest_receipt_info</code> que não é muito claro na documentação da Apple. Dúvidas e sugestões podem ser colocadas no Slack iOSDevBr, não deixe de entrar lá!</p>
+
+<h4 id="notas-de-rodapé">Notas de Rodapé:</h4>
+
+<p><a name="what_is_receipt"></a>
+<strong>Receipt</strong>: Todo aplicativo, seja ele pago ou gratuito, possui um “recibo de compra” embutido. Esse arquivo contém dados importantes que devem ser usados para evitar fraudes. <a href="https://developer.apple.com/library/content/releasenotes/General/ValidateAppStoreReceipt/Chapters/ReceiptFields.html#//apple_ref/doc/uid/TP40010573-CH106-SW1" target="_blank">Clique aqui</a> para saber mais sobre os campos de um receipt.</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/cloudkit/2017/03/24/Sincronizacao-de-dados-com-CloudKit/" data-toggle="tooltip" data-placement="top" title="Sincronização de dados com CloudKit">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/ios/2017/03/26/integracao-continua-com-travis-ci/" data-toggle="tooltip" data-placement="top" title="Integração Contínua com Travis-CI">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

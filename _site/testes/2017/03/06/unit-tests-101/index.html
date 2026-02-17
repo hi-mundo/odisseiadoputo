@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>Unit Tests 101 - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/testes/2017/03/06/unit-tests-101/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Unit Tests 101</h1>
+                        
+                        <h2 class="subheading">Primeir[íssim]os passos</h2>
+                        
+                        <span class="meta">Postado por Emannuel Carvalho em 06/03/2017</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=Unit Tests 101&url=http://localhost:4000/testes/2017/03/06/unit-tests-101/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/testes/2017/03/06/unit-tests-101/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/testes/2017/03/06/unit-tests-101/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/testes/2017/03/06/unit-tests-101/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<h2 id="por-que-eu-devo-testar">Por que eu devo testar?</h2>
+
+<p>Não é preciso escrever muito para convencer sobre a importância de testes unitários em um app. Se você programa há algum tempo, já passou por um daqueles momentos em que é preciso fazer várias alterações em uma parte do código e fica aquele frio na barriga porque não tem nada garantindo que o código que você alterou não vai quebrar outras partes com as quais ele está relacionado. Nessas horas, uma boa cobertura de testes faz muito bem para o app e para os usuários - e também pra nossa saúde mental e cardíaca.</p>
+
+<p>Se você não programa há muito tempo, talvez ainda não tenha sentido falta dos testes unitários. Nesse caso, você pode escolher acreditar que eles fazem bem e se proteger ou esperar para aprender com a vida. Ambas as abordagens têm vantagens e desvantagens. Eu sugeriria a primeira, mas no fim das contas, <em>it’s up to you</em>.</p>
+
+<h2 id="testes-unitários-x-tdd-x-testes-de-ui">Testes unitários x TDD x Testes de UI</h2>
+
+<p>É importante diferenciar “testes unitários” de “TDD” e “Testes de UI” -  esses são termos que você provavelmente vai encontrar por aí enquanto estiver pesquisando por testes. Os <em>testes unitários</em> servem para verificar se cada <em>unidade</em> (classe, struct, enum) está funcionando da maneira que deveria. A ideia básica é criar um ambiente controlado (substituindo os objetos ou <em>value types</em> com os quais ela se relaciona por mocks, stubs, etc.) onde é possível observar o comportamento dessa classe (verificar se os métodos que deveriam ter sido chamados foram chamados e se as properties que deveriam ter sido alteradas foram alteradas).</p>
+
+<p>Quando falamos de “TDD” estamos nos referindo a uma <em>metodologia</em> de desenvolvimento. É um <em>jeito de fazer as coisas</em>. Funciona mais ou menos assim: antes de escrever o código para implementar uma dada feature, você deve escrever os testes unitários pra esse código. Uma vez escritos os testes - que obviamente não vão passar! - você deve implementar a feature, fazendo com que os testes passem. Depois disso você deve refatorar o código sabendo que se você fizer alguma besteira os testes vão te avisar.</p>
+
+<p>Os Testes de UI são bem diferentes. Neles você “vê” o seu app pelo lado de fora. Você interage com o app como um usuário, com touches, swipes, etc. e verifica se os elementos que deveriam aparecer aparecem e se as alterações estão de acordo com o comportamento esperado. Não são as <em>unidades</em> que são testadas e sim o <em>comportamento</em> do app como um todo.</p>
+
+<p>Nesse post a gente vai falar de <em>Testes Unitários</em>.</p>
+
+<h2 id="testando-as-unidades">Testando as unidades</h2>
+
+<p>Como eu mencionei acima, a ideia de um teste unitário é garantir que uma classe ou value type está funcionando como deveria, ou seja, quando chamamos um determinado método, com determinados parâmetros, os diferentes objetos com os quais ela se relaciona terão os seus métodos chamados com os parâmetros certos. São três A’s: <em>Arrange</em>, <em>Act</em> e <em>Assert</em>.</p>
+
+<p>Imagina a seguinte classe:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ViewController</span> <span class="p">{</span>
+    
+    <span class="k">var</span> <span class="nv">messagePresenter</span><span class="p">:</span> <span class="kt">MessagePresenter</span><span class="p">?</span> <span class="c1">// MessagePresenter é um protocol 😉</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+        <span class="n">messagePresenter</span> <span class="o">=</span> <span class="kt">AlertMessagePresenter</span><span class="p">()</span> <span class="c1">// O AlertMessagePresenter implementa o protocolo MessagePresenter</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">displayAlert</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">messagePresenter</span><span class="p">?</span><span class="o">.</span><span class="nf">presentMessage</span><span class="p">(</span><span class="s">"Something happened!"</span><span class="p">,</span> <span class="nv">on</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Para testar o <code class="language-plaintext highlighter-rouge">ViewController</code> é preciso garantir duas coisas: (1) que após o <code class="language-plaintext highlighter-rouge">viewDidLoad</code> o <code class="language-plaintext highlighter-rouge">messagePresenter</code> terá sido inicializado, (2) que, ao chamar o método <code class="language-plaintext highlighter-rouge">displayAlert</code>, o método <code class="language-plaintext highlighter-rouge">presentMessage</code> será chamado no <code class="language-plaintext highlighter-rouge">messagePresenter</code> e os parâmetros foram passados corretamente.</p>
+
+<p>Um pouco de mão-na-massa pra tudo isso fazer sentido.</p>
+
+<p>⚠️ Nesse post eu vou mostrar um exemplo de testes usando XCTests. Existem outras ferramentas para testes unitários em iOS, mas a ideia geral é basicamente a mesma.
+Se você quiser seguir os passos a seguir, tem um projeto <a href="https://github.com/emannuelOC/tutorial_unit_tests" target="_blank">aqui</a> esperando para ser testado 🤓.</p>
+
+<h3 id="xcode-">Xcode 💚</h3>
+
+<p><del>Quase</del> tudo relacionado aos nossos testes está no “Tests Navigator”, do lado esquerdo lá em cima.</p>
+
+<p><img src="/img/emannuelOC/tests_navigator.png" /></p>
+
+<p>Ao selecionar essa tab, você vai achar um botão de adicionar na parte de baixo da tela à esquerda.</p>
+
+<p><img src="/img/emannuelOC/new_test_class.png" /></p>
+
+<p>Crie uma nova “Classe de Teste” chamada <code class="language-plaintext highlighter-rouge">ViewControllerTests</code>, subclasse de <code class="language-plaintext highlighter-rouge">XCTestCase</code>. Em geral as classes de teste têm o nome da classe que elas vão testar + “Tests”.
+Os métodos de teste devem começar com <code class="language-plaintext highlighter-rouge">test..</code>; não devem receber nenhum parâmetro e não devem retornar nada:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">testSomething</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Os métodos <code class="language-plaintext highlighter-rouge">setUp</code> e <code class="language-plaintext highlighter-rouge">tearDown</code> são sempre chamados antes e depois de cada teste, respectivamente. No nosso exemplo eles não vão ser necessários.</p>
+
+<p>⚠️ Não deixe de importar o seu target no arquivo de testes:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">XCTest</span>
+<span class="kd">@testable</span> <span class="kd">import</span> <span class="kt">TutorialUnitTests</span> <span class="c1">// sem esse import o seu projeto não fica visível aqui!!!</span>
+</code></pre></div></div>
+
+<h3 id="lets-do-our-bestest-best--test-got-it-">Let’s do our bestest (best + test, got it? 😜)</h3>
+
+<p>Vamos começar com o básico. Após o <code class="language-plaintext highlighter-rouge">viewDidLoad</code> o view controller deve ter inicializado o seu <code class="language-plaintext highlighter-rouge">messagePresenter</code>. Vamos testar se isso está acontecendo:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">testLoading</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Arrange</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">sut</span> <span class="o">=</span> <span class="nf">getViewController</span><span class="p">()</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span> <span class="c1">// `sut` é uma convenção: Subject Under Test</span>
+        
+    <span class="c1">// Act</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">sut</span><span class="o">.</span><span class="n">view</span>
+        
+    <span class="c1">// Assert</span>
+    <span class="kt">XCTAssertNotNil</span><span class="p">(</span><span class="n">sut</span><span class="o">.</span><span class="n">messagePresenter</span><span class="p">,</span> <span class="s">"It should have initialized its messagePresenter."</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Para facilitar as coisas, eu coloquei um storyboard identifier no <code class="language-plaintext highlighter-rouge">viewController</code> e criei um metodozinho bem simples que cria o viewController para ser testado:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">getViewController</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">ViewController</span><span class="p">?</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">vc</span> <span class="o">=</span> <span class="kt">UIStoryboard</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Main"</span><span class="p">,</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span><span class="o">.</span><span class="nf">instantiateViewController</span><span class="p">(</span><span class="nv">withIdentifier</span><span class="p">:</span> <span class="s">"SimpleVC"</span><span class="p">)</span> <span class="k">as?</span> <span class="kt">ViewController</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="kt">XCTAssert</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="s">"No viewController with that identifier"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">vc</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>O “arrange” e o “act” nesse caso são bem simples. Basta criar o <code class="language-plaintext highlighter-rouge">viewController</code> e chamar a property <code class="language-plaintext highlighter-rouge">view</code> e o método <code class="language-plaintext highlighter-rouge">viewDidLoad</code> será chamado (isso acontece porque no getter da <code class="language-plaintext highlighter-rouge">view</code> o <code class="language-plaintext highlighter-rouge">viewController</code> chama o método <code class="language-plaintext highlighter-rouge">loadView</code> e ao final desse método o <code class="language-plaintext highlighter-rouge">viewDidLoad</code> é chamado).</p>
+
+<p>Para verificar se tudo aconteceu como deveria nós chamamos a função <code class="language-plaintext highlighter-rouge">XCTAssertNotNil</code> que recebe uma expressão e uma mensagem que será exibida se o teste falhar - ou seja, se a expressão passada for <code class="language-plaintext highlighter-rouge">nil</code>. A função mais básica, <code class="language-plaintext highlighter-rouge">XCTAssert</code>, que recebe um <code class="language-plaintext highlighter-rouge">Bool</code> tem diferentes variantes: <code class="language-plaintext highlighter-rouge">XCTAssertNotNil</code>, <code class="language-plaintext highlighter-rouge">XCTAssertEqual</code>, etc.</p>
+
+<p>Execute o teste clicando no losango à esquerda da assinatura do teste ou com os atalhos (<code class="language-plaintext highlighter-rouge">cmd + u</code> para executar todos os testes ou <code class="language-plaintext highlighter-rouge">cmd + option + ctrl + u</code> para executar o arquivo atual de testes). Se tudo estiver certo, o teste deve passar e o losango ficará verde com um check branco ✅. Para validar que o teste funciona de fato você pode comentar a linha onde o <code class="language-plaintext highlighter-rouge">messagePresenter</code> é inicializado na classe <code class="language-plaintext highlighter-rouge">ViewController</code> e rodar os testes novamente. O teste deve falhar e o losango vai ficar vermelho com um “x”. Se isso não acontecer, chame os bombeiros! 🚒 👨🏻‍🚒 🔥 Alguma coisa está fora do lugar.</p>
+
+<h3 id="a-little-further">A little further</h3>
+
+<p>Agora, vamos para um teste um pouco menos simples.</p>
+
+<p>Antes de tudo, nós devemos criar um ambiente que permita a observação do comportamento da unidade que queremos testar. Isso significa substituir os objetos com os quais ela se relaciona por outros objetos “semelhantes” que nos permitam verificar de que modo a classe que está sendo testada interagiu com eles.</p>
+
+<p>Existem várias ferramentas para ajudar na criação desse “ambiente”, especialmente para Objective-C. Em swift eles não são nem tão abundantes nem tão necessários. Usar protocolos pra definir as abstrações de cada tipo permite que seja muito simples criar um Mock para qualquer classe ou value type.</p>
+
+<p>No nosso caso, vamos criar um <code class="language-plaintext highlighter-rouge">MockMessagePresenter</code> que deve nos mostrar três coisas: (1) se o método foi chamado; (2) se a mensagem passada foi “Something happened”; e (3) se o view controller passado foi o view controller que chamou o método.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">MockMessagePresenter</span><span class="p">:</span> <span class="kt">MessagePresenter</span> <span class="p">{</span>
+    
+    <span class="k">var</span> <span class="nv">presentCalled</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="k">var</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
+    <span class="k">var</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">?</span>
+    
+    <span class="kd">func</span> <span class="nf">presentMessage</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">on</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">presentCalled</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">viewController</span> <span class="o">=</span> <span class="n">viewController</span>
+    <span class="p">}</span>
+    
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>No nosso teste nós precisamos criar um viewController e passar para ele um <code class="language-plaintext highlighter-rouge">MockMessagePresenter</code>. Desta forma, quando chamarmos o <code class="language-plaintext highlighter-rouge">displayAlert</code> o viewController irá interagir com o nosso Mock e nós poderemos ver se tudo ocorreu como esperado.</p>
+
+<p>O nosso teste fica mais ou menos assim:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">testCallingPresenter</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Arrange</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">sut</span> <span class="o">=</span> <span class="nf">getViewController</span><span class="p">()</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+        <span class="k">let</span> <span class="nv">messagePresenter</span> <span class="o">=</span> <span class="kt">MockMessagePresenter</span><span class="p">()</span>
+        <span class="n">sut</span><span class="o">.</span><span class="n">messagePresenter</span> <span class="o">=</span> <span class="n">messagePresenter</span>
+        
+        <span class="c1">// Act</span>
+        <span class="n">sut</span><span class="o">.</span><span class="nf">displayAlert</span><span class="p">()</span>
+        
+        <span class="c1">// Assert</span>
+        <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">messagePresenter</span><span class="o">.</span><span class="n">presentCalled</span><span class="p">,</span> <span class="s">"It should have called presentMessage()"</span><span class="p">)</span>
+        <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">messagePresenter</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="s">"Something happened!"</span><span class="p">,</span> <span class="s">"It should have passed the right message."</span><span class="p">)</span>
+        <span class="kt">XCTAssert</span><span class="p">(</span><span class="n">messagePresenter</span><span class="o">.</span><span class="n">viewController</span> <span class="o">==</span> <span class="n">sut</span><span class="p">,</span> <span class="s">"It should the right viewController."</span><span class="p">)</span>
+        
+    <span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Rode os testes e veja se está tudo bem.</p>
+
+<p>Você pode alterar os parâmetros e “testar” o teste - não adianta nada ter um teste que não falhe quando algo está errado! Comente a chamada do método, passe parâmetros errados e veja se o seu teste vai apontar os problemas.</p>
+
+<p>Como você deve ter notado, esses dois testes simples garantem que o nosso viewController está funcionando como deveria. Isso nos dá a segurança de que, se algum dia, sem querer, alguém apagar o <code class="language-plaintext highlighter-rouge">viewDidLoad</code> ou alterar os parâmetros no <code class="language-plaintext highlighter-rouge">presentMessage</code> os testes vão avisar. Obviamente, no nosso exemplo daria pra notar isso olhando para o código, mas você pode imaginar como seria diferente em uma classe com algumas centenas de linhas de código, que contém várias chamadas importantes na superclasse, por exemplo. Os testes permitem que a manutenção no código seja uma atividade segura. 👷🏻</p>
+
+<h2 id="uma-nota-sobre-arquitetura-">Uma nota sobre “arquitetura” 🏛</h2>
+
+<p>Você deve ter notado que o teste só foi possível porque nós tínhamos como substituir o <code class="language-plaintext highlighter-rouge">messagePresenter</code> por um outro objeto com a nossa implementação. Tente imaginar como nós faríamos isso se não houvesse uma property <code class="language-plaintext highlighter-rouge">messagePresenter</code> no view controller e, em vez disso, o método <code class="language-plaintext highlighter-rouge">displayAlert</code> tivesse a seguinte implementação:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">displayAlert</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">messagePresenter</span> <span class="o">=</span> <span class="kt">AlertMessagePresenter</span><span class="p">()</span>
+    <span class="n">messagePresenter</span><span class="o">.</span><span class="nf">presentMessage</span><span class="p">(</span><span class="s">"Something happened!"</span><span class="p">,</span> <span class="nv">on</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>O objeto com o qual a classe se relaciona é criado dentro do método e deixa de existir assim que o método retorna. Não seria possível testar o funcinamento do view controller sem depender do funcionamento de outras unidades. Por isso, é importante que o nosso código seja criado de modo que possibilite testar cada unidade separadamente (<a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>). Só esse jeito de pensar já tornará o código bem mais limpo e fácil de manter, além do já mencionado benefício de poder “brincar” tranquilamente sabendo que os testes vão nos avisar se fizermos alguma besteira.</p>
+
+<h2 id="não-deixe-de-ler">Não deixe de ler:</h2>
+
+<ul>
+  <li><a href="https://github.com/orta/pragmatic-testing">A Pragmatic Approach to iOS Testing, do Orta Therox</a></li>
+</ul>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/ios/2017/03/05/por-que-a-interface-grafica-e-um-xml/" data-toggle="tooltip" data-placement="top" title="Por que a interface gráfica é um XML?">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/ios/2017/03/07/lldb-e-seu-amigo/" data-toggle="tooltip" data-placement="top" title="LLDB é seu amigo">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

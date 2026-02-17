@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>Desmistificando Storyboards - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/storyboards/2016/03/06/desmistificando-storyboards/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Desmistificando Storyboards</h1>
+                        
+                        <h2 class="subheading">Ganhe produtividade sem perder sua sanidade</h2>
+                        
+                        <span class="meta">Postado por Rafael Nobre em 06/03/2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=Desmistificando Storyboards&url=http://localhost:4000/storyboards/2016/03/06/desmistificando-storyboards/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/storyboards/2016/03/06/desmistificando-storyboards/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/storyboards/2016/03/06/desmistificando-storyboards/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/storyboards/2016/03/06/desmistificando-storyboards/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<blockquote>
+  <p>Rafael Nobre é desenvolvedor iOS desde 2009, tendo trabalhado com UIs programáticas, XIBs, Storyboards, tanto com frames calculados e autosizing masks ou AutoLayout.<br />
+Durante este mês do equinociOS, aproveita para abrir sua mente com os temas propostos e estudar muita coisa nova.</p>
+</blockquote>
+
+<h1 id="interface-builder">Interface Builder</h1>
+
+<p>Desde o período de Beta da primeira SDK do então iPhoneOS, em 2008, a Apple já havia disponibilizado e recomendado o uso de sua aplicação de construção de interfaces gráficas - o <em>Interface Builder</em> ou apenas <em>IB</em>.<br />
+Sua função é representar uma hierarquia de <em>views</em> em um formato <em>XML</em> interno, permitindo visualmente manipular suas características e comportamento sem precisar utilizar código fonte <em>Objective-C</em> ou <em>Swift</em>.</p>
+
+<h2 id="a-vantagem">A vantagem</h2>
+<p>A principal vantagem a ser citada é o ganho em produtividade. Não que escrever <em>UI</em> via código seja difícil, mas pode ser um processo tedioso e de muitos ciclos de <em>tweak</em>, <em>build</em>, <em>run</em>. Já que, na maior parte das vezes, código de <em>UI</em> é <em>trivial</em> e <em>repetitivo</em>, congelá-lo em um <em>resource</em> pode ser visto como uma vantagem.</p>
+
+<h2 id="a-desvantagem">A desvantagem</h2>
+<p>É evidente que, por ser uma abstração construída sobre as classes de <em>UIKit</em>, pode se dizer que toda <em>UI</em> construída via <em>IB</em> pode ser construída via código, mas o inverso nem sempre é verdadeiro. É preciso ser criterioso e conhecer as ferramentas que estão a disposição do desenvolvedor, escolhendo a forma que melhor se adeque à situação apresentada.</p>
+
+<h1 id="xibs-vs-storyboards">XIBs vs Storyboards</h1>
+<p>Em sua concepção inicial, o <em>IB</em>, que até o <em>Xcode 3</em> não era integrado à IDE, atuava em arquivos chamados <em>NIBs</em> (versão binária do formato, que posteriormente foi modificada para os atuais <em>XIBs</em>, de versionamento mais conveniente). Sua unidade de trabalho mínima é a <em>UIView</em>.<br />
+Já as Storyboards chegaram com o iOS 5, e o diferencial é poder lidar com a construção da hierarquia de diversas <em>views</em> e a navegação entre elas, sendo o <em>view controller</em> sua unidade de trabalho mínima.</p>
+
+<h2 id="o-problema-das-storyboards">O problema das Storyboards</h2>
+<p>Como toda novidade da Apple, muitos desenvolvedores rapidamente adotaram as <em>Storyboards</em> e - infelizmente - com o suporte e recomendação da própria <em>Apple</em>¹, passaram a utilizá-la indiscriminadamente em seus novos projetos. A terrível <em>Main.storyboard</em> agora era promovida como detentora de <em>toda</em> a <em>UI</em>, independente do tamanho do <em>app</em>, seus diferentes fluxos de interação e casos de uso. Este é o resultado:</p>
+
+<p><img src="/img/nobre84/sb-nightmare.jpg" alt="" />
+<span class="caption text-muted">Storyboard nightmare</span></p>
+
+<p>Além da clara questão organizacional, outro ponto culminante para criar a má fama das Storyboards na comunidade iOS é o fato de que, ao trabalhar em apenas um arquivo monolítico compartilhado em um sistema de versionamento de código, os conflitos se tornam constantes e difíceis de resolver. Pra completar a revolta, o trabalho torna-se difícil em monitores menores, além de degradar a performance do Mac.</p>
+
+<h2 id="tem-jeito">Tem jeito?</h2>
+<p>A boa notícia é que sim, tem jeito. No primeiro projeto que iniciei após a chegada das <em>Storyboards</em>, todos esses problemas já haviam chegado à tona. Foi quando, pesquisando sobre boas práticas e se valeria a pena utilizar, li o artigo <a href="http://robsprogramknowledge.blogspot.com.br/2012/01/uistoryboard-best-practices.html">UIStoryboard Best Practices</a>, que ajudou a moldar minha forma de pensar sobre como modularizar os fluxos e casos de uso de um aplicativo em diversas <em>Storyboards</em>. Isto era 2012 minha gente, e a <em>Apple</em> até 2014 ainda recomendava fortemente usar uma única <em>Storyboard</em>, sendo que sua solução de modularização só foi ser lançada no iOS 9. Para dar suporte a modularização no iOS 7+, recomendo <a href="https://github.com/nobre84/RNExternStoryboard">RNExternStoryboard</a> ou <a href="https://github.com/rob-brown/RBStoryboardLink">RBStoryboardLink</a>.<br />
+Ao separar seus fluxos de trabalho em unidades coesas, mitigamos esses impedimentos, permitindo-nos aproveitar de alguns benefícios: prototipagem extremamente rápida, maior facilidade no entendimento do funcionamento e fluxo do app pela equipe, a possibilidade de utilizar <em>table views</em> estáticas etc.</p>
+
+<h1 id="strings-strings-strings">Strings, strings, strings</h1>
+<p>Um dos problemas que afligem o desenvolvedor iOS desde os primórdios são as <strong>hard-coded</strong> strings. No caso das <em>Storyboards</em>, como o desenvolvedor precisa referenciar não apenas o <em>view controller</em>, como também a representação de sua <em>view</em>, que está no <em>XML</em> da <em>Storyboard</em>, para instanciá-los programaticamente é preciso referenciar a <em>Storyboard</em> e o <em>Storyboard ID</em> do <em>controller</em>.<br />
+Pra lidar com esse problema e outros de mesma natureza, vêm surgindo diversas ferramentas que facilitam fortemente a abolição das <em>hard-coded</em> strings. A proposta é nunca mais ter que referenciar imagens, <em>Storyboard IDs</em>, <em>segue identifiers</em>, <em>cell identifiers</em>, ou mesmo chaves de localização pelo seu identificador textual.<br />
+Por exemplo, o <a href="https://github.com/mac-cain13/R.swift">R.swift</a> propõe:</p>
+
+<p><img src="/img/nobre84/rswiftdemo.gif" alt="" />
+<span class="caption text-muted">Autocomplete! &lt;3</span></p>
+
+<p>Já o <a href="https://github.com/AliSoftware/SwiftGen">SwiftGen</a> aborda também Localização, criando um <em>enum</em> que faz parse de todas suas chaves localizáveis e seus possíveis parâmetros, tornando a internacionalização do <em>app</em> mais segura ao gerar um erro de compilação ao invés de falhar em <em>runtime</em>.<br />
+No lado do <em>Objective-C</em>, ainda não vi um grande nome. O único que achei que se propôs a oferecer suporte foi o <a href="https://github.com/Dynamit/referee">referee</a>. Por não restringir as referências geradas ao seu próprio contexto, ainda estou à procura de uma solução adequada, ajude-nos nos comentários!</p>
+
+<h1 id="finalizando">Finalizando</h1>
+<p>O intuito é despertar no desenvolvedor o senso crítico: nos são propostas <strong>ferramentas</strong>. Como as utilizamos depende inteiramente de nós, e o <em>feedback</em> que trazemos à comunidade é justamente o que as farão evoluir para atender nossas crescentes necessidades.<br />
+Se prender a uma ou outra tecnologia nos torna menos efetivos para desempenhar nosso papel de solucionadores de problemas. Meu posicionamento a respeito de quando usar cada ferramenta, no cenário atual, é: <em>views</em> programáticas quando estritamente necessário, por exemplo <em>views</em> extremamente dinâmicas; <em>XIBs</em> para abrigar <em>views</em> com potencial de reutilização, por exemplo células em <em>table views</em> e <em>collection views</em>, <em>storyboards</em> modulares para modelar o fluxo de navegação do <em>app</em>, cada tela sendo uma composição elementar das <em>views</em> reutilizáveis e as contextuais e/ou estáticas que se mostrem necessárias desenhadas diretamente na <em>storyboard</em>.<br />
+Recomendo a leitura de alguns artigos que falam de como referenciar <em>views</em> desenhadas em <em>XIBs</em> na <em>Storyboard</em>, uma poderosa ferramenta para ganhar praticidade e reusabilidade nos <em>layouts</em> com <em>Storyboard</em>:</p>
+
+<ul>
+  <li><a href="http://cocoanuts.mobi/2014/03/26/reusable/">Reusing views in storyboards with Auto Layout</a></li>
+  <li><a href="http://justabeech.com/2014/07/27/xcode-6-live-rendering-from-nib/">Xcode 6 Live Rendering from nib</a></li>
+</ul>
+
+<p>Um abraço, e até a próxima!</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/open-source/2016/03/05/uikeycommand-teclas-de-atalho-dentro-do-seu-app/" data-toggle="tooltip" data-placement="top" title="UIKeyCommand: Teclas de atalho dentro do seu app">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/arquitetura/2016/03/07/minimizando-acoplamento-view-e-viewcontrollers/" data-toggle="tooltip" data-placement="top" title="Minimizando o acoplamento entre Views e ViewControllers">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

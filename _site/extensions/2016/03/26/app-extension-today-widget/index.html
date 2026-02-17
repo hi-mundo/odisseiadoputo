@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>App Extension - Today Widget - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/extensions/2016/03/26/app-extension-today-widget/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>App Extension - Today Widget</h1>
+                        
+                        <h2 class="subheading">Introdução ao Today Extension</h2>
+                        
+                        <span class="meta">Postado por Renato Matos em 26/03/2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=App Extension - Today Widget&url=http://localhost:4000/extensions/2016/03/26/app-extension-today-widget/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/extensions/2016/03/26/app-extension-today-widget/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/extensions/2016/03/26/app-extension-today-widget/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/extensions/2016/03/26/app-extension-today-widget/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<h1 id="app-extensions">App Extensions</h1>
+
+<h2 id="overview">Overview</h2>
+
+<p><strong>App extensions</strong> é uma feature presente no Xcode desde a versão 6 da IDE.
+Essa feature tem como objetivo melhorar a <strong>experiência do usuário</strong> na forma em que ele se relaciona com seu app.</p>
+
+<p>Uma das partes mais interessantes, é que você pode expandir uma ou mais funcionalidades do seu app para outros, fazendo com que os usuários possam interagir com ele, mesmo se estiverem utilizando outro aplicativo.</p>
+
+<hr />
+
+<h3 id="podemos-criar-diversos-tipos-de-extensions-sendo-alguns-dos-mais-comuns">Podemos criar diversos tipos de extensions, sendo alguns dos mais comuns:</h3>
+
+<ul>
+  <li>
+    <p><strong>Share:</strong> 
+Compartilhar conteúdo com alguém, ou outros aplicativos</p>
+  </li>
+  <li>
+    <p><strong>Action:</strong> 
+Exibir um conteúdo ou executar uma ação dentro de outro contexto</p>
+  </li>
+  <li>
+    <p><strong>Photo Editing:</strong>
+Editar vídeo ou foto</p>
+  </li>
+  <li>
+    <p><strong>Document Provider:</strong>
+Acessar e/ou gerenciar um repositório de arquivos</p>
+  </li>
+  <li>
+    <p><strong>Custom Keyboard:</strong>
+Substituir o teclado padrão iOS por outro personalizado</p>
+  </li>
+  <li>
+    <p><strong>Today Widget:</strong>
+Obter informações relevantes ou executar ações rápidas no Centro de Notificações (Today Notification)</p>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="today-notification---widget">Today Notification - Widget</h2>
+
+<p>Neste post vamos abordar o <strong>Today Notification</strong>. A idéia aqui é dar uma introdução ao assunto, e estimular você a explorar mais esta feature que tanto agrega à experiência que o usuário tem ao utilizar seu app.</p>
+
+<blockquote>
+  <p>Um <strong>App Extension</strong> dentro do <strong>Centro de Notificações</strong>, é chamado <strong>Widget</strong>.</p>
+</blockquote>
+
+<p><strong>Widgets</strong> têm o objetivo de trazer informações relevantes ao usuário, como por exemplo, informações sobre o clima, compromissos, ou cotação da bolsa (widgets que já vem habilitados por <em>default</em>).</p>
+
+<p><strong>Today Widgets</strong> precisam garantir que as informações exibidas estejam <strong>sempre atualizadas</strong>, responder de forma adequada às interações do usuário e ter <strong>boa performance</strong> (sempre importante lembrar deste ponto, pois se não cuidar do consumo de memória com carinho, seu widget pode ser finalizado pelo sistema).</p>
+
+<p>–</p>
+
+<blockquote>
+  <p>Chega de <strong>~blá blá blá~</strong> e vamos à parte prática da parada \o/</p>
+</blockquote>
+
+<p>–</p>
+
+<p>Neste post, abordaremos 4 pontos principais sobre a implementação do <strong>Today Widget</strong>:</p>
+
+<ul>
+  <li>Setup Inicial - Adicionando Today Widget</li>
+  <li>Manipular elementos visuais em runtime</li>
+  <li>Atualização do conteúdo</li>
+  <li>Abrir um app que esteja no mesmo contexto do widget</li>
+</ul>
+
+<p>–</p>
+
+<h3 id="setup-inicial">Setup Inicial</h3>
+
+<p>Abra o <strong>Xcode</strong> e clique em <strong>Create a new Xcode project</strong>. Para este exemplo, podemos criar um Single View Application. Defina um nome para o seu projeto e <em>let’s play a game</em> =)</p>
+
+<p><img src="/img/renatosarro/img1.png" /></p>
+
+<p>Com o projeto aberto, clique em <strong>File &gt; New &gt; Target</strong>.</p>
+
+<p>Em Application Extension, selecione <strong>Today Extension</strong>.</p>
+
+<p><img src="/img/renatosarro/img2.png" /></p>
+
+<p>Defina um nome para o projeto.</p>
+
+<p><img src="/img/renatosarro/img3.png" /></p>
+
+<p>Após isto, você será questionado se deseja ativar um scheme para o seu novo Target.</p>
+
+<h6 id="particularmente-prefiro-já-ativar-pois-desta-forma-você-poderá-rodar-e-debugar-o-seu-target-de-forma-independente">Particularmente, prefiro já ativar, pois desta forma você poderá rodar e debugar o seu target de forma independente.</h6>
+<p><img src="/img/renatosarro/img4.png" /></p>
+
+<blockquote>
+  <p>Se preferir, não precisa ativar agora, pode adicionar depois se achar necessário</p>
+</blockquote>
+
+<p>Ao rodar o projeto você pode notar que ele já se encontra disponível no <strong>Today Notification</strong>.</p>
+
+<p><img src="/img/renatosarro/img5.png" /></p>
+
+<h3 id="manipulando-elementos-visuais">Manipulando Elementos Visuais</h3>
+
+<p>Outra coisa bacana do <strong>Today Extension</strong> é a liberdade que você tem para manipular os elementos visuais, como se estivesse trabalhando em uma tela do seu app.</p>
+
+<p>Ao adicionar um novo target para o <strong>Today Extension</strong>, você pode notar - no <strong>Project Navigator</strong> - que foi criada uma pasta com o nome do seu target e dentro dela foram adicionados alguns arquivos como, um Class para View Controller (.h e .m se o projeto for Objective-C e .swift se o projeto for Swift) , um Storyboard e um Info.plist.</p>
+
+<hr />
+
+<p>Abrindo a implementação da View Controller, você pode notar que ela implementa o protocolo <strong>NCWidgetProviding</strong>.</p>
+
+<script src="https://gist.github.com/renatosarro/012a80e28805403e00b4.js"></script>
+
+<p>Este protocolo possui alguns métodos que permitem você customizar o layout e alguns comportamentos do seu widget.</p>
+
+<p>Agora abra o Storyboard. Note que temos um object <strong>View Controller</strong> adicionado com um layout padrão, com um label “Hello World”. É nesta view que vamos trabalhar nosso layout.</p>
+
+<blockquote>
+  <p>Para o post não ficar muito longo e cansativo, dividi a implementação em 3 passos que podemos acompanhar nos vídeos abaixo. <em>Enjoy</em>!</p>
+</blockquote>
+
+<h3 id="passo-1---customizando-layout-e-comportamento">Passo 1 - Customizando layout e comportamento</h3>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/8QfoSwfIvbU" frameborder="0" allowfullscreen=""></iframe>
+
+<h3 id="passo-2---chamada-simples-de-api">Passo 2 - Chamada simples de API</h3>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/srBzeF6U0TA" frameborder="0" allowfullscreen=""></iframe>
+
+<h3 id="passo-3---enviando-uma-ação-para-outro-aplicativo">Passo 3 - Enviando uma ação para outro aplicativo</h3>
+
+<p>Para finalizar, vamos fazer nosso <strong>Widget</strong> se comunicar com nosso aplicativo. Esta comunicação será realizada através de um <strong><a href="https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007899">Custom URL Scheme</a></strong>.</p>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/ce5kynUKUKg" frameborder="0" allowfullscreen=""></iframe>
+
+<p>–</p>
+
+<p>E assim finalizamos nossa introdução ao <strong>Today Extension</strong>. Não deixem de compartilhar, comentar, perguntar e continuar acompanhando o <strong><em><a href="http://www.equinocios.com">equinociOS</a></em></strong>. Tem muito conteúdo bacana pra ver :D</p>
+
+<h1 id="carry-on">Carry on!</h1>
+
+<blockquote>
+  <p><a href="https://twitter.com/rmatos_">Renato Matos</a> - Desenvolvedor iOS na Concrete Solutions, divide o tempo da empresa com a startup de desenvolvimento digital Studio WO. Gosta de estudar tudo relacionado a desenvolvimento, desde iOS e Android até API, Front/Backend, Web, UX e Banco de Dados. Nas poucas horas vagas, toca piano e faz tricô.</p>
+</blockquote>
+
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/frameworks/2016/03/25/criando-frameworks/" data-toggle="tooltip" data-placement="top" title="Criando frameworks para várias plataformas">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/swift/2016/03/27/swift-in-the-sky-with-types/" data-toggle="tooltip" data-placement="top" title="Swift In The Sky With Types">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>

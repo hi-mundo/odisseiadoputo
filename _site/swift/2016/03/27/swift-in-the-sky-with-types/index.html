@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião.">
+
+    <title>Swift In The Sky With Types - A odisseia do puto</title>
+
+    <link rel="canonical" href="http://localhost:4000/swift/2016/03/27/swift-in-the-sky-with-types/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+    <link rel="stylesheet" href="/css/odisseia.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <!-- Share CSS -->
+    <link rel="stylesheet" href="/css/share.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
+
+    
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A odisseia do puto</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+				
+                <li>
+                    <a href="/about/">Sobre</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header">
+    <div class="intro-header-overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Swift In The Sky With Types</h1>
+                        
+                        <h2 class="subheading">Ou apenas mais uma conversa sobre linguagens, compiladores, tipos e... Swift!</h2>
+                        
+                        <span class="meta">Postado por Matheus Albuquerque em 27/03/2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="share">
+  <li><a href="https://twitter.com/intent/tweet?text=Swift In The Sky With Types&url=http://localhost:4000/swift/2016/03/27/swift-in-the-sky-with-types/" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square"></i></a></li>
+  <li><a href="https://facebook.com/sharer.php?u=http://localhost:4000/swift/2016/03/27/swift-in-the-sky-with-types/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square"></i></a></li>
+  <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/swift/2016/03/27/swift-in-the-sky-with-types/" rel="nofollow" target="_blank" title="Share on Linkedlin"><i class="fa fa-linkedin-square"></i></a></li>
+  <li><a href="https://plus.google.com/share?url=http://localhost:4000/swift/2016/03/27/swift-in-the-sky-with-types/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square"></i></a></li>
+</ul>
+
+				<blockquote>
+  <p>Antes de tudo, algumas coisas a se levar em consideração:</p>
+</blockquote>
+
+<blockquote>
+  <ol>
+    <li>Esse post é baseado em experiências - e eu não sou nenhum tipo de <em>dono da
+verdade</em>: se você tem alguma opinião sobre isso - concordando, discordando,
+complementando -, sinta-se livre para compartilhá-la.</li>
+    <li>Nem tudo nesse post é sobre Swift: boa parte dele está relacionada a
+experiências bem gerais relacionadas a projeto de linguagens de programação.</li>
+    <li>Há boatos que a experiência de ler o post é enriquecida ouvindo-se o álbum
+<a href="https://play.spotify.com/album/6QaVfG1pHYl1z15ZxkvVDW">Sgt. Pepper’s Lonely Hearts Club Band</a> ☺️.</li>
+  </ol>
+</blockquote>
+
+<h2 id="prólogo">Prólogo</h2>
+
+<blockquote>
+  <p>Algumas coisas que me levaram a pensar sobre <em>Sistemas de Tipos</em> - e a escrever
+esse post…</p>
+</blockquote>
+
+<p>Eu, <a href="https://github.com/mabrasil">Matheus</a>, sou originalmente desenvolvedor
+JavaScript. E, como em outras linguagens, tenho de lidar com alguns <em>probleminhas</em>.
+Por exemplo, sua tipagem dinâmica pode ser problemática: JavaScript não sabe
+que tipo uma variável é até que esta seja realmente atribuída em execução - o
+que significa que pode ser tarde demais, uma vez que você não sabe se algum
+erro de tipo estava em seu código e quebrou antes de executá-lo.</p>
+
+<p>Além disso, nós não podemos contar com caras como o <code class="language-plaintext highlighter-rouge">instanceof</code> e o <code class="language-plaintext highlighter-rouge">typeof</code>:
+eles não funcionam de forma consistente - o que acaba nos mostrando que
+verificação de tipos em JavaScript é um problema - e você provavelmente tem que
+fazer alguns <em>workarounds</em> para ajudar você a superar tal inconsistência - ou
+usar caras como o <a href="http://www.typescriptlang.org/">TypeScript</a> ou o
+<a href="http://flowtype.org/">Flow</a>.</p>
+
+<p>O que tudo isso tem a ver com Swift? Bem, o contato com algumas inconsistências
+relacionadas a tipos presenciadas em algumas linguagens - bem como sistemas de
+tipos exemplares que pude experimentar em linguagens como
+<a href="https://www.haskell.org/">Haskell</a>, <a href="https://ocaml.org/">OCaml</a> e
+<a href="http://fsharp.org/">F#</a>- me fez ter sempre tal tópico em mente ao começar em
+uma linguagem - e, há alguns meses, quando comecei a estudar a linguagem
+da Apple, não foi diferente.</p>
+
+<h2 id="mas-antes">Mas Antes…</h2>
+
+<p>… de começarmos a ver coisas específicas de Swift relacionadas a seu
+sistema de tipos, penso que seja interessante fazermos um <em>apanhado</em> de
+alguns conceitos mais “gerais”.</p>
+
+<h3 id="dados">Dados?</h3>
+
+<p><img src="/img/mabrasil/data.png" alt="Dados?" /></p>
+
+<p>Esse é um conceito bem primitivo - e que muitas vezes não é discutido e só
+aceito. Na <em>Filosofia</em>, temos uma definição parecida com isso:</p>
+
+<blockquote>
+  <p>Coisas conhecidas ou assumidas como <em>fatos</em>, tornando-se a <em>base do raciocínio
+ou cálculo</em>.</p>
+</blockquote>
+
+<p>Ao adentrarmos na <em>Computação</em>, começamos a pensar de uma forma ou pouco
+diferente sobre <em>dados</em> - ou melhor dizendo: um pouco mais <em>específica</em> para o
+contexto em que estamos - e encontramos definições como:</p>
+
+<blockquote>
+  <p><em>Quantidades</em>, <em>caracteres</em> ou <em>símbolos</em> dos quais operações são executadas
+por um computador, sendo armazenados e transmitidos na forma de sinais
+eléctricos e gravados no suporte de gravação magnética, óptica ou mecânica.</p>
+</blockquote>
+
+<p>E assim, começamos a pensar mais sobre dados como sendo um determinado pedaço de
+informação - <em>textos</em>, <em>números</em>, <em>listas</em>, <em>figuras</em> etc.: são todos pedaços de
+informação.</p>
+
+<p>E, como podemos ler no famigerado
+<a href="https://mitpress.mit.edu/sicp/full-text/book/book.html"><em>Livro do Mago</em></a>:</p>
+
+<blockquote>
+  <p>[…] <em>Processos computacionais</em> são seres abstratos que habitam computadores.
+À medida que evoluem, os processos manipulam outros seres abstratos chamados
+<strong>dados</strong>. A evolução de um processo é dirigida por um padrão de regras chamado
+<em>programa</em>. As pessoas criam programas para direcionar processos. […]</p>
+</blockquote>
+
+<p>Dados são uma das partes mais importantes da arte de programar.</p>
+
+<p>E, particularmente, eu diria que a conversa começa a ficar mais legal quando
+pensamos sobre como essas informações são passadas a um computador - afinal,
+eles não sabem o que um <em>número</em> é, ou o que o <em>infográfico de seu documento</em>
+é, ou o que a <em>URL</em> da sua página é - e assim por diante.</p>
+
+<p>Então chegamos a - já esperada - conclusão de que, se queremos passar a nosso
+computador qualquer um desses <em>pedaços de informação</em>, precisamos saber
+representá-los de alguma maneira que o computador entenda.</p>
+
+<p>Guarda bem essa palavra: <strong>representação</strong> - pois ela nos leva ao próximo
+tópico.</p>
+
+<h3 id="tipos-de-dados">Tipos de Dados?</h3>
+
+<p><img src="/img/mabrasil/data-types.png" alt="Tipos de Dados?" /></p>
+
+<blockquote>
+  <p><strong>tl;dr</strong>: Uma representação específica de algum(ns) dado(s).</p>
+</blockquote>
+
+<p>Basicamente, essa galera aqui te diz como interagir com um determinado
+<em>pedaço de informação</em> e ainda pode dizer como essa informação (dado) é
+representada por meio de outras informações mais primitivas - ou <em>vice-versa</em>:
+como interpretar dados mais primitivos a partir de um determinado tipo de dados.</p>
+
+<p>Se o ato de programar consiste em gerenciar processos de tal forma que eles
+possam manipular dados, <strong>é de importância crucial que tais processos manipulem
+dados de forma eficiente e correta</strong>.</p>
+
+<p>Seguindo o raciocínio, modelar dados de forma que estes possam ser <em>manipulados
+de forma eficiente e correta</em> é uma parte essencial de todas as tarefas de um
+programador - e os tipos de dados são essenciais para tal modelagem - assim,
+temos neles a <strong>importantíssima</strong> tarefa de garantir que as interações
+com um determinado <em>pedaço de informação</em> estejam sempre corretas.</p>
+
+<p>A propósito, guarde bem, também, essa palavra: <strong>correto</strong> - pois ela ainda será bem
+discutida mais a frente.</p>
+
+<h3 id="sistemas-de-tipos">Sistemas de Tipos?</h3>
+
+<p><img src="/img/mabrasil/type-system.png" alt="Sistemas de Tipos?" /></p>
+
+<blockquote>
+  <p><strong>tl;dr</strong>: Sistemas do tipo são, em sua essência, estruturas de análise de
+programas.</p>
+</blockquote>
+
+<p>Soa confuso? É, realmente pode ser <em>bem</em> confuso.</p>
+
+<p>Que tal pedirmos ajuda aos universitários?</p>
+
+<p>Bem, <a href="http://www.cis.upenn.edu/~bcpierce/">Benjamin Pierce</a>, em seu livro
+<a href="https://www.cis.upenn.edu/~bcpierce/tapl/">Types and Programming Languages</a>,
+nos conta que:</p>
+
+<blockquote>
+  <p>Um sistema de tipos é um método sintático tratável para provar o não
+cumprimento de certos comportamentos do programa através da classificação de
+<em>expressões</em> de acordo com os tipos de valores que estas computam.</p>
+</blockquote>
+
+<p>Eu diria que uma das chaves para entendermos o tópico é o trecho:</p>
+
+<blockquote>
+  <p>[…] provar o não cumprimento de certos comportamentos do programa […].</p>
+</blockquote>
+
+<p>a partir do qual podemos ver que, para todo sistema de tipos específico,
+haverá uma lista de coisas que este visa a provar - do que exatamente consiste
+tal prova é deixado em aberto.</p>
+
+<p>Uma forma prática de tentar enxergar isso é pensar em simples expressões. Por
+exemplo, uma vez que o verificador de tipos pega a expressão <code class="language-plaintext highlighter-rouge">1 + 2</code>, este pode
+“olhar” para o <code class="language-plaintext highlighter-rouge">1</code> e inferir que se trata de um inteiro, olhar para o <code class="language-plaintext highlighter-rouge">2</code> - e
+também inferir que este é um inteiro - e, em seguida, olhar para o operador
+<code class="language-plaintext highlighter-rouge">+</code>, e saber que, quando <code class="language-plaintext highlighter-rouge">+</code> é aplicada a dois inteiros, o resultado é um
+número inteiro - e aí temos nossa prova.</p>
+
+<h3 id="correctness-by-design"><em>Correctness-by-Design</em></h3>
+
+<p><img src="/img/mabrasil/correctness-by-design.png" alt="Correctness-by-Design" /></p>
+
+<p>Esse conceito aqui também é sempre legal de se pensar sobre, garanto.</p>
+
+<p>Um dos principais objetivos de uma linguagem de programação deve ser a
+capacidade de orientar o programador a uma abordagem de <em>Correctness-by-Design</em>.
+Isto é, um programa que é válido nesta linguagem, também deve ser um programa
+que funciona como o esperado - ou seja: o sistema simplesmente não poderá chegar
+a um estado inválido; um estado que não cumpre os requisitos de tal programa.</p>
+
+<p>Para tanto, a linguagem deve fazer um esforço de rejeitar programas que possam
+estar errados - ou, ao menos, torná-los mais difíceis de escrever. Assim,
+você literalmente não pode escrever código incorreto pelo simples fato de o
+compilador não deixar.</p>
+
+<h3 id="correctness-by-design--sistemas-de-tipos"><em>Correctness-by-Design</em> &amp; Sistemas de Tipos</h3>
+
+<p><img src="/img/mabrasil/correctness-by-design-and-type-systems.png" alt="Correctness-by-Design &amp; Sistemas de Tipos" /></p>
+
+<p>Agora que já temos uma ideia geral em torno de sistemas de tipos e de como
+linguagens devem ser projetadas de modo a naturalmente evitar que programas
+feitos nestas atinjam estados inválidos, você deve estar se perguntando: qual é
+a exata relação entre ambos?</p>
+
+<p>Sinceramente, eu gostaria de ter uma relação própria já estabelecida tão
+expressiva quanto a feita pelo ilustre pesquisador
+<a href="http://lucacardelli.name/">Luca Cardelli</a>, da
+<a href="http://research.microsoft.com/en-us/default.aspx">Microsoft Research</a>:</p>
+
+<blockquote>
+  <p>O propósito fundamental de um sistema de tipo é <strong>evitar a ocorrência de
+erros durante a execução de um programa</strong>.</p>
+</blockquote>
+
+<p>Ainda subjetivo? Ele vai além:</p>
+
+<blockquote>
+  <p>Sistemas de tipos fornecem ferramentas conceituais para julgar a adequação
+de aspectos importantes de definições da linguagem. Descrições de linguagem
+informais muitas vezes não conseguem especificar a estrutura de tipos de uma
+linguagem com detalhes suficientes de maneira a evitar a aplicação equívoca.
+Muitas vezes, acontece que diferentes compiladores para a mesma linguagem
+implementam sistemas de tipo ligeiramente diferentes. Além disso, muitas
+definições de linguagens se mostraram ser defeituosas no quesito tipos,
+permitindo que um programa quebre - mesmo sendo considerado aceitável por um
+<em>typechecker</em>.</p>
+</blockquote>
+
+<p>Assim, vemos no nosso sistema de tipos a figura responsável por <em>“julgar a
+adequação de aspectos importantes das definições de uma linguagem”</em>, de forma
+a <em>“evitar a escrita de código incorreto pelo simples fato de o compilador não
+deixar”</em>.</p>
+
+<h3 id="o-que-temos-por-aí">O Que Temos Por Aí?</h3>
+
+<p><img src="/img/mabrasil/what-we-have.png" alt="O Que Temos Por Aí?" /></p>
+
+<p>Esta seção serve mais para contextualizar Swift entre outras linguagens antes
+de falarmos especificamente desta.</p>
+
+<p>As linguagens se dividem em duas categorias: <strong>tipadas</strong> e <strong>não-tipadas</strong> - ou
+<em>unitipadas</em>.</p>
+
+<blockquote>
+  <p><em>Bônus</em>: Até a forma como pensamos na definição de tipos pode variar dentro
+desse espectro, mas isso é tema para outras discussões - e vamos manter a nossa
+definição alcançada nas seções anteriores.</p>
+</blockquote>
+
+<p>Na primeira, temos representantes como <em>Haskell</em>, <em>OCaml</em>, <em>F#</em>, entre muitas
+outras, incluindo nossa querida <em>Swift</em>. Nestas, as expressões têm tipos
+diferentes, e quando se combina uma expressão particular, os tipos devem estar
+coerentes - assim, se você tem uma expressão <code class="language-plaintext highlighter-rouge">Int</code> + <code class="language-plaintext highlighter-rouge">Int</code>, não é possível
+escrever <code class="language-plaintext highlighter-rouge">"Swift"</code> + <code class="language-plaintext highlighter-rouge">1</code>, porque <code class="language-plaintext highlighter-rouge">"Swift"</code> não tem o tipo <code class="language-plaintext highlighter-rouge">Int</code>.</p>
+
+<p>Na segunda, também temos representantes de peso, como: <em>Clojure</em>, <em>Erlang</em> e
+<em>Scheme</em>. Nestas, todas as expressões têm o mesmo tipo, portanto, não há
+restrições em como as expressões podem ser combinadas - assim, a mesma expressão
+do exemplo anterior seria um construção válida, pois seria uma expressão do tipo
+<code class="language-plaintext highlighter-rouge">Object</code> + <code class="language-plaintext highlighter-rouge">Object</code> - ou algo assim.</p>
+
+<p>Atualmente - até onde eu sei - exemplos que temos de mais poderosos e
+expressivos em relação a sistemas de tipos são os de
+<a href="http://wiki.portal.chalmers.se/agda/pmwiki.php">Agda</a>,
+<a href="http://www.idris-lang.org/">Idris</a> e <a href="https://coq.inria.fr/">Coq</a>, que possuem
+tipagem dependente e indutiva - programar nestas é realmente uma experiência
+incrível de interação com seu <em>typechecker</em>.</p>
+
+<p>Um pouco mais abaixo - mas ainda proporcionando lindezas relacionadas a tipos -
+temos aquelas que se baseiam em variações do modelo <em>Hindley–Milner</em> - do qual
+você pode achar uma explicação bem interessante <a href="http://akgupta.ca/blog/2013/05/14/so-you-still-dont-understand-hindley-milner/">aqui</a> -, como <em>Haskell</em>, <em>ML</em>, <em>OCaml</em>,
+<a href="https://www.rust-lang.org/">Rust</a>, <a href="http://scala-lang.org/">Scala</a> e…
+<em>Swift</em>.</p>
+
+<p>Ainda sobre classificações, temos que <em>Swift</em> é:</p>
+
+<ul>
+  <li><strong>Estaticamente Tipada</strong>: Ou seja, todas as suas <em>variáveis</em>, <em>constantes</em>,
+<em>funções</em> etc. devem ter seus tipos declarados - ou inferidos, como veremos mais
+adiante - antecipadamente. Então o compilador, ao compilar seu programa, usa
+essas declarações de tipo para verificar se não há erros. Se houver um erro de
+tipo, o programa não será compilado.</li>
+</ul>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="nv">x</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">x</span> <span class="o">=</span> <span class="s">"Swift"</span> <span class="c1">// =&gt; Aqui temos um erro</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Fortemente Tipada</strong>: O que nos diz que, sempre que você usar uma variável,
+ou passar algo como um argumento de uma função, Swift irá verificar, em tempo
+de compilação, se este é do tipo correto - assim você não pode, por exemplo,
+passar um <code class="language-plaintext highlighter-rouge">Float</code> para uma função que espera um <code class="language-plaintext highlighter-rouge">Int</code>.</li>
+</ul>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Uma simples função que retorna o fatorial de um valor.</span>
+
+<span class="c1">// Pela anotação de tipo, temos que fatorial recebe um `Int` e o mapeia para</span>
+<span class="c1">// um `Int`.</span>
+
+<span class="kd">func</span> <span class="nf">fatorial</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="nf">fatorial</span><span class="p">(</span><span class="n">n</span><span class="err"> — </span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// Chamando nossa função com um `Int`, teremos um `Int` de retorno.</span>
+<span class="nf">fatorial</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>   <span class="c1">// =&gt; 6</span>
+
+<span class="c1">// Chamando nossa função com um `Float`, teremos um erro.</span>
+<span class="nf">fatorial</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="c1">// =&gt; Erro.</span>
+</code></pre></div></div>
+
+<p>E agora…</p>
+
+<h2 id="vamos-falar-de-swift">Vamos Falar de Swift?</h2>
+
+<blockquote>
+  <p><em>Ufa, finalmente! Um post intitulado “Swift In The Sky With Types” e até
+agora nada demais sobre Swift?!</em></p>
+</blockquote>
+
+<p>Agora, gostaria de levantar algumas coisas que vão além do que vimos na seção
+anterior.</p>
+
+<h3 id="type-safety"><em>Type-Safety</em></h3>
+
+<p><img src="/img/mabrasil/type-safety.png" alt="Type-Safety" /></p>
+
+<p>Como podemos encontrar na própria <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-ID309">documentação provida pela Apple</a>:</p>
+
+<blockquote>
+  <p>Swift é uma linguagem <em>type-safe</em>, o que significa que a linguagem ajuda você a
+ser claro sobre os tipos dos valores com os quais seu código pode trabalhar. Se
+parte do seu código espera uma <code class="language-plaintext highlighter-rouge">String</code>, a segurança de tipos impede que você
+possa, por engano, passar um <code class="language-plaintext highlighter-rouge">Int</code>.</p>
+</blockquote>
+
+<p>Assim, sabemos que <strong>todas</strong> as variáveis têm um tipo declarado e <strong>todas</strong> as
+funções/métodos têm assinaturas de tipo que declaram os tipos de seus argumentos
+e retornos. E por fim, o nosso amigo compilador verifica se todos os seus tipos
+estão coerentes e não compila seu programa caso não estejam - erros em tempo de
+compilação são 💖.</p>
+
+<blockquote>
+  <p><em>Bônus</em>: Swift nos permite definir várias “versões” de uma mesma função, só
+que com diferentes assinaturas de tipos - e a “versão” que será chamada
+será aquela cujos argumentos forem compatíveis com a assinatura de tipo -
+inclusive, há um monte de coisas legais relacionadas à Swift e seu suporte a
+polimorfismo Ad-hoc.</p>
+</blockquote>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// Uma simples função que retorna o fatorial de um valor.</span>
+
+<span class="c1">// Pela anotação de tipo, temos que fatorial recebe um `Int` e o mapeia para</span>
+<span class="c1">// um `Int`.</span>
+
+<span class="kd">func</span> <span class="nf">fatorial</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="nf">fatorial</span><span class="p">(</span><span class="n">n</span><span class="err"> — </span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Agora, pela anotação de tipo, temos que fatorial recebe um `Float` e</span>
+<span class="c1">// mapeia este para um `Float`.</span>
+
+<span class="kd">func</span> <span class="nf">fatorial</span><span class="p">(</span><span class="nv">n</span><span class="p">:</span> <span class="kt">Float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Float</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">n</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="p">?</span> <span class="mf">1.0</span> <span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="nf">fatorial</span><span class="p">(</span><span class="n">n</span><span class="err"> — </span><span class="mf">1.0</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Chamando nossa função com um `Int`, teremos um `Int` de retorno.</span>
+<span class="nf">fatorial</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>   <span class="c1">// =&gt; 6</span>
+
+<span class="c1">// Chamando nossa função com um `Float`, teremos um `Float` de retorno.</span>
+<span class="nf">fatorial</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span> <span class="c1">// =&gt; 6.0</span>
+</code></pre></div></div>
+
+<h3 id="type-inference"><em>Type Inference</em></h3>
+
+<p><img src="/img/mabrasil/type-inference.png" alt="Type Inference" /></p>
+
+<p>Se você é daqueles que se assusta com a possibilidade de ter que declarar tipo
+de cada variável do seu código, relaxe! Swift usa a inferência de tipos
+para - <strike>adivinha?</strike> - inferir quais os tipos suas variáveis têm.
+Caso queira, você pode declarar explicitamente o tipo de suas variáveis, mas,
+na prática, muitas vezes você não precisa: Swift irá inferir o tipo de uma
+<code class="language-plaintext highlighter-rouge">var</code> se você atribuir a ela um valor inicial.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Aqui, inicializamos uma variável `x`, dando a esta o valor `1`. Como</span>
+<span class="c1">// fornecemos um valor inicial, não precisamos declarar explicitamente o tipo</span>
+<span class="c1">// de `x`: Swift irá inferir que esta se trata de um `Int`.</span>
+<span class="k">var</span> <span class="nv">x</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1">// Desta vez, declaramos uma variável, mas sem atribuir valor a esta - assim,</span>
+<span class="c1">// Swift não pode inferir seu tipo e precisamos definir este explicitamente.</span>
+<span class="c1">// Logo após a declaração, atribuímos a ela o valor `2` - e caso atribuíssemos</span>
+<span class="c1">// um valor de tipo não coerente com a declaração, teríamos um erro do compilador.</span>
+<span class="k">var</span> <span class="nv">y</span><span class="p">:</span><span class="kt">Int</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
+</code></pre></div></div>
+
+<h3 id="generics"><em>Generics</em></h3>
+
+<p><img src="/img/mabrasil/generics.png" alt="Generics" /></p>
+
+<p>Os conhecidos <em>Generics</em> nos permitem declarar uma variável que, na execução,
+pode ser atribuído a um conjunto de tipos definidos por nós.</p>
+
+<p>Em Swift, um <em>array</em> pode conter dados de qualquer tipo: ao criarmos um <em>array</em>
+de <code class="language-plaintext highlighter-rouge">Int</code>s, <code class="language-plaintext highlighter-rouge">Float</code>s ou <code class="language-plaintext highlighter-rouge">String</code>s, por exemplo, o tipo dos valores que este vai
+carregar é definido quando o mesmo é declarado - e assim, temos neles um bom
+exemplo do uso de <em>Generics</em>.</p>
+
+<p>O uso destes começa com <strong>funções genéricas</strong>, como uma simples função para
+imprimir elementos de um array:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Funções genéricas usam placeholders ao invés de um tipo real, como `String`,</span>
+<span class="c1">// `Int` ou `Float`. Em nossa função, o placeholder é `T` - mas poderia ser</span>
+<span class="c1">// qualquer outro: `T` é "apenas" convenção.</span>
+
+<span class="c1">// O uso do placeholder não indica que a função aceita um tipo `T` mas sim que</span>
+<span class="c1">// `T` será substituído por um tipo real que é determinada quando a função é</span>
+<span class="c1">// chamada.</span>
+
+<span class="kd">func</span> <span class="n">imprimeElementos</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">a</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">])</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">elemento</span> <span class="k">in</span> <span class="n">a</span> <span class="p">{</span>
+        <span class="nf">println</span><span class="p">(</span><span class="n">elemento</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>E a brincadeira com estas pode ir além: poderíamos, por exemplo, ter algo do tipo:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="n">minhaFuncao</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt">U</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">a</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="nv">b</span><span class="p">:</span> <span class="kt">U</span><span class="p">)</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>Onde especificamos mais de um <em>Generic</em>.</p>
+
+<p>Porém, a diversão não para nas funções genéricas: temos os tipos genéricos!
+Estes são, basicamente, <em>classes</em>, <em>enumerations</em> e <em>structs</em> que trabalham com
+qualquer tipo - se você se lembrou de <em>array</em>s e <em>dictionaries</em>, você pegou a
+ideia.</p>
+
+<p>Assim, podemos ter coisas como:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Um exemplo de necessidade comum, por exemplo, é obter um valor randômico de</span>
+<span class="c1">// uma coleção - e podemos implementar isso com Generics!</span>
+
+<span class="c1">// Temos uma estrutura que é genérica sobre o tipo `T`.</span>
+<span class="kd">struct</span> <span class="kt">MinhaColecao</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="c1">// Temos uma propriedade, um array do tipo T para armazenar o conjunto de</span>
+    <span class="c1">// dados passados durante a inicialização.</span>
+    <span class="k">let</span> <span class="nv">itens</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">]</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">itens</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">itens</span> <span class="o">=</span> <span class="n">itens</span>
+    <span class="p">}</span>
+
+    <span class="c1">// E, por fim, temos uma função genérica que cuida do resto :)</span>
+    <span class="kd">func</span> <span class="nf">geraAleatorio</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">T</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">indice</span> <span class="o">=</span> <span class="kt">Int</span><span class="p">(</span><span class="nf">arc4random_uniform</span><span class="p">(</span><span class="kt">UInt32</span><span class="p">(</span><span class="n">itens</span><span class="o">.</span><span class="n">count</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">itens</span><span class="p">[</span><span class="n">indice</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>E, ao testarmos:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">teste</span> <span class="o">=</span> <span class="kt">MinhaColecao</span><span class="p">(</span><span class="nv">itens</span><span class="p">:</span> <span class="p">[</span><span class="s">"s"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">,</span> <span class="s">"i"</span><span class="p">,</span> <span class="s">"f"</span><span class="p">,</span> <span class="s">"t"</span><span class="p">])</span>
+<span class="n">teste</span><span class="o">.</span><span class="nf">geraAleatorio</span><span class="p">()</span> <span class="c1">// =&gt; "f"</span>
+</code></pre></div></div>
+
+<h2 id="concluindo">Concluindo</h2>
+
+<blockquote>
+  <p>Falou quase nada de Swift!</p>
+</blockquote>
+
+<p>É… Verdade! Perto do que se tem a ser dito, não foi dito quase nada de nada.
+Cada um desses tópicos sobre Swift - até os mais primitivos -, juntamente com
+alguns que não explorei para evitar textão - como <em>Phantom Types</em>,
+<em>Typeclasses</em> etc. - renderia/mereceria um post ou talk sobre. E com os tópicos
+mais teóricos discutidos no post não é muito diferente - de fato, é sim: estes
+é que renderiam/mereceriam mais posts e talks para serem discutidos!</p>
+
+<p>Na verdade, o objetivo maior do post é apenas levantar cada um destes tópicos em
+sua mente - e o fazer pensar e buscar mais sobre eles.</p>
+
+<blockquote>
+  <p>Eu realmente ganho algo?</p>
+</blockquote>
+
+<p>Você pode ainda estar se perguntando se todas estas palavras relacionadas à
+teoria dos tipos - e outras áreas de estudo comumente associadas a projeto e
+implementação de linguagem - que soam algo muito <em>apenas da Academia</em> realmente
+afetam a forma como você escreve aplicações do mundo real; para resolver
+problemas reais.</p>
+
+<p>Bem, eu confesso que, quando comecei a interessar mais por esse assunto, também
+tinha muitos pensamentos assim - algo do tipo: <em>“Poxa, até ontem eu escrevia
+código que funcionava e não entendia nada disso! Não vai ser agora que vou
+precisar”</em>.</p>
+
+<p>O que eu não me ligava muito era que a formo como eu modelo meus dados afeta -
+e muito! - a forma como eu interajo com estes. E:</p>
+
+<ul>
+  <li>
+    <p>Poder deduzir o que uma função faz a partir de sua assinatura de tipo - algo
+inclusive muito útil para tornar o código mais legível e compreensível -;</p>
+  </li>
+  <li>
+    <p>Ter o processo de refatoração facilitado, uma vez que conto com um monte de
+erros de compilação para me dizer onde as coisas começaram a dar errado;</p>
+  </li>
+  <li>
+    <p>Ter a garantia que as relações entre meus dados estão ocorrendo da forma que
+deveriam.</p>
+  </li>
+</ul>
+
+<p>São etapas que, diria eu, são necessárias para se atingir a coerência requerida
+para se interagir corretamente com uma informação - e isso, colega, causa
+grande impacto no seu software final.</p>
+
+<blockquote>
+  <p>Poxa, agora o compilador será meu inimigo?</p>
+</blockquote>
+
+<p><strong>tl;dr</strong>: De forma alguma, galera.</p>
+
+<p>A priori, pode soar <strike>muito chato</strike> doloroso travar uma <em>“luta”</em>
+contra um <em>typechecker</em> apenas para ver um programa que você <strong>tem certeza de
+que está correto</strong> compilado. Alguns chegam até a ver como uma péssima
+característica da linguagem se pensarmos em um conceito de <em>bom</em> para uma lang
+definido através da métrica “ser <em>developer-friendly</em>”.</p>
+
+<p>Porém, um ponto que eu penso ser interessante de se discutir é o fato de que a
+noção técnica de <em>melhor</em> envolve aspectos - estes indo muito além do sistema
+de tipos, como: seu modelo de execução, o quão segura esta é, maneiras que se
+usa pra obter melhor expressividade - que nem sempre, <strong>à primeira vista</strong>, se
+alinham com a felicidade do desenvolvedor.</p>
+
+<p>Particularmente, o tempo me mostrou que, ao programar em uma linguagem que me
+faça pensar cuidadosamente sobre tipos, acabo chegando a um código melhor
+projetado, mais fácil de manter, que falha mais rápido - caso este haja de
+falhar, claro -, melhor documentado etc. Assim, passei a ver o compilador não
+como um inimigo, mas como uma ferramenta que me guia de uma bela forma a
+solução para o meu problema - através de tipos.</p>
+
+<p>E tudo isso faz você se sentir bem mais confiante sobre seu próprio código - e
+isso é tão divertido quanto ouvir a faixa <em>Lucy In The Sky With Diamonds</em> ☺️.</p>
+
+<h2 id="referências">Referências</h2>
+
+<p>Aqui ficam apenas alguns posts, livros, vídeos etc. nos quais me baseei ao
+longo da escrita deste post - e que eu acho que mereceriam um tempo da atenção
+de vocês.</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=52VsgyexS8Q&amp;feature=youtu.be"><strong>Hole-driven Haskell</strong></a>
+    <blockquote>
+      <p><em>Screencast</em> por <a href="http://matthew.brecknell.net/">Matthew Brecknell</a>.</p>
+    </blockquote>
+  </li>
+  <li><a href="https://www.youtube.com/watch?v=gVXt1RG_yN0"><strong>May Your Data Ever Be Coherent</strong></a>
+    <blockquote>
+      <p><em>Talk</em> por <a href="http://www.codecommit.com/blog/">Daniel Spiewak</a>.</p>
+    </blockquote>
+  </li>
+  <li><a href="http://lucacardelli.name/papers/onunderstanding.a4.pdf"><strong>On Understanding Types,Data Abstraction, and Polymorphism</strong></a>
+    <blockquote>
+      <p>Artigo por <a href="http://lucacardelli.name/">Luca Cardelli</a>.</p>
+    </blockquote>
+  </li>
+  <li><a href="https://mitpress.mit.edu/sicp/full-text/book/book.html"><strong>Structure and Interpretation of Computer Programs</strong></a>
+    <blockquote>
+      <p>O famoso <em>Livro do Mago</em> é sempre uma referência!</p>
+    </blockquote>
+  </li>
+  <li><a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html"><strong>The Swift Programming Language (Swift 2.2) - The Basics</strong></a>
+    <blockquote>
+      <p>Documentação oficial provida pela Apple.</p>
+    </blockquote>
+  </li>
+  <li><a href="http://lucacardelli.name/Papers/TypeSystems.pdf"><strong>Type Systems</strong></a>
+    <blockquote>
+      <p>Artigo por <a href="http://lucacardelli.name/">Luca Cardelli</a>.</p>
+    </blockquote>
+  </li>
+  <li><a href="https://www.cis.upenn.edu/~bcpierce/tapl/"><strong>Types and Programming Languages</strong></a>
+    <blockquote>
+      <p>Livro de <a href="http://www.cis.upenn.edu/~bcpierce/">Benjamin Pierce</a>.</p>
+    </blockquote>
+  </li>
+</ul>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/extensions/2016/03/26/app-extension-today-widget/" data-toggle="tooltip" data-placement="top" title="App Extension - Today Widget">&larr; Post Anterior</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/reactive/2016/03/28/Reactivecocoa-+-MVVM/" data-toggle="tooltip" data-placement="top" title="ReactiveCocoa + MVVM">Próximo Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Disqus Content -->
+
+                <div id="disqus_thread">
+                    <script>
+                        /**
+                        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                        */
+
+                        /*
+                        var disqus_config = function () {
+                            this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//equinocios.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>
