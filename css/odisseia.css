@@ -1,4 +1,4 @@
-/* A odisseia do puto — tema preto, branco e verde, vibe 2003 */
+/* A odisseia do puto — tema preto, branco e verde, design focado em leitura */
 
 :root {
   --bg: #0a0a0a;
@@ -8,14 +8,76 @@
   --accent: #00cc66;
   --accent-soft: #00a050;
   --accent-bright: #33ff99;
+  --accent-dim: #0d2818;
   --border: #00cc66;
   --border-soft: #1a3d2e;
+  --reading-width: 65ch;
+  --reading-line-height: 1.75;
 }
 
+/* ---- Fundo estático + fog ---- */
 body {
   background: var(--bg) !important;
   color: var(--text) !important;
   font-family: Georgia, "Times New Roman", serif !important;
+  min-height: 100vh;
+}
+
+.fog-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fog-layer {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    rgba(0, 60, 30, 0.25) 0%,
+    rgba(0, 40, 20, 0.12) 40%,
+    transparent 70%
+  );
+  opacity: 0.45;
+  will-change: transform, opacity;
+  transition: opacity 0.5s ease;
+}
+
+.fog-layer-2 {
+  background: radial-gradient(
+    ellipse 70% 80% at 80% 60%,
+    rgba(0, 80, 40, 0.2) 0%,
+    rgba(0, 30, 15, 0.08) 50%,
+    transparent 75%
+  );
+}
+
+.fog-layer-3 {
+  background: radial-gradient(
+    ellipse 60% 70% at 20% 70%,
+    rgba(0, 50, 25, 0.18) 0%,
+    transparent 60%
+  );
+}
+
+.fog-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+}
+
+.site-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding-top: 56px; /* espaço para navbar fixa */
 }
 
 a {
@@ -88,18 +150,25 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--accent) !important;
 }
 
-/* Header das páginas e posts — sem imagem, fundo escuro com faixa verde */
+/* Header das páginas e posts — próximo do conteúdo, faixa verde */
 .intro-header {
   background: var(--bg) !important;
   background-image: none !important;
   border-bottom: 3px solid var(--border);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
-  padding: 6rem 0 3rem;
+  padding: 4.5rem 0 1.5rem;
   color: var(--text) !important;
+}
+@media (min-width: 768px) {
+  .intro-header .site-heading,
+  .intro-header .post-heading,
+  .intro-header .page-heading {
+    padding: 5rem 0 1.75rem;
+  }
 }
 .intro-header .site-heading h1,
 .intro-header .page-heading h1,
@@ -127,12 +196,89 @@ hr.small {
 .container .row {
   background: var(--bg);
 }
+
+/* ---- Experiência de leitura (foco do blog) ---- */
+.reading-content p,
+article .reading-content p,
+article p {
+  max-width: var(--reading-width);
+  line-height: var(--reading-line-height);
+  margin-bottom: 1.25em;
+  font-size: 1.05rem;
+}
+
+article h1, article h2, article h3,
+.reading-content h1, .reading-content h2, .reading-content h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+article h1:first-child, .reading-content h1:first-child { margin-top: 0; }
+article ul, article ol,
+.reading-content ul, .reading-content ol {
+  max-width: var(--reading-width);
+  line-height: var(--reading-line-height);
+  margin-bottom: 1.25em;
+}
+
+article li, .reading-content li {
+  margin-bottom: 0.35em;
+}
+
+article blockquote, .reading-content blockquote {
+  max-width: calc(var(--reading-width) - 2ch);
+}
+
 blockquote {
   color: var(--text-muted) !important;
   border-left: 4px solid var(--accent);
   background: var(--bg-card);
   padding: 1rem 1.5rem;
   margin: 1.5rem 0;
+}
+
+/* Filtro por tags (início da lista de posts) */
+.filter-tags {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.filter-tags-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.filter-tags-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-tag {
+  font-family: Verdana, Tahoma, "Trebuchet MS", sans-serif;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border-soft);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.filter-tag:hover {
+  color: var(--text);
+  border-color: var(--border-soft);
+}
+
+.filter-tag.is-active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
 }
 
 /* Lista de posts na home */
@@ -232,9 +378,108 @@ ul.share li a:hover {
   font-style: italic;
   margin-bottom: 0.5rem;
 }
+.about-tags {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-card);
+}
+.about-tags h3 {
+  color: var(--accent) !important;
+  border: none;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.about-tags ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+.about-tags li {
+  margin-bottom: 0.25em;
+}
+.about-subscription {
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-card);
+}
+.about-subscription h3 {
+  color: var(--accent) !important;
+  border: none;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+.about-subscription p {
+  margin-bottom: 0.75em;
+}
 .about-footer {
   margin-top: 2rem;
   color: var(--text-muted);
+}
+
+/* Bloco de ad — televisão (criativo, com piada) */
+.ad-tv {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.ad-tv-frame {
+  text-align: center;
+}
+
+.ad-tv-screen {
+  width: 300px;
+  height: 250px;
+  background: linear-gradient(135deg, var(--bg-card) 0%, #0d1510 100%);
+  border: 8px solid #222;
+  border-radius: 8px;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ad-tv-screen::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--border-soft);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.ad-tv-placeholder {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ad-tv-label {
+  color: var(--accent);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.ad-tv-stand {
+  width: 120px;
+  height: 12px;
+  margin: -2px auto 0;
+  background: linear-gradient(180deg, #333 0%, #1a1a1a 100%);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.ad-tv-joke {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+  margin: 0.4rem 0 0;
+  font-style: italic;
 }
 
 /* HR */

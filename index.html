@@ -3,21 +3,37 @@ layout: page
 description: "Blog de tecnologia e desenvolvimento — artigos, tutoriais e opinião."
 ---
 
+<!-- Filtro burro por tipo de post (client-side) -->
+<nav class="filter-tags" aria-label="Filtrar por tipo de post">
+  <span class="filter-tags-label">Ver:</span>
+  <div class="filter-tags-buttons">
+    <button type="button" class="filter-tag is-active" data-filter="all" aria-pressed="true">Todos</button>
+    <button type="button" class="filter-tag" data-filter="codigo" aria-pressed="false">Código</button>
+    <button type="button" class="filter-tag" data-filter="noticias" aria-pressed="false">Notícias</button>
+    <button type="button" class="filter-tag" data-filter="jogos" aria-pressed="false">Jogos</button>
+    <button type="button" class="filter-tag" data-filter="filmes" aria-pressed="false">Filmes</button>
+  </div>
+</nav>
+
+<div id="post-list">
 {% for post in paginator.posts %}
-<div class="post-preview">
+{% comment %} Tags no front matter (ex: tags: [codigo]). Sem tags = usa "codigo" se tiver category (posts antigos). {% endcomment %}
+{% assign post_tag_str = post.tags | join: ' ' | downcase %}
+{% if post_tag_str == '' and post.categories.size > 0 %}{% assign post_tag_str = 'codigo' %}{% endif %}
+<div class="post-preview" data-tags="{{ post_tag_str }}">
     <a href="{{ post.url | prepend: site.baseurl }}">
-        <h2 class="post-title">            {{ post.title }}
-        </h2>
+        <h2 class="post-title">{{ post.title }}</h2>
         {% if post.subtitle %}
-        <h3 class="post-subtitle">
-            {{ post.subtitle }}
-        </h3>
+        <h3 class="post-subtitle">{{ post.subtitle }}</h3>
         {% endif %}
     </a>
     <p class="post-meta">Postado por {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} em {{ post.date | date: site.date_format }}</p>
 </div>
-<hr>
+<hr class="post-sep">
 {% endfor %}
+</div>
+
+{% include ad-tv.html %}
 
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}

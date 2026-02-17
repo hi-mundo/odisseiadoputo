@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 {% include head.html %}
 
 <body>
+    <!-- Fundo estático com efeito fog (fixo; conteúdo rola por cima) -->
+    <div id="fog-bg" class="fog-bg" aria-hidden="true">
+        <div class="fog-layer fog-layer-1"></div>
+        <div class="fog-layer fog-layer-2"></div>
+        <div class="fog-layer fog-layer-3"></div>
+        <div class="fog-vignette"></div>
+    </div>
 
-    {% include nav.html %}
+    <div id="site-wrap" class="site-wrap">
+        {% include nav.html %}
+        {{ content }}
+        {% include footer.html %}
+    </div>
 
-    {{ content }}
-
-    {% include footer.html %}
-
+    <script src="{{ "/js/fog.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/js/filter.js" | prepend: site.baseurl }}"></script>
 </body>
 
 </html>

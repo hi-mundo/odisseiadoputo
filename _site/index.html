@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
 
@@ -40,14 +40,26 @@
 
     <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
 
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3228626608941163"
+         crossorigin="anonymous"></script>
+
     
 
 </head>
 
 
 <body>
+    <!-- Fundo estático com efeito fog (fixo; conteúdo rola por cima) -->
+    <div id="fog-bg" class="fog-bg" aria-hidden="true">
+        <div class="fog-layer fog-layer-1"></div>
+        <div class="fog-layer fog-layer-2"></div>
+        <div class="fog-layer fog-layer-3"></div>
+        <div class="fog-vignette"></div>
+    </div>
 
-    <!-- Navigation -->
+    <div id="site-wrap" class="site-wrap">
+        <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -78,8 +90,7 @@
     <!-- /.container -->
 </nav>
 
-
-    <!-- Page Header -->
+        <!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
@@ -98,690 +109,52 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			
-<div class="post-preview">
-    <a href="/banco%20de%20dados/2017/03/30/persistencia-de-dados-usando-core-data/">
-        <h2 class="post-title">            Persistência de dados usando Core Data
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Uma introdução de como persistir dados no iOS usando o framework nativo
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Douglas Taquary em 30/03/2017</p>
-</div>
-<hr>
+			<!-- Filtro burro por tipo de post (client-side) -->
+<nav class="filter-tags" aria-label="Filtrar por tipo de post">
+  <span class="filter-tags-label">Ver:</span>
+  <div class="filter-tags-buttons">
+    <button type="button" class="filter-tag is-active" data-filter="all" aria-pressed="true">Todos</button>
+    <button type="button" class="filter-tag" data-filter="codigo" aria-pressed="false">Código</button>
+    <button type="button" class="filter-tag" data-filter="noticias" aria-pressed="false">Notícias</button>
+    <button type="button" class="filter-tag" data-filter="jogos" aria-pressed="false">Jogos</button>
+    <button type="button" class="filter-tag" data-filter="filmes" aria-pressed="false">Filmes</button>
+  </div>
+</nav>
 
-<div class="post-preview">
-    <a href="/ui/2017/03/29/introducao-ao-asyncdisplaykit-construa-interfaces-asyncronas-no-iOS/">
-        <h2 class="post-title">            Interfaces assíncronas com AsyncDisplayKit
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Uma introdução ao AsyncDispkayKit
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por “Guga Oliveira“ em 29/03/2017</p>
-</div>
-<hr>
+<div id="post-list">
 
-<div class="post-preview">
-    <a href="/continuidade/2017/03/27/adotando-handoff/">
-        <h2 class="post-title">            Adotando Handoff em iOS e macOS
-        </h2>
-        
-        <h3 class="post-subtitle">
-            The Good, the Bad and the Ugly
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Rafael Nobre em 27/03/2017</p>
-</div>
-<hr>
 
-<div class="post-preview">
-    <a href="/bluetooth/2017/03/26/corebluetooth-na-pratica/">
-        <h2 class="post-title">            CoreBluetooth na Prática
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Entendendo o CoreBluetooth framework e aplicando a exemplo real.
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Leonardo Cardoso em 26/03/2017</p>
-</div>
-<hr>
 
-<div class="post-preview">
+
+<div class="post-preview" data-tags="codigo">
     <a href="/ios/2017/03/26/integracao-continua-com-travis-ci/">
-        <h2 class="post-title">            Integração Contínua com Travis-CI
-        </h2>
+        <h2 class="post-title">Integração Contínua com Travis-CI</h2>
         
-        <h3 class="post-subtitle">
-            Chegou a hora de ter menos dores de cabeça durante o desenvolvimento do seu app.
-        </h3>
+        <h3 class="post-subtitle">Chegou a hora de ter menos dores de cabeça durante o desenvolvimento do seu app.</h3>
         
     </a>
     <p class="post-meta">Postado por Fabricio Serralvo em 26/03/2017</p>
 </div>
-<hr>
+<hr class="post-sep">
 
-<div class="post-preview">
-    <a href="/subscription/2017/03/25/Gerenciando-subscriptions-com-In-App-Purchases/">
-        <h2 class="post-title">            Gerenciando subscriptions com In-App Purchases
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Porque parece complicado, mas não é.
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Renan Protector em 25/03/2017</p>
 </div>
-<hr>
 
-<div class="post-preview">
-    <a href="/cloudkit/2017/03/24/Sincronizacao-de-dados-com-CloudKit/">
-        <h2 class="post-title">            Sincronização de dados com CloudKit
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Colocando seu app na nuvem
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Guilherme Rambo em 24/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/tutorial/2017/03/22/swift-machine-learning/">
-        <h2 class="post-title">            Swift & Machine Learning
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Sobre Recursos Humanos e Florestas Aleatórias
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Lucas Farris em 22/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/animations/2017/03/19/desmistificando-o-core-animator/">
-        <h2 class="post-title">            Desmistificando o Core Animation
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Uma introdução para perder o medo desse framework como o Core Animation pode ser útil ao elaborar suas animações
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Renato Sarro Matos em 19/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/server/2017/03/18/server-side-caracteristicas-de-um-servidor/">
-        <h2 class="post-title">            Server-side: características de um servidor
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Um pouco sobre a arquitetura dos servidores
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Ronaldo Faria Lima em 18/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/view-code/2017/03/17/com-quantas-views-se-faz-um-APP/">
-        <h2 class="post-title">            Com quantas views se faz uma APP?
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Com view code e criatividade esse número pode ser menor do que você pensa
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Ronan Rodrigo Nunes em 17/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/ios/2017/03/16/swift-enums/">
-        <h2 class="post-title">            Enums para o nosso bem
-        </h2>
-        
-        <h3 class="post-subtitle">
-            código mais seguro, otimizado e legível
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Daniel Bonates em 16/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/reativo/2017/03/16/Eu-preciso-reativar-minha-aplicacao/">
-        <h2 class="post-title">            Eu preciso reativar minha aplicação?
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Utilização do Reactive Cocoa no nosso dia a dia.
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Vinicius Carvalho em 16/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/metaprogramming/2017/03/14/metaprogramacao-para-o-resto-de-nos/">
-        <h2 class="post-title">            Metaprogramação para o resto de nós
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Pare de escrever boilerplate
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Francesco Perrotti-Garcia em 14/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/viper/2017/03/13/comecando-com-viper/">
-        <h2 class="post-title">            Começando com VIPER
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Entendendo e aplicando sem muito sofrimento
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Vitor Santos Mesquita em 13/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/swift/2017/03/12/Introducao-e-casos-de-uso-Map-Filter-e-Reduce/">
-        <h2 class="post-title">            Introdução e casos de uso: Map, Filter e Reduce.
-        </h2>
-        
-    </a>
-    <p class="post-meta">Postado por Ezequiel França em 12/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/testes/2017/03/11/uitests-com-embassy-e-ambassador/">
-        <h2 class="post-title">            UITests com Embassy e Ambassador
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Mockando a sua API no target de testes
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Emannuel Carvalho em 11/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/arquitetura/2017/03/10/experiiecia-de-modularizacao-de-uma-biblioteca/">
-        <h2 class="post-title">            Experiências na modularização de um projeto de um SDK
-        </h2>
-        
-    </a>
-    <p class="post-meta">Postado por Tales Pinheiro em 10/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/comunidade/2017/03/10/Bugreport-101/">
-        <h2 class="post-title">            Bugreport 101
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Um ensaio sobre bugs e relatórios
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Flávio Caetano em 10/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/testes/2017/03/09/voce-tem-um-momento-para-falar-sobre-testar-suas-view-controllers/">
-        <h2 class="post-title">            Você tem um momento para falar sobre testar suas View Controllers?
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Um resumo de como comecei a escrever Snapshot Tests
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por “Christian Sampaio“ em 09/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/ios/2017/03/07/lldb-e-seu-amigo/">
-        <h2 class="post-title">            LLDB é seu amigo
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Como usar LLDB para melhorar seu workflow
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Fernando Cezar Bunn em 07/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/testes/2017/03/06/unit-tests-101/">
-        <h2 class="post-title">            Unit Tests 101
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Primeir[íssim]os passos
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Emannuel Carvalho em 06/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/ios/2017/03/05/por-que-a-interface-grafica-e-um-xml/">
-        <h2 class="post-title">            Por que a interface gráfica é um XML?
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Entenda um pouco da programação por definições
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Ronaldo Faria Lima em 05/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/arquitetura/2017/03/02/Introducao-a-arquitetura-evolutiva/">
-        <h2 class="post-title">            Introdução a Arquitetura Evolutiva
-        </h2>
-        
-        <h3 class="post-subtitle">
-            O básico para construir uma arquitetura que evolua com a sua aplicação
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Bruno Mazzo em 02/03/2017</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/comunidade/2016/04/04/agradecimentos-time-equinocios/">
-        <h2 class="post-title">            Obrigado!
-        </h2>
-        
-        <h3 class="post-subtitle">
-            O nosso agradecimento a você!
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por CocoaHeads Brasil em 04/04/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/reactive/2016/03/28/Reactivecocoa-+-MVVM/">
-        <h2 class="post-title">            ReactiveCocoa + MVVM
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Utilizando ReactiveCocoa e MVVM
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Alessandro Santos em 28/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/swift/2016/03/27/swift-in-the-sky-with-types/">
-        <h2 class="post-title">            Swift In The Sky With Types
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Ou apenas mais uma conversa sobre linguagens, compiladores, tipos e... Swift!
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Matheus Albuquerque em 27/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/extensions/2016/03/26/app-extension-today-widget/">
-        <h2 class="post-title">            App Extension - Today Widget
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Introdução ao Today Extension
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Renato Matos em 26/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/frameworks/2016/03/25/criando-frameworks/">
-        <h2 class="post-title">            Criando frameworks para várias plataformas
-        </h2>
-        
-    </a>
-    <p class="post-meta">Postado por Guilherme Martinez Sampaio em 25/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/optionals/2016/03/24/optionals-e-o-gato-de-schrodinger/">
-        <h2 class="post-title">            Optionals e o Gato de Schrödinger
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Optionals? Optionals!
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Francesco Perrotti-Garcia em 24/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/ios/2016/03/23/fastlane/">
-        <h2 class="post-title">            Fastlane
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Automatizando o processo de deploy
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Fábio Nogueira de Almeida em 23/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/runtime/2016/03/22/introducao-sobre-runtime-em-objective-c/">
-        <h2 class="post-title">            Introdução sobre Runtime em Objective-C
-        </h2>
-        
-        <h3 class="post-subtitle">
-            
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Fernanda Gadeia Geraissate em 22/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/ios/2016/03/20/visual-format/">
-        <h2 class="post-title">            Auto Layout com Visual Format
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Seu layout com uma linguagem visual e fácil
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Daniel Bonates em 20/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/open-source/2016/03/19/backend-usando-swift-sim-e-possivel/">
-        <h2 class="post-title">            Backend usando Swift ? Sim, é possível!
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Entenda um pouco sobre o projeto open source que vai te ajudar a ver o desenvolvimento de software para servidores de outra forma usando Swift!
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Thiago Holanda em 19/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/devlife/2016/03/18/a-vida-de-um-desenvolvedor-indie/">
-        <h2 class="post-title">            A vida de um desenvolvedor indie
-        </h2>
-        
-        <h3 class="post-subtitle">
-            A montanha-russa de glórias e frustações
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Ricardo Borelli em 18/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/ibeacon/2016/03/17/ibeacon/">
-        <h2 class="post-title">            iBeacon
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Entendendo melhor a tecnologia, sua utilização e seu potencial
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Gabriel Oliva em 17/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/library/2016/03/16/bibliotecas/">
-        <h2 class="post-title">            Bibliotecas 📚
-        </h2>
-        
-    </a>
-    <p class="post-meta">Postado por Igor Ferreira em 16/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/ios/2016/03/15/protocol-oriented-programming/">
-        <h2 class="post-title">            Protocol-Oriented Programming
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Vivendo em um mundo abstrato.
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Lourenço Marinho em 15/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/functional/2016/03/14/generic-functional-reactive-post/">
-        <h2 class="post-title">            Programação funcional e reativa é para todos
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Como inserir RxSwift + Programação funcional naquele seu projeto que está 90% concluído
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Bruno Bilescky em 14/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2016/03/13/rxswift-como-eu-vim-parar-aqui/">
-        <h2 class="post-title">            RxSwift: como eu vim parar aqui?
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Minha experiência aprendendo programação reativa e funcional
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Bruno Koga em 13/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/webview/2016/03/12/webview-a-porta-de-entrada-para-desenvolvedores-web/">
-        <h2 class="post-title">            WebView
-        </h2>
-        
-        <h3 class="post-subtitle">
-            A Porta de entrada pra desenvolvedores web
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Emiliano Barbosa em 12/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/regex/2016/03/11/o-que-sao-expressoes-regulares/">
-        <h2 class="post-title">            Seja um desenvolvedor regular
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Adicionando expressões regulares no seu dia-a-dia
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Diego Ventura em 11/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/gamedev/2016/03/10/Unity3DeoMundoApple/">
-        <h2 class="post-title">            Unity3D e o Mundo Apple
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Introdução e Integração da engine com iOS
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Mauricio Cardozo em 10/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/xcode/2016/03/09/vamos-falar-de-xcode/">
-        <h2 class="post-title">            Vamos falar de Xcode
-        </h2>
-        
-    </a>
-    <p class="post-meta">Postado por Tales Pinheiro em 09/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/ios/2016/03/08/layouts-adaptativos-com-uicollectionview-autolayout-e-size-classes/">
-        <h2 class="post-title">            Layouts adaptativos com UICollectionView, Size Classes e Auto Layout
-        </h2>
-        
-    </a>
-    <p class="post-meta">Postado por Rodrigo Borges em 08/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/arquitetura/2016/03/07/minimizando-acoplamento-view-e-viewcontrollers/">
-        <h2 class="post-title">            Minimizando o acoplamento entre Views e ViewControllers
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Uma opção para configurar Views
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Diogo Tridapalli em 07/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/storyboards/2016/03/06/desmistificando-storyboards/">
-        <h2 class="post-title">            Desmistificando Storyboards
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Ganhe produtividade sem perder sua sanidade
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Rafael Nobre em 06/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/open-source/2016/03/05/uikeycommand-teclas-de-atalho-dentro-do-seu-app/">
-        <h2 class="post-title">            UIKeyCommand: Teclas de atalho dentro do seu app
-        </h2>
-        
-    </a>
-    <p class="post-meta">Postado por Douglas Fischer em 05/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/ios/2016/03/05/testes-de-aceitacao/">
-        <h2 class="post-title">            Testes de Aceitação em iOS
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Como escrever testes de aceitação em iOS.
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Felipe B. Valio em 05/03/2016</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/tutorial/2016/03/03/scenekit-overview/">
-        <h2 class="post-title">            SceneKit Overview
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Introdução aos principais conceitos do framework
-        </h3>
-        
-    </a>
-    <p class="post-meta">Postado por Lucas Farris em 03/03/2016</p>
-</div>
-<hr>
+<!-- Bloco de ad estilizado como TV — placeholder criativo -->
+<aside class="ad-tv" role="complementary" aria-label="Espaço publicitário">
+  <div class="ad-tv-frame">
+    <div class="ad-tv-screen">
+      <div class="ad-tv-placeholder">
+        <span class="ad-tv-label">Publicidade</span>
+        <span class="ad-tv-size">300 × 250</span>
+      </div>
+    </div>
+    <div class="ad-tv-stand"></div>
+    <p class="ad-tv-joke">escritor também passa fome</p>
+  </div>
+</aside>
 
 
 <!-- Pager -->
-
-<ul class="pager">
-    
-    
-    <li class="next">
-        <a href="/page2">Posts Antigos &rarr;</a>
-    </li>
-    
-</ul>
 
 
 		</div>
@@ -790,27 +163,12 @@
 
 <hr>
 
-
-    <!-- Footer -->
+        <!-- Footer -->
 <footer>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    <li>
-                        <a href="/feed.xml">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                </ul>
-                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Doido</p>
             </div>
         </div>
     </div>
@@ -825,7 +183,10 @@
 <!-- Custom Theme JavaScript -->
 <script src="/js/clean-blog.min.js "></script>
 
+    </div>
 
+    <script src="/js/fog.js"></script>
+<script src="/js/filter.js"></script>
 </body>
 
 </html>

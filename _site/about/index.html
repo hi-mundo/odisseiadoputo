@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
 
@@ -40,14 +40,26 @@
 
     <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="A odisseia do puto" />
 
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3228626608941163"
+         crossorigin="anonymous"></script>
+
     
 
 </head>
 
 
 <body>
+    <!-- Fundo estático com efeito fog (fixo; conteúdo rola por cima) -->
+    <div id="fog-bg" class="fog-bg" aria-hidden="true">
+        <div class="fog-layer fog-layer-1"></div>
+        <div class="fog-layer fog-layer-2"></div>
+        <div class="fog-layer fog-layer-3"></div>
+        <div class="fog-vignette"></div>
+    </div>
 
-    <!-- Navigation -->
+    <div id="site-wrap" class="site-wrap">
+        <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -78,8 +90,7 @@
     <!-- /.container -->
 </nav>
 
-
-    <!-- Page Header -->
+        <!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
@@ -98,7 +109,19 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<p><strong>A odisseia do puto</strong> é um blog sobre tecnologia, desenvolvimento e o que der na telha — escrito por quem está na linha de frente.</p>
+			<p><strong>A odisseia do puto</strong> é um blog de nerdola: tecnologia, desenvolvimento e o que der na telha — escrito por quem está na linha de frente.</p>
+
+<section class="about-tags">
+  <h3>O que você vai encontrar aqui</h3>
+  <p>No topo da home tem um filtro por tipo de post. A gente agrupa assim:</p>
+  <ul>
+    <li><strong>Código</strong> — dev, DevOps, SRE, arquitetura de software, tutoriais e opinião técnica.</li>
+    <li><strong>Notícias</strong> — comentários sobre notícias do mundo tech.</li>
+    <li><strong>Jogos</strong> — comentários sobre jogos.</li>
+    <li><strong>Filmes</strong> — comentários sobre filmes (muitas vezes ruins).</li>
+  </ul>
+  <p>Ou seja: um pouco de cada canto do cardápio nerd. Nos posts, use no front matter <code>tags: [codigo]</code>, <code>tags: [noticias]</code>, <code>tags: [jogos]</code> ou <code>tags: [filmes]</code> (ou mais de uma) para o filtro da home funcionar.</p>
+</section>
 
 <div class="about-team">
   <section class="about-person">
@@ -107,11 +130,32 @@
     <p>Desenvolve e arquiteta sistemas no dia a dia e gosta de traduzir isso em texto: tutoriais, experiências e opinião técnica.</p>
   </section>
   <section class="about-person">
-    <h3>Frederico Do</h3>
+    <h3>Frederico Doido</h3>
     <p class="role">Editor e redator com foco em tecnologia</p>
-    <p>Escreve e edita posts para o blog — seja por vontade própria ou em colaboração remunerada — com foco em clareza e em conteúdo que faça sentido para quem programa e para quem quer entender tecnologia.</p>
+    <p>Escreve e edita os posts do blog, com foco em clareza e em conteúdo que faça sentido para quem programa e para quem quer entender tecnologia.</p>
   </section>
 </div>
+
+<section class="about-subscription">
+  <h3>Versão grátis e versão paga</h3>
+  <p>O site é gratuito e sempre terá conteúdo aberto. Na <strong>versão grátis</strong> a gente exibe anúncios — é assim que a gente paga as contas e mantém o blog no ar.</p>
+  <p>Se preferir <strong>ler sem ads</strong> e ainda receber tudo no email: por <strong>R$ 20/mês</strong> você assina a newsletter paga. O conteúdo é enviado direto na sua caixa de entrada, em formato de newsletter, sempre atualizado, sem precisar entrar no site atrás de post novo. Quem assina apoia o blog e lê com mais conforto.</p>
+</section>
+
+<!-- Bloco de ad estilizado como TV — placeholder criativo -->
+<aside class="ad-tv" role="complementary" aria-label="Espaço publicitário">
+  <div class="ad-tv-frame">
+    <div class="ad-tv-screen">
+      <div class="ad-tv-placeholder">
+        <span class="ad-tv-label">Publicidade</span>
+        <span class="ad-tv-size">300 × 250</span>
+      </div>
+    </div>
+    <div class="ad-tv-stand"></div>
+    <p class="ad-tv-joke">escritor também passa fome</p>
+  </div>
+</aside>
+
 
 <p class="about-footer">Dois putos, uma odisseia. Se quiser falar com a gente, use os links do rodapé.</p>
 
@@ -121,27 +165,12 @@
 
 <hr>
 
-
-    <!-- Footer -->
+        <!-- Footer -->
 <footer>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    <li>
-                        <a href="/feed.xml">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    
-                    
-                </ul>
-                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Do</p>
+                <p class="copyright text-muted">A odisseia do puto — Raimundo Pessoa & Frederico Doido</p>
             </div>
         </div>
     </div>
@@ -156,7 +185,10 @@
 <!-- Custom Theme JavaScript -->
 <script src="/js/clean-blog.min.js "></script>
 
+    </div>
 
+    <script src="/js/fog.js"></script>
+<script src="/js/filter.js"></script>
 </body>
 
 </html>
