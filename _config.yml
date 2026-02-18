@@ -6,13 +6,6 @@ url: ""
 permalink: pretty
 exclude: ["README.md", ".gitignore"]
 
-# AdSense: anúncios só dentro das "tevisões" (ad-tv-screen). Crie uma unidade de display no AdSense e coloque o slot aqui.
-adsense_client: "ca-pub-9374424266642240"
-adsense_slot: ""   # Ex.: "1234567890" — deixe vazio para não carregar anúncios até configurar
-
-# Botão Esmola: leva à página onde está o anúncio; o usuário clica no ad (como se clicasse no ads)
-esmola_url: "/apoie/"
-
 # Build settings
 markdown: kramdown
 paginate: 50

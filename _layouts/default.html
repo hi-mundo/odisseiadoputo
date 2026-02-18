@@ -4,7 +4,7 @@
 {% include head.html %}
 
 <body>
-    <script>window.ADSENSE_CLIENT={{ site.adsense_client | jsonify }};window.ADSENSE_SLOT={{ site.adsense_slot | jsonify }};</script>
+
     <!-- Fundo estático com efeito fog (fixo; conteúdo rola por cima) -->
     <div id="fog-bg" class="fog-bg" aria-hidden="true">
         <div class="fog-layer fog-layer-1"></div>
@@ -23,12 +23,10 @@
     <div class="scanline" aria-hidden="true"></div>
     <div class="crt-flicker" aria-hidden="true"></div>
 
-    {% include ad-pig.html %}
+
     <script src="{{ "/js/fog.js" | prepend: site.baseurl }}"></script>
     <script src="{{ "/js/filter.js" | prepend: site.baseurl }}"></script>
-    <script src="{{ "/js/inject-ads.js" | prepend: site.baseurl }}"></script>
-    <script src="{{ "/js/ad-init.js" | prepend: site.baseurl }}"></script>
-    <script src="{{ "/js/grow-tevisao.js" | prepend: site.baseurl }}"></script>
+
     <script src="{{ "/js/lang-switcher.js" | prepend: site.baseurl }}"></script>
 </body>
 

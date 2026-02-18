@@ -10,22 +10,24 @@
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="{{ "/css/bootstrap.min.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /css/bootstrap.min.css" | prepend: site.baseurl }}">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ "/css/clean-blog.css" | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ "/css/odisseia.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /css/clean-blog.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /css/odisseia.css" | prepend: site.baseurl }}">
 
     <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="{{ "/css/syntax.css" | prepend: site.baseurl }}">
-    
+    <link rel="stylesheet" href="{{ " /css/syntax.css" | prepend: site.baseurl }}">
+
     <!-- Share CSS -->
-    <link rel="stylesheet" href="{{ "/css/share.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /css/share.css" | prepend: site.baseurl }}">
 
     <!-- Custom Fonts -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link
+        href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -37,13 +39,7 @@
 
     {% feed_meta %}
 
-    <!-- Google AdSense — anúncios só dentro das tevisões (ad-tv-screen) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense_client }}"
-         crossorigin="anonymous"></script>
 
-    <!-- Grow (Faves) — combina com AdSense; widgets só dentro das tevisões.
-         No Grow Publisher Portal: Grow Settings > General > Content Selector = [data-grow-container="tevisao"] ou .ad-tv-screen -->
-    <script data-grow-initializer="">!(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTo5YTM1MGY4Mi0xMDFmLTQ0YjktYWI5OS03ZmQ2MjZhYTc4Yzg=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();</script>
 
     {% include analytics.html %}
 </head>
