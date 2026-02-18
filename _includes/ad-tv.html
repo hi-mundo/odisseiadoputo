@@ -12,11 +12,11 @@
 {% else %}
   {% assign ad_format = "rectangle" %}
 {% endif %}
-<!-- Bloco de ad estilizado como TV — anúncios SOMENTE aqui (data-ad-placement) -->
+<!-- Bloco de ad estilizado como TV — AdSense e Grow SOMENTE aqui (data-ad-placement / data-grow-container) -->
 <aside class="ad-tv ad-tv--{{ sz }}" role="complementary" aria-label="Espaço publicitário" data-ad-placement="tevisao">
   <p class="ad-tv-intro">{{ include.intro | default: "Um pouquinho de jabá" }}</p>
   <div class="ad-tv-frame">
-    <div class="ad-tv-screen ad-tv-screen--{{ sz }}" data-ad-container="tevisao">
+    <div class="ad-tv-screen ad-tv-screen--{{ sz }} grow-faves-slot" data-ad-container="tevisao" data-grow-container="tevisao">
       {% if site.adsense_slot != nil and site.adsense_slot != "" %}
       <ins class="adsbygoogle ad-unit-tevisao"
            style="display:block"

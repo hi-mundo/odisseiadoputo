@@ -919,6 +919,23 @@ ul.share li a:hover {
   pointer-events: none;
 }
 
+/* Grow (Faves): conteúdo do Grow fica contido dentro da tevisão */
+.ad-tv-screen.grow-faves-slot,
+.ad-tv-screen[data-grow-container="tevisao"] {
+  overflow: hidden;
+  contain: layout style;
+}
+.ad-tv-screen .grow-faves-slot,
+.ad-tv-screen [class*="grow"],
+.ad-tv-screen [id*="grow"],
+.ad-tv-screen [class*="faves"],
+.ad-tv-screen [id*="faves"],
+.ad-tv-screen iframe[src*="grow.me"] {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
 .ad-tv-placeholder {
   position: absolute;
   top: 50%;
