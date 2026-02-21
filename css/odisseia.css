@@ -1851,7 +1851,8 @@ body.reading-mode .navbar-custom {
   padding: 1rem;
 }
 
-.nl-modal[hidden] {
+.nl-modal[hidden],
+[hidden] {
   display: none !important;
 }
 
@@ -2117,6 +2118,11 @@ body.nl-modal-open {
   gap: 0.5rem;
   margin-top: 0.25rem;
   flex-wrap: wrap;
+}
+
+.nl-inline-form[hidden],
+.nl-form[hidden] {
+  display: none !important;
 }
 
 .nl-inline-form .nl-input {

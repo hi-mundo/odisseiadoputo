@@ -158,15 +158,28 @@
             .catch(cb);
     }
 
+    /* ── GERENCIADOR DE IDIOMA ─────────────────────────────────── */
+    function checkIsEn() {
+        return document.documentElement.classList.contains('site-lang-en') ||
+            document.documentElement.getAttribute('lang') === 'en';
+    }
+
     /* ── ESTADO INSCRITO: esconde tudo ───────────────────────── */
     function markSubscribedUI() {
         setCookie(COOKIE_SUBSCRIBED, '1', 87600); // 10 anos
         var endBlock = document.getElementById('nl-end-block');
-        if (endBlock) endBlock.style.display = 'none';
+        if (endBlock) {
+            // Se for na home/apoie/sobre, apenas esconde o form e mostra sucesso
+            // Se for no fim de um post normal, pode esconder o bloco todo ou apenas o form
+            var form = endBlock.querySelector('.nl-inline-form');
+            var success = endBlock.querySelector('.nl-inline-success');
+            if (form) form.hidden = true;
+            if (success) success.hidden = false;
+        }
         closeModal(false);
-        var suc = document.getElementById('nl-modal-success');
-        if (suc) {
-            suc.hidden = false;
+        var modalSuc = document.getElementById('nl-modal-success');
+        if (modalSuc) {
+            modalSuc.hidden = false;
             document.body.classList.add('nl-modal-open');
         }
     }
@@ -176,8 +189,7 @@
         var modal = document.getElementById('nl-modal');
         if (!modal) return;
         var copy = pickCopy();
-        var isEn = document.body.classList.contains('lang-en') ||
-            document.documentElement.getAttribute('lang') === 'en';
+        var isEn = checkIsEn();
 
         var el = function (id) { return document.getElementById(id); };
         var icon = el('nl-modal-icon');
@@ -241,7 +253,7 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             var email = (input ? input.value : '').trim();
-            var isEn = document.body.classList.contains('lang-en');
+            var isEn = checkIsEn();
             if (!isValidEmail(email)) {
                 showError(errorEl, isEn ? 'Invalid email. Try again?' : 'Email inválido. Tenta de novo?');
                 return;
@@ -250,10 +262,11 @@
             if (errorEl) errorEl.hidden = true;
             subscribeEmail(email, function (err) {
                 if (err) {
-                    setLoading(btn, false);
+                    setLoading(btn, false); // Ensure spinner stops on error
                     showError(errorEl, isEn ? 'Something went wrong. Try again later.' : 'Algo deu errado. Tenta em instantes.');
                     return;
                 }
+                setLoading(btn, false); // Ensure spinner stops on success
                 markSubscribedUI();
             });
         });
@@ -283,7 +296,7 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             var email = (input ? input.value : '').trim();
-            var isEn = document.body.classList.contains('lang-en');
+            var isEn = checkIsEn();
             if (!isValidEmail(email)) {
                 showError(errorEl, isEn ? 'Invalid email.' : 'Email inválido.');
                 return;
@@ -296,12 +309,8 @@
                     showError(errorEl, isEn ? 'Error. Try again.' : 'Erro. Tenta de novo.');
                     return;
                 }
-                // Sucesso inline
-                setCookie(COOKIE_SUBSCRIBED, '1', 87600);
-                if (form) form.hidden = true;
-                if (successEl) successEl.hidden = false;
-                // Fecha modal se estiver aberto
-                closeModal(false);
+                setLoading(btn, false);
+                markSubscribedUI();
             });
         });
     }
