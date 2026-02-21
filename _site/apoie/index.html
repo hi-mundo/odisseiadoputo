@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Blog de nerdola: tech, código, notícias, pop e o que der na telha. Mastigamos a informação e viramos seu hub — com liberdade poética para o chorume.">
+    <meta name="description" content="Engenharia de software, cultura pop e caos. O hub definitivo para quem sobrevive a war rooms — sem onanismo intelectual.">
 
     <title>Apoie - A odisseia do puto</title>
 
@@ -171,16 +171,36 @@
     </div>
   </div>
 
-  <p>Se você quer estar na vanguarda e não ler notícias velhas, assine a newsletter.</p>
+  <p>Se você quer estar na vanguarda e não ler notícias velhas, assina agora.</p>
 
-  <div class="substack-embed-container">
-    <iframe src="https://odisseiadoputo.substack.com/embed" width="480" height="320" frameborder="0"
-      scrolling="no"></iframe>
-  </div>
+  <aside class="nl-end-block" id="nl-end-block" aria-label="Newsletter">
+    <div class="nl-end-inner">
+      <span class="nl-end-icon">📬</span>
+      <div class="nl-end-text">
+        <strong class="nl-end-title">Receba quentinho no email.</strong>
+        <span class="nl-end-desc">Cada post novo vai direto pra sua caixa. Sem depender de rede social, sem
+          atraso.</span>
+      </div>
+      <form class="nl-inline-form" id="nl-end-form" novalidate>
+        <input type="email" id="nl-end-email" class="nl-input" placeholder="seu@email.com" autocomplete="email"
+          required />
+        <button type="submit" class="nl-btn" id="nl-end-submit">
+          <span class="nl-btn-text">Entrar</span>
+          <span class="nl-btn-spinner" hidden></span>
+        </button>
+      </form>
+      <p class="nl-error" id="nl-end-error" hidden></p>
+      <p class="nl-inline-success" id="nl-end-success" hidden>
+        ✅ Tá dentro! O próximo post chega quentinho direto na sua caixa.
+      </p>
+    </div>
+  </aside>
 
   <p style="text-align: center; margin-top: 1rem; font-size: 0.8em; color: var(--text-muted);">Junte-se à resistência.
   </p>
 </div>
+
+<script src=" /js/newsletter.js"></script>
 		</div>
 	</div>
 </div>
@@ -191,11 +211,11 @@
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="col-xs-12 text-center">
                 <p class="footer-naas has-en">
-                    <span class="lang-pt"><span class="naas-prompt">$</span> um projeto de <a href="https://himundo.com"
-                            target="_blank" rel="noopener">_hi.mundo!</a></span>
-                    <span class="lang-en"><span class="naas-prompt">$</span> a <a href="https://himundo.com"
+                    <span class="lang-pt"><span class="naas-prompt">$</span> um projeto de <a
+                            href="https://raimundopessoa.com" target="_blank" rel="noopener">_hi.mundo!</a></span>
+                    <span class="lang-en"><span class="naas-prompt">$</span> a <a href="https://raimundopessoa.com"
                             target="_blank" rel="noopener">_hi.mundo!</a> project</span>
                 </p>
                 <p class="footer-contact has-en">

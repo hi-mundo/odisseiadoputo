@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Blog de nerdola: tech, código, notícias, pop e o que der na telha. Mastigamos a informação e viramos seu hub — com liberdade poética para o chorume.">
+    <meta name="description" content="Engenharia de software, cultura pop e caos. O hub definitivo para quem sobrevive a war rooms — sem onanismo intelectual.">
 
     <title>A Autofagia do Silício e o Estelionato da Inteligência Infinita - A odisseia do puto</title>
 
@@ -273,13 +273,73 @@
 </div>
                 
 
+                <!-- ===== NEWSLETTER: BLOCO NO FINAL DO POST ===== -->
+<aside class="nl-end-block" id="nl-end-block" aria-label="Newsletter">
+    <div class="nl-end-inner">
+        <span class="nl-end-icon" id="nl-end-icon">📬</span>
+        <div class="nl-end-text">
+            <strong class="nl-end-title" id="nl-end-title">Quer receber quentinho no email?</strong>
+            <span class="nl-end-desc" id="nl-end-desc">Cada novo post vai direto pra sua caixa. Sem precisar ficar
+                voltando aqui.</span>
+        </div>
+        <form class="nl-inline-form" id="nl-end-form" novalidate>
+            <input type="email" id="nl-end-email" class="nl-input" placeholder="seu@email.com" autocomplete="email"
+                required />
+            <button type="submit" class="nl-btn" id="nl-end-submit">
+                <span class="nl-btn-text">Entrar</span>
+                <span class="nl-btn-spinner" hidden></span>
+            </button>
+        </form>
+        <p class="nl-error" id="nl-end-error" hidden></p>
+        <p class="nl-inline-success" id="nl-end-success" hidden>
+            ✅ Tá dentro! O próximo post chega quentinho direto na sua caixa.
+        </p>
+    </div>
+</aside>
+
+<!-- ===== NEWSLETTER MODAL ===== -->
+<div id="nl-modal" class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nl-modal-title" hidden>
+    <div class="nl-modal-backdrop" id="nl-modal-backdrop"></div>
+    <div class="nl-modal-box">
+        <button class="nl-modal-close" id="nl-modal-close" aria-label="Fechar">&times;</button>
+        <div class="nl-modal-icon" id="nl-modal-icon">📬</div>
+        <h2 class="nl-modal-title" id="nl-modal-title"></h2>
+        <p class="nl-modal-desc" id="nl-modal-desc"></p>
+        <form class="nl-form" id="nl-modal-form" novalidate>
+            <div class="nl-input-row">
+                <input type="email" id="nl-modal-email" class="nl-input" placeholder="seu@email.com"
+                    autocomplete="email" required />
+                <button type="submit" class="nl-btn" id="nl-modal-submit">
+                    <span class="nl-btn-text">Entrar</span>
+                    <span class="nl-btn-spinner" hidden></span>
+                </button>
+            </div>
+            <p class="nl-error" id="nl-modal-error" hidden></p>
+        </form>
+        <button class="nl-dismiss" id="nl-modal-dismiss">Agora não</button>
+    </div>
+</div>
+
+<!-- ===== NEWSLETTER MODAL SUCESSO ===== -->
+<div id="nl-modal-success" class="nl-modal" role="dialog" aria-modal="true" hidden>
+    <div class="nl-modal-backdrop"></div>
+    <div class="nl-modal-box nl-modal-box--success">
+        <div class="nl-modal-icon">✅</div>
+        <h2 class="nl-modal-title">Tá dentro.</h2>
+        <p class="nl-modal-desc">Agora não precisa mais ficar acompanhando o site — o próximo post chega quentinho
+            direto na sua caixa.</p>
+        <button class="nl-btn nl-btn--full" id="nl-success-close">Fechar</button>
+    </div>
+</div>
+
                 <hr>
 
                 <ul class="pager">
                     
                     
                     <li class="next">
-                        <a href="/2026/02/17/necroterio-da-nostalgia-silent-hill-2-filme/" data-toggle="tooltip" data-placement="top" title="O Necrotério da Nostalgia: Silent Hill 2 e a Estética do Vazio">
+                        <a href="/2026/02/17/necroterio-da-nostalgia-silent-hill-2-filme/" data-toggle="tooltip"
+                            data-placement="top" title="O Necrotério da Nostalgia: Silent Hill 2 e a Estética do Vazio">
                             <span class="lang-pt">Próximo Post &rarr;</span>
                             <span class="lang-en">Next Post &rarr;</span>
                         </a>
@@ -294,15 +354,16 @@
 
 <hr>
 
+<script src=" /js/newsletter.js"></script>
         <!-- Footer -->
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="col-xs-12 text-center">
                 <p class="footer-naas has-en">
-                    <span class="lang-pt"><span class="naas-prompt">$</span> um projeto de <a href="https://himundo.com"
-                            target="_blank" rel="noopener">_hi.mundo!</a></span>
-                    <span class="lang-en"><span class="naas-prompt">$</span> a <a href="https://himundo.com"
+                    <span class="lang-pt"><span class="naas-prompt">$</span> um projeto de <a
+                            href="https://raimundopessoa.com" target="_blank" rel="noopener">_hi.mundo!</a></span>
+                    <span class="lang-en"><span class="naas-prompt">$</span> a <a href="https://raimundopessoa.com"
                             target="_blank" rel="noopener">_hi.mundo!</a> project</span>
                 </p>
                 <p class="footer-contact has-en">

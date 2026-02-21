@@ -15,7 +15,8 @@ comments: true
                             {% if page.subtitle %}
                             <h2 class="subheading">{{ page.subtitle }}</h2>
                             {% endif %}
-                            <span class="meta">Postado por {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} em {{ page.date | date: site.date_format }}</span>
+                            <span class="meta">Postado por {% if page.author %}{{ page.author }}{% else %}{{ site.title
+                                }}{% endif %} em {{ page.date | date: site.date_format }}</span>
                         </div>
                         {% if page.en_content %}
                         <div class="lang-en">
@@ -23,7 +24,8 @@ comments: true
                             {% if page.en_subtitle or page.subtitle %}
                             <h2 class="subheading">{{ page.en_subtitle | default: page.subtitle }}</h2>
                             {% endif %}
-                            <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %d, %Y" }}</span>
+                            <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title
+                                }}{% endif %} on {{ page.date | date: "%B %d, %Y" }}</span>
                         </div>
                         {% endif %}
                     </div>
@@ -47,12 +49,15 @@ comments: true
                 <div class="post-body">{{ content }}</div>
                 {% endif %}
 
+                {% include newsletter.html %}
+
                 <hr>
 
                 <ul class="pager">
                     {% if page.previous.url %}
                     <li class="previous">
-                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.previous.title }}">
+                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}"
+                            data-toggle="tooltip" data-placement="top" title="{{ page.previous.title }}">
                             <span class="lang-pt">&larr; Post Anterior</span>
                             <span class="lang-en">&larr; Previous Post</span>
                         </a>
@@ -60,7 +65,8 @@ comments: true
                     {% endif %}
                     {% if page.next.url %}
                     <li class="next">
-                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">
+                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip"
+                            data-placement="top" title="{{ page.next.title }}">
                             <span class="lang-pt">Próximo Post &rarr;</span>
                             <span class="lang-en">Next Post &rarr;</span>
                         </a>
@@ -74,3 +80,5 @@ comments: true
 </article>
 
 <hr>
+
+<script src="{{ " /js/newsletter.js" | prepend: site.baseurl }}"></script>
