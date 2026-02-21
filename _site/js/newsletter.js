@@ -20,31 +20,45 @@
     var COPIES_FIRST = [
         {
             icon: '🌡️', title: 'Quer receber quentinho no email?',
-            desc: 'Cada novo post vai direto pra sua caixa. Sem precisar ficar voltando aqui pra ver se saiu algo.'
+            en_title: 'Want fresh updates in your inbox?',
+            desc: 'Cada novo post vai direto pra sua caixa. Sem precisar ficar voltando aqui pra ver se saiu algo.',
+            en_desc: 'Every new post goes straight to your inbox. No need to keep checking back to see if something is out.'
         },
         {
             icon: '📬', title: 'Para de depender do algoritmo.',
-            desc: 'Assina a newsletter e os posts chegam quentinhos, direto no email que você cadastrar.'
+            en_title: 'Stop depending on the algorithm.',
+            desc: 'Assina a newsletter e os posts chegam quentinhos, direto no email que você cadastrar.',
+            en_desc: 'Subscribe to the newsletter and posts arrive fresh, directly to the email you register.'
         },
         {
             icon: '☕', title: 'Novos posts direto na sua caixa.',
-            desc: 'Assinou uma vez, pronto. Não precisa mais ficar acompanhando o site.'
+            en_title: 'New posts straight to your inbox.',
+            desc: 'Assinou uma vez, pronto. Não precisa mais ficar acompanhando o site.',
+            en_desc: 'Subscribe once, and you\'re done. No need to keep tracking the site.'
         },
         {
             icon: '📡', title: 'Quer ser avisado quando sair algo novo?',
-            desc: 'Coloca seu email aí. Cada post novo chega quentinho, sem depender de rede social nenhuma.'
+            en_title: 'Want to be notified of new posts?',
+            desc: 'Coloca seu email aí. Cada post novo chega quentinho, sem depender de rede social nenhuma.',
+            en_desc: 'Put your email in. Every new post arrives fresh, without depending on any social network.'
         },
         {
             icon: '🔔', title: 'Não perde mais nenhum.',
-            desc: 'Um email, simples assim. Quando sair post novo, você recebe. Sem enrolação.'
+            en_title: 'Don\'t miss a single one.',
+            desc: 'Um email, simples assim. Quando sair post novo, você recebe. Sem enrolação.',
+            en_desc: 'One email, simple as that. When a new post is out, you get it. No hassle.'
         },
         {
             icon: '🕹️', title: 'Quer o próximo post antes de todo mundo?',
-            desc: 'Assina a newsletter. Chega quentinho, sem feed, sem stories, sem besteira.'
+            en_title: 'Want the next post before everyone else?',
+            desc: 'Assina a newsletter. Chega quentinho, sem feed, sem stories, sem besteira.',
+            en_desc: 'Subscribe to the newsletter. It arrives fresh, no feed, no stories, no bullshit.'
         },
         {
             icon: '✉️', title: 'Email ainda é o meio mais honesto.',
-            desc: 'Sem algoritmo pra esconder. Quando sair algo novo, chega direto pra você.'
+            en_title: 'Email is still the most honest medium.',
+            desc: 'Sem algoritmo pra esconder. Quando sair algo novo, chega direto pra você.',
+            en_desc: 'No algorithm to hide it. When something new comes out, it reaches you directly.'
         },
     ];
 
@@ -52,23 +66,33 @@
     var COPIES_REPEAT = [
         {
             icon: '😐', title: 'Oi. De novo.',
-            desc: 'Chato né? Aparece em todo post. Sabe como para? Assina. Promessa.'
+            en_title: 'Hi. Again.',
+            desc: 'Chato né? Aparece em todo post. Sabe como para? Assina. Promessa.',
+            en_desc: 'Annoying, right? Appears in every post. Know how to stop it? Subscribe. Promise.'
         },
         {
             icon: '👋', title: 'Eu de novo. Surpresa.',
-            desc: 'Poderia não aparecer mais. Bastaria um email. Só um. Pensa nisso.'
+            en_title: 'Me again. Surprise.',
+            desc: 'Poderia não aparecer mais. Bastaria um email. Só um. Pensa nisso.',
+            en_desc: 'I could stop showing up. Just an email. Just one. Think about it.'
         },
         {
             icon: '🪲', title: 'Isso não é bug, é feature.',
-            desc: 'Aparece em todo post que você ler. A solução tem uma caixa de texto ali embaixo.'
+            en_title: 'This isn\'t a bug, it\'s a feature.',
+            desc: 'Aparece em todo post que você ler. A solução tem uma caixa de texto ali embaixo.',
+            en_desc: 'Appears in every post you read. The solution is in that text box down there.'
         },
         {
             icon: '📎', title: 'Lembra de mim?',
-            desc: 'Eu me lembro de você. Vejo você em todo post. Assina e me aposenta, pelo amor.'
+            en_title: 'Remember me?',
+            desc: 'Eu me lembro de você. Vejo você em todo post. Assina e me aposenta, pelo amor.',
+            en_desc: 'I remember you. I see you in every post. Subscribe and retire me, for God\'s sake.'
         },
         {
             icon: '🔁', title: 'Volta e meia eu apareço. Literalmente.',
-            desc: 'Toda vez que você trocar de post, sou eu aqui. Tem solução: aquela caixa de email.'
+            en_title: 'Every now and then I show up. Literally.',
+            desc: 'Toda vez que você trocar de post, sou eu aqui. Tem solução: aquela caixa de email.',
+            en_desc: 'Every time you switch posts, here I am. There\'s a solution: that email box.'
         },
     ];
 
@@ -152,13 +176,17 @@
         var modal = document.getElementById('nl-modal');
         if (!modal) return;
         var copy = pickCopy();
+        var isEn = document.body.classList.contains('lang-en') ||
+            document.documentElement.getAttribute('lang') === 'en';
+
         var el = function (id) { return document.getElementById(id); };
         var icon = el('nl-modal-icon');
         var title = el('nl-modal-title');
         var desc = el('nl-modal-desc');
+
         if (icon) icon.textContent = copy.icon;
-        if (title) title.textContent = copy.title;
-        if (desc) desc.textContent = copy.desc;
+        if (title) title.textContent = isEn ? copy.en_title : copy.title;
+        if (desc) desc.textContent = isEn ? copy.en_desc : copy.desc;
         modal.hidden = false;
         document.body.classList.add('nl-modal-open');
         setTimeout(function () {
@@ -213,11 +241,19 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             var email = (input ? input.value : '').trim();
-            if (!isValidEmail(email)) { showError(errorEl, 'Email inválido. Tenta de novo?'); return; }
+            var isEn = document.body.classList.contains('lang-en');
+            if (!isValidEmail(email)) {
+                showError(errorEl, isEn ? 'Invalid email. Try again?' : 'Email inválido. Tenta de novo?');
+                return;
+            }
             setLoading(btn, true);
             if (errorEl) errorEl.hidden = true;
             subscribeEmail(email, function (err) {
-                if (err) { setLoading(btn, false); showError(errorEl, 'Algo deu errado. Tenta em instantes.'); return; }
+                if (err) {
+                    setLoading(btn, false);
+                    showError(errorEl, isEn ? 'Something went wrong. Try again later.' : 'Algo deu errado. Tenta em instantes.');
+                    return;
+                }
                 markSubscribedUI();
             });
         });
@@ -247,11 +283,19 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             var email = (input ? input.value : '').trim();
-            if (!isValidEmail(email)) { showError(errorEl, 'Email inválido.'); return; }
+            var isEn = document.body.classList.contains('lang-en');
+            if (!isValidEmail(email)) {
+                showError(errorEl, isEn ? 'Invalid email.' : 'Email inválido.');
+                return;
+            }
             setLoading(btn, true);
             if (errorEl) errorEl.hidden = true;
             subscribeEmail(email, function (err) {
-                if (err) { setLoading(btn, false); showError(errorEl, 'Erro. Tenta de novo.'); return; }
+                if (err) {
+                    setLoading(btn, false);
+                    showError(errorEl, isEn ? 'Error. Try again.' : 'Erro. Tenta de novo.');
+                    return;
+                }
                 // Sucesso inline
                 setCookie(COOKIE_SUBSCRIBED, '1', 87600);
                 if (form) form.hidden = true;

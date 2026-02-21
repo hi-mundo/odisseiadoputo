@@ -146,22 +146,31 @@
 <aside class="nl-end-block" id="nl-end-block" aria-label="Newsletter">
     <div class="nl-end-inner">
         <span class="nl-end-icon" id="nl-end-icon">📬</span>
-        <div class="nl-end-text">
-            <strong class="nl-end-title" id="nl-end-title">Quer receber quentinho no email?</strong>
-            <span class="nl-end-desc" id="nl-end-desc">Cada novo post vai direto pra sua caixa. Sem precisar ficar
-                voltando aqui.</span>
+        <div class="nl-end-text has-en">
+            <strong class="nl-end-title">
+                <span class="lang-pt">Quer receber quentinho no email?</span>
+                <span class="lang-en">Want fresh updates in your inbox?</span>
+            </strong>
+            <span class="nl-end-desc">
+                <span class="lang-pt">Cada novo post vai direto pra sua caixa. Sem precisar ficar voltando aqui.</span>
+                <span class="lang-en">Every new post goes straight to your inbox. No need to keep checking back.</span>
+            </span>
         </div>
         <form class="nl-inline-form" id="nl-end-form" novalidate>
             <input type="email" id="nl-end-email" class="nl-input" placeholder="seu@email.com" autocomplete="email"
                 required />
-            <button type="submit" class="nl-btn" id="nl-end-submit">
-                <span class="nl-btn-text">Entrar</span>
+            <button type="submit" class="nl-btn has-en" id="nl-end-submit">
+                <span class="nl-btn-text">
+                    <span class="lang-pt">Assinar</span>
+                    <span class="lang-en">Subscribe</span>
+                </span>
                 <span class="nl-btn-spinner" hidden></span>
             </button>
         </form>
         <p class="nl-error" id="nl-end-error" hidden></p>
-        <p class="nl-inline-success" id="nl-end-success" hidden>
-            ✅ Tá dentro! O próximo post chega quentinho direto na sua caixa.
+        <p class="nl-inline-success has-en" id="nl-end-success" hidden>
+            <span class="lang-pt">✅ Tá dentro! O próximo post chega quentinho direto na sua caixa.</span>
+            <span class="lang-en">✅ You're in! The next post will arrive fresh in your inbox.</span>
         </p>
     </div>
 </aside>
@@ -170,7 +179,10 @@
 <div id="nl-modal" class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nl-modal-title" hidden>
     <div class="nl-modal-backdrop" id="nl-modal-backdrop"></div>
     <div class="nl-modal-box">
-        <button class="nl-modal-close" id="nl-modal-close" aria-label="Fechar">&times;</button>
+        <button class="nl-modal-close has-en" id="nl-modal-close" aria-label="Fechar">
+            <span class="lang-pt">&times;</span>
+            <span class="lang-en">&times;</span>
+        </button>
         <div class="nl-modal-icon" id="nl-modal-icon">📬</div>
         <h2 class="nl-modal-title" id="nl-modal-title"></h2>
         <p class="nl-modal-desc" id="nl-modal-desc"></p>
@@ -178,14 +190,20 @@
             <div class="nl-input-row">
                 <input type="email" id="nl-modal-email" class="nl-input" placeholder="seu@email.com"
                     autocomplete="email" required />
-                <button type="submit" class="nl-btn" id="nl-modal-submit">
-                    <span class="nl-btn-text">Entrar</span>
+                <button type="submit" class="nl-btn has-en" id="nl-modal-submit">
+                    <span class="nl-btn-text">
+                        <span class="lang-pt">Assinar</span>
+                        <span class="lang-en">Subscribe</span>
+                    </span>
                     <span class="nl-btn-spinner" hidden></span>
                 </button>
             </div>
             <p class="nl-error" id="nl-modal-error" hidden></p>
         </form>
-        <button class="nl-dismiss" id="nl-modal-dismiss">Agora não</button>
+        <button class="nl-dismiss has-en" id="nl-modal-dismiss">
+            <span class="lang-pt">Agora não</span>
+            <span class="lang-en">Not now</span>
+        </button>
     </div>
 </div>
 
@@ -194,10 +212,20 @@
     <div class="nl-modal-backdrop"></div>
     <div class="nl-modal-box nl-modal-box--success">
         <div class="nl-modal-icon">✅</div>
-        <h2 class="nl-modal-title">Tá dentro.</h2>
-        <p class="nl-modal-desc">Agora não precisa mais ficar acompanhando o site — o próximo post chega quentinho
-            direto na sua caixa.</p>
-        <button class="nl-btn nl-btn--full" id="nl-success-close">Fechar</button>
+        <h2 class="nl-modal-title has-en">
+            <span class="lang-pt">Tá dentro.</span>
+            <span class="lang-en">You're in.</span>
+        </h2>
+        <p class="nl-modal-desc has-en">
+            <span class="lang-pt">Agora não precisa mais ficar acompanhando o site — o próximo post chega quentinho
+                direto na sua caixa.</span>
+            <span class="lang-en">No need to keep tracking the site — the next post will arrive fresh in your
+                inbox.</span>
+        </p>
+        <button class="nl-btn nl-btn--full has-en" id="nl-success-close">
+            <span class="lang-pt">Fechar</span>
+            <span class="lang-en">Close</span>
+        </button>
     </div>
 </div>
 </div>
