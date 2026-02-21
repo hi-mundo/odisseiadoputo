@@ -1022,12 +1022,14 @@ ul.share li a:hover {
   border: none;
   margin-top: 0;
   margin-bottom: 0.5rem;
+  font-size: 24px !important;
 }
 
 .about-puto-joke p {
   margin: 0;
   color: var(--text-muted);
-  font-size: 0.9875rem;
+  font-size: 20px;
+  line-height: 1.6;
 }
 
 .about-team {
