@@ -2,8 +2,18 @@
 <html lang="pt-BR">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17960947739"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'AW-17960947739');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
 
     <title>Do Zero ao Primeiro Emprego: Os 5 Livros de Programação Essenciais para Iniciantes em 2026</title>
     <meta name="description"
@@ -354,6 +364,69 @@
             text-decoration: underline;
         }
 
+        .author-card {
+            position: relative;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .author-card .author-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-card-email {
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .contact-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 0.8rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent-acid);
+            outline: none;
+        }
+
+        .contact-btn {
+            background: var(--accent-acid);
+            color: #000;
+            border: none;
+            padding: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: var(--font-mono);
+        }
+
         hr {
             border: none;
             border-top: 1px dashed var(--border-color);
@@ -414,6 +487,101 @@
                 text-align: center;
             }
         }
+
+        /* Newsletter Integration Otimizada para o Post */
+        #nl-end-block {
+            margin: 4rem 0 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+        }
+
+        #nl-end-block .nl-end-title {
+            color: var(--accent-acid);
+            font-family: var(--font-mono);
+            font-size: 1.4rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        #nl-end-block .nl-end-desc {
+            color: #888;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .nl-inline-form {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nl-input {
+            flex: 1;
+            min-width: 250px;
+            background: #111;
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 0.8rem 1rem;
+            font-family: var(--font-mono);
+            outline: none;
+        }
+
+        .nl-input:focus {
+            border-color: var(--accent-acid);
+        }
+
+        .nl-btn {
+            background: var(--accent-acid);
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-weight: bold;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nl-btn:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        .nl-error {
+            color: #ff3333;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .nl-inline-success {
+            color: var(--accent-acid);
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .nl-btn-spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            border-top-color: #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Esconder modais/elementos nativos que não combinam com o layout linear */
+        .nl-modal,
+        .nl-modal-backdrop {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -430,17 +598,7 @@
         </header>
 
         <main>
-            <div class="author-card">
-                <div class="author-avatar">🐺</div>
-                <div>
-                    <p><strong>Por Raimundo Pessoa</strong> (A Odisseia)</p>
-                    <p>Engenharia de Software de trincheira. O mercado explodiu, mas quem tem a base dita as regras. Se
-                        tiver em dúvida por onde começar, antes de comprar qualquer livro fale comigo: <a
-                            href="mailto:me@raimundopessoa.com">me@raimundopessoa.com</a>, conecte-se no LinkedIn <a
-                            href="https://linkedin.com/in/hi-mundo" target="_blank">/in/hi-mundo</a> ou siga no
-                        Instagram <a href="https://instagram.com/_hi.mundo" target="_blank">@_hi.mundo</a>.</p>
-                </div>
-            </div>
+
 
             <p>O mercado de tecnologia não está em crise; ele apenas acordou da sua alucinação. Até recentemente, ser
                 promovido exigia apenas que você soubesse empilhar pacotes NPM ou seguir um tutorial de bootcamp focado
@@ -489,6 +647,43 @@
 
             <h2>O Arsenal Anti-Obsolescência: Análise Tática e Execução</h2>
 
+            <div class="author-card" style="margin-top: 2rem;">
+                <span class="author-card-email">me@raimundoalmada.com</span>
+                <div style="width: 100%;">
+                    <div class="author-header"
+                        style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1.5rem;">
+                        <div class="author-avatar">🐺</div>
+                        <div>
+                            <p><strong>Raimundo Pessoa: Entusiasta Hacker e engenheiro de plataforma</strong></p>
+                            <p style="font-size: 0.9rem; margin-top: 0.4rem; color: #888;">Engenharia de Software de
+                                trincheira. Fornecendo a fundação para que você não seja a próxima vítima da
+                                obsolescência.</p>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--accent-acid); font-weight: bold; margin-bottom: 0.5rem;">Tá com dúvida por
+                        onde começar?</p>
+                    <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 1.5rem;">Me conta seu cenário atual e eu te
+                        respondo pessoalmente assim que sair da próxima war room.</p>
+
+                    <form id="consult-form" class="contact-form">
+                        <input type="email" id="consult-email" placeholder="Seu e-mail de contato" required>
+                        <textarea id="consult-doubt" placeholder="Qual sua dúvida real sobre o próximo passo?"
+                            required></textarea>
+                        <button type="submit" class="contact-btn" id="consult-submit">Encaminhar dúvida para a
+                            Odisseia</button>
+                    </form>
+                    <div id="consult-success"
+                        style="display: none; border: 1px solid var(--accent-acid); padding: 1.5rem; background: rgba(0, 255, 136, 0.05); margin-top: 1rem;">
+                        <p
+                            style="color: var(--accent-acid); font-weight: bold; margin-bottom: 0.5rem; font-family: var(--font-mono);">
+                            [STATUS: TRANSMISSÃO CONCLUÍDA]</p>
+                        <p style="font-size: 0.9rem; color: #fff;">Sua dúvida foi injetada no meu sistema. Vou analisar
+                            seu cenário e te respondo pessoalmente em breve.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="book-analysis" id="livro1">
                 <div class="book-container">
                     <img src="/creatives/static/71Vkg7GfPFL._SY522_.jpg"
@@ -514,11 +709,11 @@
                             <p><strong>Veredito da Odisseia:</strong> Antes de clicar abaixo, entenda: eu repudiava a
                                 matemática acadêmica pura. Mas este livro é um milagre visual que hackeia seu cérebro.
                                 Se quando o seu código trava você resolve adicionando mais memória RAM ao invés de
-                                depurar a complexidade temporal, você é uma ameaça à empresa. Compre isso e pare de
-                                programar apenas na força bruta.</p>
+                                depurar a complexidade temporal, você é uma ameaça à empresa. Acesse este conteúdo e
+                                pare de programar apenas na força bruta.</p>
                         </div>
                         <a href="https://amzn.to/4qV6rUz" target="_blank" class="acid-link"
-                            title="Comprar Livro Entendendo Algoritmos na Amazon">Injetar lógica na base
+                            title="Ver Livro Entendendo Algoritmos na Amazon">Injetar lógica na base
                             -></a>
                     </div>
                 </div>
@@ -546,14 +741,14 @@
                                 Yourself), você está apenas criando débito técnico com juros abusivos.</li>
                         </ul>
                         <div class="book-verdict">
-                            <p><strong>Veredito da Odisseia:</strong> Se o seu orçamento só permite um livro hoje, que
-                                seja este. É o manual de guerra que te ensina a jogar no tabuleiro corporativo sem
-                                vender a alma à mediocridade. Toda vez que me vejo sem saída técnica, recorro a estes
-                                princípios. Ou você muda sua postura agora, ou vai ser micro-gerenciado pelo Tech Lead
-                                pelo resto da década.</p>
+                            <p><strong>Veredito da Odisseia:</strong> Se o seu orçamento só permite um investimento em
+                                conhecimento hoje, que seja este. É o manual de guerra que te ensina a jogar no
+                                tabuleiro corporativo sem vender a alma à mediocridade. Toda vez que me vejo sem saída
+                                técnica, recorro a estes princípios. Ou você muda sua postura agora, ou vai ser
+                                micro-gerenciado pelo Tech Lead pelo resto da década.</p>
                         </div>
                         <a href="https://amzn.to/4ayPbQ1" target="_blank" class="acid-link"
-                            title="Comprar Livro O Programador Pragmático na Amazon">Blindar a carreira dev
+                            title="Ver Livro O Programador Pragmático na Amazon">Blindar a carreira dev
                             -></a>
                     </div>
                 </div>
@@ -581,14 +776,14 @@
                                 suficiente com a sua própria sujeira.</li>
                         </ul>
                         <div class="book-verdict">
-                            <p><strong>Veredito da Odisseia:</strong> Compre, mastigue o terço inicial rigorosamente e
-                                depois feche. Ele vai injetar a dose de profissionalismo que falta na sua nomenclatura,
-                                resolvendo 90% da fricção no *Code Review*. Apenas tente não ser infectado pelo
-                                dogmatismo. Use-o como higienizador mental, não como uma Bíblia que afoga o seu
-                                pragmatismo em uma orgia de interfaces.</p>
+                            <p><strong>Veredito da Odisseia:</strong> Estude este material, mastigue o terço inicial
+                                rigorosamente e depois coloque em prática. Ele vai injetar a dose de profissionalismo
+                                que falta na sua nomenclatura, resolvendo 90% da fricção no *Code Review*. Apenas tente
+                                não ser infectado pelo dogmatismo. Use-o como higienizador mental, não como uma Bíblia
+                                que afoga o seu pragmatismo em uma orgia de interfaces.</p>
                         </div>
                         <a href="https://amzn.to/46YoGkL" target="_blank" class="acid-link"
-                            title="Comprar Livro Código Limpo na Amazon">Parar de escrever lixo
+                            title="Ver Livro Código Limpo na Amazon">Parar de escrever lixo
                             -></a>
                     </div>
                 </div>
@@ -605,7 +800,8 @@
                         <ul>
                             <li><span class="label-pro">[FORTE]:</span> É aqui que os meninos são separados dos homens.
                                 Enquanto a IA cospe CRUDs, este livro ensina por que o seu banco de dados vai explodir
-                                quando 10 mil pessoas tentarem comprar ao mesmo tempo. É a bíblia da escalabilidade.
+                                quando 10 mil pessoas tentarem acessar o sistema ao mesmo tempo. É a bíblia da
+                                escalabilidade.
                             </li>
                             <li><span class="label-con">[FRACO]:</span> A densidade é um soco no estômago. Você vai ler
                                 5 páginas e sentir que não sabe nada. Isso se chama "choque de realidade", aceite e
@@ -624,8 +820,7 @@
                             </p>
                         </div>
                         <a href="https://amzn.to/4aNqyOy" target="_blank" class="acid-link"
-                            title="Comprar Livro Projetando Aplicações Ricas em Dados na Amazon">Entender arquitetura
-                            sob
+                            title="Ver Livro Projetando Aplicações Ricas em Dados na Amazon">Entender arquitetura sob
                             carga -></a>
                     </div>
                 </div>
@@ -652,13 +847,13 @@
                         </ul>
                         <div class="book-verdict">
                             <p><strong>Veredito da Odisseia:</strong> O júnior invariavelmente enxerga a nuvem como
-                                xamanismo ou Wi-Fi eterno. Comprar este tijolo acadêmico e peneirar as fundações é como
+                                xamanismo ou Wi-Fi eterno. Dominar este tijolo acadêmico e peneirar as fundações é como
                                 abrir o capô de um carro blindado. Pare de tentar debugar JSONs vazios no front-end sem
                                 entender que cabos falham e handshakes TCP ocorrem por baixo dos panos. Saia da caverna
                                 platônica do seu localhost.</p>
                         </div>
                         <a href="https://amzn.to/3ZPQILx" target="_blank" class="acid-link"
-                            title="Comprar Livro Redes de Computadores na Amazon">Dominar a latência real
+                            title="Ver Livro Redes de Computadores na Amazon">Dominar a latência real
                             -></a>
                     </div>
                 </div>
@@ -680,14 +875,120 @@
         </main>
 
         <div class="footer-note">
-            <p>AUDITORIA: Os links acima contêm rastreadores de afiliação. Comprar por eles é uma transferência de verba
-                da Amazon para os meus fundos de café expresso duplo, subsidiando indiretamente as análises cirúrgicas
-                que impedem você de afundar sua carreira. O preço do livro não muda para você. A matemática é simples.
+            <p>AUDITORIA: Os links acima contêm rastreadores. Utilizá-los é uma forma de apoiar a Odisseia sem custo
+                extra, subsidiando indiretamente as análises cirúrgicas que impedem você de afundar sua carreira. A
+                transparência é a nossa base.
             </p>
         </div>
+
+        <section style="margin-top: 4rem;">
+            <!-- ===== NEWSLETTER: BLOCO NO FINAL DO POST ===== -->
+<aside class="nl-end-block" id="nl-end-block" aria-label="Newsletter">
+    <div class="nl-end-inner">
+        <span class="nl-end-icon" id="nl-end-icon">📬</span>
+        <div class="nl-end-text has-en">
+            <strong class="nl-end-title">
+                <span class="lang-pt">Quer receber quentinho no email?</span>
+                <span class="lang-en">Want fresh updates in your inbox?</span>
+            </strong>
+            <span class="nl-end-desc">
+                <span class="lang-pt">Cada novo post vai direto pra sua caixa. Sem precisar ficar voltando aqui.</span>
+                <span class="lang-en">Every new post goes straight to your inbox. No need to keep checking back.</span>
+            </span>
+        </div>
+        <form class="nl-inline-form" id="nl-end-form" novalidate>
+            <input type="email" id="nl-end-email" class="nl-input" placeholder="seu@email.com" autocomplete="email"
+                required />
+            <button type="submit" class="nl-btn has-en" id="nl-end-submit">
+                <span class="nl-btn-text">
+                    <span class="lang-pt">Assinar</span>
+                    <span class="lang-en">Subscribe</span>
+                </span>
+                <span class="nl-btn-spinner" hidden></span>
+            </button>
+        </form>
+        <p class="nl-error" id="nl-end-error" hidden></p>
+        <p class="nl-inline-success has-en" id="nl-end-success" hidden>
+            <span class="lang-pt">✅ Tá dentro! O próximo post chega quentinho direto na sua caixa.</span>
+            <span class="lang-en">✅ You're in! The next post will arrive fresh in your inbox.</span>
+        </p>
+    </div>
+</aside>
+
+<!-- ===== NEWSLETTER MODAL ===== -->
+<div id="nl-modal" class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nl-modal-title" hidden>
+    <div class="nl-modal-backdrop" id="nl-modal-backdrop"></div>
+    <div class="nl-modal-box">
+        <button class="nl-modal-close has-en" id="nl-modal-close" aria-label="Fechar">
+            <span class="lang-pt">&times;</span>
+            <span class="lang-en">&times;</span>
+        </button>
+        <div class="nl-modal-icon" id="nl-modal-icon">📬</div>
+        <h2 class="nl-modal-title" id="nl-modal-title"></h2>
+        <p class="nl-modal-desc" id="nl-modal-desc"></p>
+        <form class="nl-form" id="nl-modal-form" novalidate>
+            <div class="nl-input-row">
+                <input type="email" id="nl-modal-email" class="nl-input" placeholder="seu@email.com"
+                    autocomplete="email" required />
+                <button type="submit" class="nl-btn has-en" id="nl-modal-submit">
+                    <span class="nl-btn-text">
+                        <span class="lang-pt">Assinar</span>
+                        <span class="lang-en">Subscribe</span>
+                    </span>
+                    <span class="nl-btn-spinner" hidden></span>
+                </button>
+            </div>
+            <p class="nl-error" id="nl-modal-error" hidden></p>
+        </form>
+        <button class="nl-dismiss has-en" id="nl-modal-dismiss">
+            <span class="lang-pt">Agora não</span>
+            <span class="lang-en">Not now</span>
+        </button>
+    </div>
+</div>
+
+<!-- ===== NEWSLETTER MODAL SUCESSO ===== -->
+<div id="nl-modal-success" class="nl-modal" role="dialog" aria-modal="true" hidden>
+    <div class="nl-modal-backdrop"></div>
+    <div class="nl-modal-box nl-modal-box--success">
+        <div class="nl-modal-icon">✅</div>
+        <h2 class="nl-modal-title has-en">
+            <span class="lang-pt">Tá dentro.</span>
+            <span class="lang-en">You're in.</span>
+        </h2>
+        <p class="nl-modal-desc has-en">
+            <span class="lang-pt">Agora não precisa mais ficar acompanhando o site — o próximo post chega quentinho
+                direto na sua caixa.</span>
+            <span class="lang-en">No need to keep tracking the site — the next post will arrive fresh in your
+                inbox.</span>
+        </p>
+        <button class="nl-btn nl-btn--full has-en" id="nl-success-close">
+            <span class="lang-pt">Fechar</span>
+            <span class="lang-en">Close</span>
+        </button>
+    </div>
+</div>
+        </section>
     </div>
 
+    <script src="/js/newsletter.js"></script>
+
     <script>
+        function gtag_report_conversion(url) {
+            var callback = function () {
+                if (typeof (url) != 'undefined') {
+                    window.open(url, '_blank');
+                }
+            };
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17960947739/e4AMCIe56P0bEJugufRC',
+                'value': 1.0,
+                'currency': 'BRL',
+                'event_callback': callback
+            });
+            return false;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const timeSpan = document.getElementById('timestamp');
             const updateTime = () => {
@@ -696,6 +997,49 @@
             };
             setInterval(updateTime, 1000);
             updateTime();
+
+            // Rastrear cliques nos links da Amazon como conversão
+            const acidLinks = document.querySelectorAll('.acid-link');
+            acidLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+                    gtag_report_conversion(url);
+                });
+            });
+
+            // Handler do formulário de consulta
+            const consultForm = document.getElementById('consult-form');
+            if (consultForm) {
+                consultForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const btn = document.getElementById('consult-submit');
+                    const emailInput = document.getElementById('consult-email');
+                    const doubtInput = document.getElementById('consult-doubt');
+
+                    if (!emailInput || !doubtInput) return;
+
+                    const payload = {
+                        email: emailInput.value.trim(),
+                        message: doubtInput.value.trim()
+                    };
+
+                    btn.disabled = true;
+                    btn.innerText = 'ENVIANDO...';
+
+                    fetch('https://n8n.raimundopessoa.com/webhook/447ec040-e429-47b6-b255-7ade8e7001a6?source=lp_livros', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    }).then(() => {
+                        consultForm.style.display = 'none';
+                        document.getElementById('consult-success').style.display = 'block';
+                    }).catch(() => {
+                        btn.disabled = false;
+                        btn.innerText = 'ERRO. TENTAR NOVAMENTE?';
+                    });
+                });
+            }
         });
     </script>
 
