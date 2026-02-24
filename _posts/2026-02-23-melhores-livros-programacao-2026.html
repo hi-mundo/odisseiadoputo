@@ -952,6 +952,13 @@ last_modified_at: 2026-02-23
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload),
                     }).then(() => {
+                        // Rastreio de Conversão para o Form (Lead)
+                        gtag('event', 'conversion', {
+                            'send_to': 'AW-17960947739/e4AMCIe56P0bEJugufRC',
+                            'value': 1.0,
+                            'currency': 'BRL'
+                        });
+
                         consultForm.style.display = 'none';
                         document.getElementById('consult-success').style.display = 'block';
                     }).catch(() => {
