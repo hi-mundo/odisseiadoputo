@@ -325,6 +325,40 @@ last_modified_at: 2026-02-23
             font-style: normal;
         }
 
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .author-card .author-avatar {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .author-card p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .author-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .author-card a {
+            color: var(--accent-acid);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .author-card a:hover {
+            text-decoration: underline;
+        }
+
         hr {
             border: none;
             border-top: 1px dashed var(--border-color);
@@ -401,6 +435,17 @@ last_modified_at: 2026-02-23
         </header>
 
         <main>
+            <div class="author-card">
+                <div class="author-avatar">🐺</div>
+                <div>
+                    <p><strong>Por Raimundo Pessoa</strong> (A Odisseia)</p>
+                    <p>Engenharia de Software de trincheira. O mercado explodiu, mas quem tem a base dita as regras. Se
+                        tiver em dúvida por onde começar, antes de comprar qualquer livro fale comigo: <a
+                            href="mailto:me@raimundopessoa.com">me@raimundopessoa.com</a> ou conecte-se no LinkedIn <a
+                            href="https://linkedin.com/in/hi-mundo" target="_blank">/in/hi-mundo</a>.</p>
+                </div>
+            </div>
+
             <p>O mercado de tecnologia não está em crise; ele apenas acordou da sua alucinação. Até recentemente, ser
                 promovido exigia apenas que você soubesse empilhar pacotes NPM ou seguir um tutorial de bootcamp focado
                 em um framework que morreria em três anos.</p>
