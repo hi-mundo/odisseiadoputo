@@ -2,7 +2,7 @@
 title: A odisseia do puto
 description: "O blackhat da cultura tech. Código, notícias e pop dissecados com a acidez de quem sobrevive a war rooms — e sobrevive para contar o chorume."
 date_format: "%d/%m/%Y"
-url: ""
+url: "https://odisseiadoputo.cc"
 permalink: pretty
 exclude: ["README.md", ".gitignore"]
 
